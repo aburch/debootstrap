@@ -1,7 +1,7 @@
 Source: debootstrap
 Section: admin
-Maintainer: Anthony Towns <ajt@debian.org>
-Uploaders: J.H.M. Dassen (Ray) <jdassen@debian.org>
+Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
+Uploaders: Anthony Towns <ajt@debian.org>, Joey Hess <joeyh@debian.org>, Frans Pop <elendil@planet.nl>
 Build-Depends: debhelper (>= 4.2), makedev (>= 2.3.1-69)
 Standards-Version: 3.6.2
 
