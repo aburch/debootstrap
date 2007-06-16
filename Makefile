@@ -13,6 +13,8 @@ DEVS := generic hde hdf hdg hdh sde sdf sdg sdh scd-all initrd input usb md lp r
         $(call setarchdevs,powerpc,hdc hdd fd0 fd1 isdn-io m68k-mice) \
         $(call setarchdevs,ia64,ida fd0 fd1 ataraid cciss)
 
+MAKEDEV := $(shell if [ -e /dev/MAKEDEV ]; then echo /dev/MAKEDEV; else echo /sbin/MAKEDEV; fi)
+
 all: pkgdetails devices-std.tar.gz devices.tar.gz debootstrap-arch
 clean:
 	rm -f pkgdetails pkgdetails.o devices-std.tar.gz devices.tar.gz
@@ -65,7 +67,7 @@ devices-std.tar.gz:
 	mkdir -p dev
 	chown 0:0 dev
 	chmod 755 dev
-	(cd dev && /dev/MAKEDEV std ptmx)
+	(cd dev && $(MAKEDEV) std ptmx)
 	tar cf - dev | gzip -9 >devices-std.tar.gz
 	rm -rf dev
 
@@ -76,7 +78,7 @@ devices.tar.gz:
 	chown 0:0 dev
 	chmod 755 dev
 
-	(cd dev && /dev/MAKEDEV $(DEVS))
+	(cd dev && $(MAKEDEV) $(DEVS))
 
 ifeq ($(ARCH),powerpc)
 #	Maybe remove amiga/atari mice also? What about usbmouse?

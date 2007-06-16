@@ -10,8 +10,12 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
     - One todo item is done. (I think cross-strap is too, but unsure.)
     - Reword NMU policy to note that it's team-maintained now.
   * ACK my prior NMU. Closes: #418600
+  * If /dev/MAKEDEV DNE, as on certain s390 machines, use /sbin/MAKEDEV.
+    Closes: #420908
+    Note that /dev/MAKEDEV is still the correct location, and is still tried
+    first so that building works on all FHS systems, as noted in #190239.
 
- -- Joey Hess <joeyh@debian.org>  Sat, 16 Jun 2007 13:05:20 -0400
+ -- Joey Hess <joeyh@debian.org>  Sat, 16 Jun 2007 13:09:59 -0400
 
 debootstrap (0.3.3.3) unstable; urgency=low
 
