@@ -1,0 +1,91 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+configure:
+	dh_testdir
+
+clean:
+	dh_testdir
+
+	-$(MAKE) clean
+
+	dh_clean
+
+build: configure
+#	 need to be root to make devices, so build is done in install target
+
+real-build: build
+	dh_testdir
+	dh_testroot
+
+	$(MAKE) all
+
+install: real-build
+	dh_testdir
+	dh_testroot
+
+	dh_clean -k
+	dh_installdirs
+
+#	 install the package into debian/debootstrap
+	$(MAKE) install-allarch DESTDIR=$(CURDIR)/debian/debootstrap
+	$(MAKE) install-arch    DESTDIR=$(CURDIR)/debian/debootstrap-udeb
+
+binary-indep: install
+# We have nothing to do by default.
+
+ARCHES="i386"
+SUITE="testing"
+VERSION=$(SUITE)
+MIRROR="http://ftp.debian.org/debian"
+
+binary-basedebs:
+	dh_testdir
+	dh_testroot
+
+	$(MAKE) pkgdetails
+
+	ln -s . scripts
+	for a in $(ARCHES); do \
+	    rm -rf chroot-dir; \
+	    mkdir -p chroot-dir; \
+	    DEBOOTSTRAP_DIR=. ./debootstrap --arch $$a --download-only $(SUITE) chroot-dir $(MIRROR); \
+	    (cd chroot-dir && tar cf ../../basedebs_$(VERSION)_$$a.tar *); \
+	    rm -rf chroot-dir; \
+	done
+	rm -f scripts
+
+binary-indep: install
+	dh_testdir
+	dh_testroot
+	dh_installdocs -i
+	dh_installman -i debootstrap.8
+	dh_installchangelogs -i
+	dh_link -i
+	dh_compress -i
+	dh_fixperms -i
+	dh_installdeb -i
+	dh_shlibdeps -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary-arch: install
+	dh_testdir
+	dh_testroot
+	-rm -rf debian/debootstrap-udeb/usr/share \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/potato \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.buildd \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.fakechroot
+	dh_strip -s
+	dh_compress -s
+	dh_fixperms -s
+	dh_installdeb -s
+	dh_shlibdeps -s
+	dh_gencontrol -s
+	dh_builddeb -s
+
+binary: binary-indep binary-arch
+.PHONY: build real-build clean binary-indep binary-arch binary install configure binary-basedebs

@@ -1,0 +1,30 @@
+Source: debootstrap
+Section: admin
+Maintainer: Anthony Towns <ajt@debian.org>
+Uploaders: J.H.M. Dassen (Ray) <jdassen@debian.org>
+Build-Depends: debhelper (>= 4.2), makedev (>= 2.3.1-69)
+Standards-Version: 3.6.2
+
+Package: debootstrap
+Priority: extra
+Architecture: all
+Depends: wget, binutils
+Description: Bootstrap a basic Debian system
+ debootstrap is used to create a Debian base system from scratch,
+ without requiring the availability of dpkg or apt. It does this by
+ downloading .deb files from a mirror site, and carefully unpacking them
+ into a directory which can eventually be chrooted into.
+
+Package: debootstrap-udeb
+Priority: required
+Section: debian-installer
+XC-Package-Type: udeb
+Architecture: any
+Depends: ${shlibs:Depends}, mounted-partitions
+Description: Bootstrap the Debian system
+ debootstrap is used to create a Debian base system from scratch,
+ without requiring the availability of dpkg or apt. It does this by
+ downloading .deb files from a mirror site, and carefully unpacking them
+ into a directory which can eventually be chrooted into.
+ .
+ debootstrap-udeb is a minimal package used by debian-installer.
