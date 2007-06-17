@@ -2,7 +2,8 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
 
   [ Anthony Towns ]
   * Make debootstrap team maintained under the d-i banner.
-  * Add Joey and Frans as uploaders, remove JHM (not in the d-i group).
+  * Add Joey, Frans and Junichi as uploaders, remove JHM (not in the
+    d-i group).
 
   [ Joey Hess ]
   * Drop support for sarge from the udeb.
