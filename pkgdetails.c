@@ -38,9 +38,9 @@ static void dogetdeps(char *pkgsfile, char **in_pkgs, int pkgc) {
     while (fgets(buf, sizeof(buf), f)) {
         if (*buf && buf[strlen(buf)-1] == '\n') buf[strlen(buf)-1] = '\0';
         if (strncasecmp(buf, "Package:", 8) == 0) {
+	    int any = 0;
             skip = 1;
             fieldcpy(cur_pkg, buf);
-	    int any = 0;
 	    for (i = 0; i < pkgc; i++) {
 		if (!pkgs[i]) continue;
 		any = 1;
