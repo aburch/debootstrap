@@ -5,6 +5,8 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
   * Add Joey, Frans and Junichi as uploaders, remove JHM (not in the
     d-i group).
   * Make pkgdetails.c not need C99 extensions. (Closes: Bug#398977)
+  * Fix am_doing_phase implementation in debootstrap script. Thanks to
+    Tero Janka for spotting the problem and the fix. (Closes: Bug#409881)
 
   [ Joey Hess ]
   * Drop support for sarge from the udeb.
