@@ -32,6 +32,8 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
     around the problem (thanks, Steven McCoy;
     https://launchpad.net/bugs/65003).
   * Fix formatting error in debootstrap(8) (.R is not a macro).
+  * Reorganise scripts into scripts/debian/ and scripts/ubuntu/ directories
+    in the source tree to declutter the top level.
 
  -- Joey Hess <joeyh@debian.org>  Sat, 16 Jun 2007 13:09:59 -0400
 

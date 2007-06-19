@@ -26,25 +26,8 @@ install:
 	mkdir -p $(DSDIR)/scripts
 	mkdir -p $(DESTDIR)/usr/sbin
 	mkdir -p $(DESTDIR)/usr/share/man/man8
-	install -o root -g root -m 0644 potato $(DSDIR)/scripts/
-	install -o root -g root -m 0644 woody $(DSDIR)/scripts/
-	install -o root -g root -m 0644 woody.buildd $(DSDIR)/scripts/
-	install -o root -g root -m 0644 sarge $(DSDIR)/scripts/
-	install -o root -g root -m 0644 sarge.buildd $(DSDIR)/scripts/
-	install -o root -g root -m 0644 sarge.fakechroot $(DSDIR)/scripts/
-	install -o root -g root -m 0644 sid $(DSDIR)/scripts/
-	install -o root -g root -m 0644 warty $(DSDIR)/scripts/
-	install -o root -g root -m 0644 warty.buildd $(DSDIR)/scripts/
-	install -o root -g root -m 0644 hoary $(DSDIR)/scripts/
-	install -o root -g root -m 0644 hoary.buildd $(DSDIR)/scripts/
-	install -o root -g root -m 0644 breezy $(DSDIR)/scripts/
-	install -o root -g root -m 0644 dapper $(DSDIR)/scripts/
-	install -o root -g root -m 0644 edgy $(DSDIR)/scripts/
-	install -o root -g root -m 0644 edgy.fakechroot $(DSDIR)/scripts/
-	install -o root -g root -m 0644 feisty $(DSDIR)/scripts/
-	install -o root -g root -m 0644 feisty.fakechroot $(DSDIR)/scripts/
-	install -o root -g root -m 0644 gutsy $(DSDIR)/scripts/
-	install -o root -g root -m 0644 gutsy.fakechroot $(DSDIR)/scripts/
+	install -o root -g root -m 0644 scripts/debian/* $(DSDIR)/scripts/
+	install -o root -g root -m 0644 scripts/ubuntu/* $(DSDIR)/scripts/
 	install -o root -g root -m 0644 functions $(DSDIR)/
 
         # no special script for etch anymore
