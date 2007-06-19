@@ -77,6 +77,7 @@ binary-arch: install
 	dh_testroot
 	-rm -rf debian/debootstrap-udeb/usr/share \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/potato \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/woody \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/sarge \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/warty \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/hoary \
