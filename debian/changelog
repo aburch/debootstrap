@@ -31,6 +31,7 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
     makes it impossible to rmdir that directory. Moving it instead works
     around the problem (thanks, Steven McCoy;
     https://launchpad.net/bugs/65003).
+  * Fix formatting error in debootstrap(8) (.R is not a macro).
 
  -- Joey Hess <joeyh@debian.org>  Sat, 16 Jun 2007 13:09:59 -0400
 
