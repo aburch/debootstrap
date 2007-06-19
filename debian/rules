@@ -78,6 +78,12 @@ binary-arch: install
 	-rm -rf debian/debootstrap-udeb/usr/share \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/potato \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/sarge \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/warty \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/hoary \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/breezy \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/dapper \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/edgy \
+		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/feisty \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.buildd \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.fakechroot
 	dh_strip -s

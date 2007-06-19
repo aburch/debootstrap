@@ -19,6 +19,10 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
     Note that /dev/MAKEDEV is still the correct location, and is still tried
     first so that building works on all FHS systems, as noted in #190239.
 
+  [ Colin Watson ]
+  * Add support for Ubuntu dapper (Closes: #342838), edgy, feisty, and
+    gutsy. Exclude everything but gutsy from the udeb.
+
  -- Joey Hess <joeyh@debian.org>  Sat, 16 Jun 2007 13:09:59 -0400
 
 debootstrap (0.3.3.3) unstable; urgency=low

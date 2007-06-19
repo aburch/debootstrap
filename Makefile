@@ -38,6 +38,13 @@ install:
 	install -o root -g root -m 0644 hoary $(DSDIR)/scripts/
 	install -o root -g root -m 0644 hoary.buildd $(DSDIR)/scripts/
 	install -o root -g root -m 0644 breezy $(DSDIR)/scripts/
+	install -o root -g root -m 0644 dapper $(DSDIR)/scripts/
+	install -o root -g root -m 0644 edgy $(DSDIR)/scripts/
+	install -o root -g root -m 0644 edgy.fakechroot $(DSDIR)/scripts/
+	install -o root -g root -m 0644 feisty $(DSDIR)/scripts/
+	install -o root -g root -m 0644 feisty.fakechroot $(DSDIR)/scripts/
+	install -o root -g root -m 0644 gutsy $(DSDIR)/scripts/
+	install -o root -g root -m 0644 gutsy.fakechroot $(DSDIR)/scripts/
 	install -o root -g root -m 0644 functions $(DSDIR)/
 
         # no special script for etch anymore
