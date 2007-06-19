@@ -465,7 +465,15 @@ if am_doing_phase second_stage; then
   fi
 
   if [ -e $TARGET/debootstrap/debootstrap.log ]; then
-    cp $TARGET/debootstrap/debootstrap.log $TARGET/var/log/bootstrap.log
+    if [ "$KEEP_DEBOOTSTRAP_DIR" = true ]; then
+      cp $TARGET/debootstrap/debootstrap.log $TARGET/var/log/bootstrap.log
+    else
+      # debootstrap.log is still open as stdout/stderr and needs to remain
+      # so, but after unlinking it some NFS servers implement this by a
+      # temporary file in the same directory, which makes it impossible to
+      # rmdir that directory. Moving it instead works around the problem.
+      mv $TARGET/debootstrap/debootstrap.log $TARGET/var/log/bootstrap.log
+    fi
   fi
   sync
 
