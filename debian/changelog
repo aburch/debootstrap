@@ -23,6 +23,7 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
   * Add support for Ubuntu dapper (Closes: #342838), edgy, feisty, and
     gutsy. Exclude everything but gutsy from the udeb.
   * Fix "deboostrap" typo in debootstrap(8) (thanks, Adam Conrad).
+  * Fix "htp" typo in temporary /etc/apt/sources.list.
 
  -- Joey Hess <joeyh@debian.org>  Sat, 16 Jun 2007 13:09:59 -0400
 

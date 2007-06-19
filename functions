@@ -757,7 +757,7 @@ setup_etc () {
   conditional_cp /etc/hostname "$TARGET"
   
   if [ "$DLDEST" = apt_dest -a ! -e "$TARGET/etc/apt/sources.list" ]; then
-    setup_apt_sources "htp://debootstrap.invalid/"
+    setup_apt_sources "http://debootstrap.invalid/"
   fi
 }
 
