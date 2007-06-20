@@ -39,6 +39,9 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
     http://archive.ubuntu.com/ubuntu, and the default mirror for Debian
     etch/lenny/sid architectures other than amd64 and i386 to
     http://ftp.us.debian.org/debian (per ajt).
+  * Add devices created by fd to devices-std.tar.gz, so that
+    /dev/std{in,out,err} is available conveniently in chroots with /proc and
+    /dev/pts mounted (thanks, Matthias Klose).
 
   [ Joey Hess ]
   * Remove the entended package description (aka bloat) from the udeb.
