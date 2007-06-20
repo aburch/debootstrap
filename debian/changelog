@@ -34,6 +34,11 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
   * Fix formatting error in debootstrap(8) (.R is not a macro).
   * Reorganise scripts into scripts/debian/ and scripts/ubuntu/ directories
     in the source tree to declutter the top level.
+  * Add default_mirror function; reorganise the debootstrap script a little
+    so that it works. Set the default mirror for Ubuntu suites to
+    http://archive.ubuntu.com/ubuntu, and the default mirror for Debian
+    etch/lenny/sid architectures other than amd64 and i386 to
+    http://ftp.us.debian.org/debian (per ajt).
 
   [ Joey Hess ]
   * Remove the entended package description (aka bloat) from the udeb.

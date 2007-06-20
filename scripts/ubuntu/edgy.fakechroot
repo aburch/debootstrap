@@ -1,5 +1,6 @@
 test "$FAKECHROOT" = "true" || error 1 FAKECHROOTREQ "This variant requires fakechroot environment to be started"
 
+default_mirror http://archive.ubuntu.com/ubuntu
 mirror_style release
 download_style apt
 finddebs_style from-indices

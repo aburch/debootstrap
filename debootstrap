@@ -236,7 +236,6 @@ if [ "$SECOND_STAGE_ONLY" = "true" ]; then
     SUPPORTED_VARIANTS="$VARIANT"
   fi
   TARGET=/
-  MIRRORS=null:
   SCRIPT=$DEBOOTSTRAP_DIR/suite-script
 else
   if [ "$1" = "" -o "$2" = "" ]; then
@@ -253,18 +252,13 @@ else
     fi
   fi
 
-  MIRRORS="$DEF_MIRROR"
   SCRIPT="$DEBOOTSTRAP_DIR/scripts/$1"
   if [ -n "$VARIANT" -a -e "${SCRIPT}.${VARIANT}" ]; then
     SCRIPT="${SCRIPT}.${VARIANT}"
     SUPPORTED_VARIANTS="$VARIANT"
   fi
-  if [ "$3" != "" ]; then
-    MIRRORS="$3"
-    MIRRORS="${MIRRORS%/}"
-    if [ "$4" != "" ]; then
-      SCRIPT="$4"
-    fi
+  if [ "$4" != "" ]; then
+    SCRIPT="$4"
   fi
 fi
 
@@ -281,7 +275,7 @@ else
   error 1 WHATARCH "Couldn't work out current architecture"
 fi
 
-export MIRRORS ARCH SUITE TARGET
+export ARCH SUITE TARGET
 
 if am_doing_phase first_stage second_stage; then
   if [ -x /usr/bin/id ] && [ `id -u` -ne 0 ]; then
@@ -347,6 +341,18 @@ fi
 ###########################################################################
 
 . "$SCRIPT"
+
+if [ "$SECOND_STAGE_ONLY" = "true" ]; then
+  MIRRORS=null:
+else
+  MIRRORS="$DEF_MIRROR"
+  if [ "$3" != "" ]; then
+    MIRRORS="$3"
+    MIRRORS="${MIRRORS%/}"
+  fi
+fi
+
+export MIRRORS
 
 ok=false
 for v in $SUPPORTED_VARIANTS; do

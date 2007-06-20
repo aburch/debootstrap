@@ -156,6 +156,10 @@ dpkg_progress () {
 
 ############################################################# set variables
 
+default_mirror () {
+  DEF_MIRROR="$1"
+}
+
 FINDDEBS_NEEDS_INDICES=false
 finddebs_style () {
   case "$1" in

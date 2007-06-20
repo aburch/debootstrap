@@ -1,3 +1,11 @@
+case $ARCH in
+  amd64|i386)
+    ;;
+  *)
+    # ftp.debian.org only has amd64 and i386
+    default_mirror http://ftp.us.debian.org/debian
+    ;;
+esac
 mirror_style release
 download_style apt
 finddebs_style from-indices
