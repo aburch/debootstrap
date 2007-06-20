@@ -63,6 +63,11 @@ The default, with no \fB\-\-variant=X\fP argument, is to create a base
 Debian installation in
 .IR TARGET .
 .IP
+.IP "\fB\-\-keyring=KEYRING\fP"
+Download signatures for retrieved Release files and check them against
+.IR KEYRING .
+By default, Release file signatures are not checked.
+.IP
 .IP "\fB\-\-verbose\fP"
 Produce more info about downloading.
 .IP
@@ -91,6 +96,12 @@ installation.
 .IP
 .IP "\fB\-\-unpack\-tarball FILE\fP"
 Acquire .debs from tarball FILE instead of downloading via http
+.IP
+.IP "\fB\-\-make\-tarball FILE\fP"
+Instead of bootstrapping, make a tarball (written to FILE) of the downloaded
+packages.
+The resulting tarball may be passed to a later
+.BR \-\-unpack\-tarball .
 .IP
 .IP "\fB\-\-boot\-floppies\fP"
 Used for internal purposes by boot-floppies

@@ -42,6 +42,7 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
   * Add devices created by fd to devices-std.tar.gz, so that
     /dev/std{in,out,err} is available conveniently in chroots with /proc and
     /dev/pts mounted (thanks, Matthias Klose).
+  * Document --keyring and --make-tarball. (Closes: #368988)
 
   [ Joey Hess ]
   * Remove the entended package description (aka bloat) from the udeb.
