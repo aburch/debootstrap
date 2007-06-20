@@ -38,7 +38,7 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
     so that it works. Set the default mirror for Ubuntu suites to
     http://archive.ubuntu.com/ubuntu, and the default mirror for Debian
     etch/lenny/sid architectures other than amd64 and i386 to
-    http://ftp.us.debian.org/debian (per ajt).
+    http://ftp.us.debian.org/debian (per ajt; see bug #363049).
   * Add devices created by fd to devices-std.tar.gz, so that
     /dev/std{in,out,err} is available conveniently in chroots with /proc and
     /dev/pts mounted (thanks, Matthias Klose).
