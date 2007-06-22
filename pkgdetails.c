@@ -20,7 +20,7 @@ static void dogetdeps(char *pkgsfile, char **in_pkgs, int pkgc) {
     char cur_pkg[MAX_LINE];
     char cur_deps[MAX_LINE];
     char *pkgs[MAX_PKGS];
-    int i;
+    int i, skip;
     int skip;
     FILE *f;
 
@@ -38,7 +38,7 @@ static void dogetdeps(char *pkgsfile, char **in_pkgs, int pkgc) {
     while (fgets(buf, sizeof(buf), f)) {
         if (*buf && buf[strlen(buf)-1] == '\n') buf[strlen(buf)-1] = '\0';
         if (strncasecmp(buf, "Package:", 8) == 0) {
-	    int any = 0;
+            any = 0;
             skip = 1;
             fieldcpy(cur_pkg, buf);
 	    for (i = 0; i < pkgc; i++) {
