@@ -20,7 +20,7 @@ static void dogetdeps(char *pkgsfile, char **in_pkgs, int pkgc) {
     char cur_pkg[MAX_LINE];
     char cur_deps[MAX_LINE];
     char *pkgs[MAX_PKGS];
-    int i, skip;
+    int i, any;
     int skip;
     FILE *f;
 
