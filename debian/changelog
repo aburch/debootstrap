@@ -1,4 +1,4 @@
-debootstrap (1.0.0) UNRELEASED; urgency=low
+debootstrap (1.0.0) unstable; urgency=low
 
   [ Anthony Towns ]
   * Make debootstrap team maintained under the d-i banner.
@@ -51,7 +51,7 @@ debootstrap (1.0.0) UNRELEASED; urgency=low
   [ Joey Hess ]
   * Remove the extended package description (aka bloat) from the udeb.
 
- -- Joey Hess <joeyh@debian.org>  Tue, 19 Jun 2007 20:05:40 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 23 Jun 2007 02:19:27 +0100
 
 debootstrap (0.3.3.3) unstable; urgency=low
 
