@@ -1,4 +1,4 @@
-debootstrap (0.4.0) UNRELEASED; urgency=low
+debootstrap (1.0.0) UNRELEASED; urgency=low
 
   [ Anthony Towns ]
   * Make debootstrap team maintained under the d-i banner.
@@ -46,6 +46,7 @@ debootstrap (0.4.0) UNRELEASED; urgency=low
   * Update Ubuntu mirrors: warty/hoary/breezy => old-releases.ubuntu.com,
     unsupported architectures => ports.ubuntu.com.
   * Add myself to Uploaders.
+  * Bump to 1.0.0. Nobody uses debootstrap in production, do they?
 
   [ Joey Hess ]
   * Remove the extended package description (aka bloat) from the udeb.
