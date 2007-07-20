@@ -22,18 +22,7 @@ work_out_debs () {
       #  ^^ should be getting debconf here somehow maybe
       base="$(get_debs Priority: important)"
     elif doing_variant buildd; then
-      # TODO: add Build-Essential: yes extraoverrides
-      #base="$(get_debs Build-Essential: yes)"
-
-      add () { if [ "$ARCH" = "$1" ]; then eval "$2=\"\$$2 $3\""; fi; }
-
-      base="apt binutils cpio cpp cpp-4.1 dpkg-dev g++ g++-4.1 gcc gcc-4.1 ${LIBC6}-dev libdb4.4 libgdbm3 libstdc++6 libstdc++6-4.1-dev linux-libc-dev make patch perl perl-modules"
-
-      add hppa base "libgcc4"
-      add ia64 base "libunwind7-dev"
-      add sparc base "lib64gcc1"
-      add sparc base "libc6-dev-sparc64"
-      add sparc base "libc6-sparc64"
+      base="$(get_debs Build-Essential: yes)"
     fi
 }
 

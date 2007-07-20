@@ -1,3 +1,10 @@
+debootstrap (1.0.1) UNRELEASED; urgency=low
+
+  * scripts/ubuntu/gutsy: Determine buildd variant dynamically using
+    Build-Essential: yes.
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 20 Jul 2007 09:33:37 +0100
+
 debootstrap (1.0.0) unstable; urgency=low
 
   [ Anthony Towns ]
