@@ -4,6 +4,8 @@ debootstrap (1.0.1) UNRELEASED; urgency=low
     Build-Essential: yes.
   * scripts/ubuntu/gutsy.fakechroot: Remove devmapper postinst hack, no
     longer needed.
+  * scripts/ubuntu/*.fakechroot: Merge into the corresponding main scripts
+    as variants.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 20 Jul 2007 09:33:37 +0100
 
