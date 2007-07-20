@@ -39,13 +39,15 @@ Set the target architecture (use if dpkg isn't installed). See also \-\-foreign.
 .IP
 .IP "\fB\-\-include=alpha,beta\fP"
 Comma separated list of packages which will be added to download and extract
-lists. Don't forget to resolve the dependencies manually, otherwise the
-installation may fail.
+lists.
 .IP
 .IP "\fB\-\-exclude=alpha,beta\fP"
 Comma separated list of packages which will be removed from download and
 extract lists. WARNING: you can and probably will exclude essential packages, be
 careful using this option.
+.IP
+.IP "\fB\-\-components=alpha,beta\fP"
+Use packages from the listed components of the archive.
 .IP
 .IP "\fB\-\-no\-resolve\-deps\fP"
 By default, debootstrap will attempt to automatically resolve any missing
