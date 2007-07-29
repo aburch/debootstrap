@@ -16,8 +16,12 @@ if doing_variant fakechroot; then
 fi
 
 work_out_debs () {
-    LIBC6=libc6
-    if [ "$ARCH" = "alpha" -o "$ARCH" = "ia64" ]; then LIBC6="libc6.1"; fi
+    LIBC=libc6
+    if [ "$ARCH" = "alpha" -o "$ARCH" = "ia64" ]; then
+      LIBC="libc6.1"
+    elif [ "$ARCH" = "hurd-i386" ]; then
+      LIBC="libc0.3"
+    fi
 
     required="$(get_debs Priority: required)"
 
@@ -121,7 +125,7 @@ second_stage_install () {
     fi
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #4
-    x_core_install $LIBC6
+    x_core_install $LIBC
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #5
     x_core_install perl-base

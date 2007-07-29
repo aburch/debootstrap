@@ -1,8 +1,13 @@
 debootstrap (1.0.2) UNRELEASED; urgency=low
 
+  [ Joey Hess ]
   * Document --components in man page.
   * Update man page, as packages listed in --include should now be auto
     dep-resolved by default.
+
+  [ Colin Watson ]
+  * scripts/debian/sid: Handle libc0.3 on hurd-i386 (thanks, Michael Banck;
+    closes: #314304).
 
  -- Joey Hess <joeyh@debian.org>  Fri, 20 Jul 2007 16:57:37 -0400
 
