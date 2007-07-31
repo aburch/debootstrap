@@ -1,6 +1,9 @@
 CC=gcc
 CFLAGS=-Wall -W -O2
 
+# avoid dpkg-dev dependency; fish out the version with sed
+VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
+
 ARCH := $(shell dpkg --print-architecture)
 setarchdevs = $(if $(findstring $(ARCH),$(1)),$(2))
 
@@ -35,7 +38,9 @@ install:
 	ln -s sid $(DSDIR)/scripts/lenny
 
 	install -o root -g root -m 0755 debootstrap.8 $(DESTDIR)/usr/share/man/man8/
-	install -o root -g root -m 0755 debootstrap $(DESTDIR)/usr/sbin/
+	sed 's/@VERSION@/$(VERSION)/g' debootstrap >$(DESTDIR)/usr/sbin/debootstrap
+	chown root:root $(DESTDIR)/usr/sbin/debootstrap
+	chmod 0755 $(DESTDIR)/usr/sbin/debootstrap
 
 install-allarch: install
 	install -o root -g root -m 0644 devices-std.tar.gz \

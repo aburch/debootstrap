@@ -12,6 +12,7 @@ debootstrap (1.0.2) UNRELEASED; urgency=low
     closes: #314304).
   * functions: Stub out /proc setup and add device setup for the Hurd
     (thanks, Michael Banck; closes: #314311).
+  * Add --version option (closes: #294484).
 
  -- Joey Hess <joeyh@debian.org>  Fri, 20 Jul 2007 16:57:37 -0400
 
