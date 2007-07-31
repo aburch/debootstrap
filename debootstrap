@@ -246,9 +246,9 @@ else
   TARGET="${TARGET%/}"
   if [ "${TARGET#/}" = "${TARGET}" ]; then
     if [ "${TARGET%/*}" = "$TARGET" ] ; then
-      TARGET="$(echo `pwd`/$TARGET)"
+      TARGET="$(echo "`pwd`/$TARGET")"
     else
-      TARGET="$(cd ${TARGET%/*}; echo `pwd`/${TARGET##*/})"
+      TARGET="$(cd "${TARGET%/*}"; echo "`pwd`/${TARGET##*/}")"
     fi
   fi
 
@@ -319,7 +319,7 @@ else
   #    stdout: I:/W:/etc information
   #    $TARGET/debootstrap/debootstrap.log: full log of debootstrap run
   exec 4>&1
-  exec >>$TARGET/debootstrap/debootstrap.log
+  exec >>"$TARGET/debootstrap/debootstrap.log"
   exec 2>&1
 fi
 
@@ -430,17 +430,17 @@ if am_doing_phase first_stage; then
   first_stage_install
 
   if ! am_doing_phase second_stage; then
-    cp "$0"                        $TARGET/debootstrap/debootstrap
-    cp $DEBOOTSTRAP_DIR/functions  $TARGET/debootstrap/functions
-    cp $SCRIPT                     $TARGET/debootstrap/suite-script
-    echo "$ARCH"                  >$TARGET/debootstrap/arch
-    echo "$SUITE"                 >$TARGET/debootstrap/suite
+    cp "$0"                        "$TARGET/debootstrap/debootstrap"
+    cp $DEBOOTSTRAP_DIR/functions  "$TARGET/debootstrap/functions"
+    cp $SCRIPT                     "$TARGET/debootstrap/suite-script"
+    echo "$ARCH"                  >"$TARGET/debootstrap/arch"
+    echo "$SUITE"                 >"$TARGET/debootstrap/suite"
     [ "" = "$VARIANT" ] ||
-      echo "$VARIANT"             >$TARGET/debootstrap/variant
-    echo "$required"              >$TARGET/debootstrap/required
-    echo "$base"                  >$TARGET/debootstrap/base
+      echo "$VARIANT"             >"$TARGET/debootstrap/variant"
+    echo "$required"              >"$TARGET/debootstrap/required"
+    echo "$base"                  >"$TARGET/debootstrap/base"
 
-    chmod 755 $TARGET/debootstrap/debootstrap
+    chmod 755 "$TARGET/debootstrap/debootstrap"
   fi
 fi
 
@@ -463,28 +463,28 @@ if am_doing_phase second_stage; then
     rm -f "$TARGET/etc/apt/sources.list"
   fi
   if [ "${MIRRORS#http://}" != "$MIRRORS" ]; then
-    setup_apt_sources ${MIRRORS%% *}
-    mv_invalid_to ${MIRRORS%% *}
+    setup_apt_sources "${MIRRORS%% *}"
+    mv_invalid_to "${MIRRORS%% *}"
   else
-    setup_apt_sources $DEF_MIRROR
-    mv_invalid_to $DEF_MIRROR
+    setup_apt_sources "$DEF_MIRROR"
+    mv_invalid_to "$DEF_MIRROR"
   fi
 
-  if [ -e $TARGET/debootstrap/debootstrap.log ]; then
+  if [ -e "$TARGET/debootstrap/debootstrap.log" ]; then
     if [ "$KEEP_DEBOOTSTRAP_DIR" = true ]; then
-      cp $TARGET/debootstrap/debootstrap.log $TARGET/var/log/bootstrap.log
+      cp "$TARGET/debootstrap/debootstrap.log" "$TARGET/var/log/bootstrap.log"
     else
       # debootstrap.log is still open as stdout/stderr and needs to remain
       # so, but after unlinking it some NFS servers implement this by a
       # temporary file in the same directory, which makes it impossible to
       # rmdir that directory. Moving it instead works around the problem.
-      mv $TARGET/debootstrap/debootstrap.log $TARGET/var/log/bootstrap.log
+      mv "$TARGET/debootstrap/debootstrap.log" "$TARGET/var/log/bootstrap.log"
     fi
   fi
   sync
 
   if [ "$KEEP_DEBOOTSTRAP_DIR" = true ]; then
-    if [ -x $TARGET/debootstrap/debootstrap ]; then
+    if [ -x "$TARGET/debootstrap/debootstrap" ]; then
       chmod 644 "$TARGET/debootstrap/debootstrap"
     fi
   else

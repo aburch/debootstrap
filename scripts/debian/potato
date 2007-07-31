@@ -42,7 +42,7 @@ first_stage_install () {
         local pkg=$1
         local deb="$(debfor $pkg)"
         local ver="$(
-            ar -p $TARGET/$deb control.tar.gz | zcat |
+            ar -p "$TARGET/$deb" control.tar.gz | zcat |
                 tar -O -xf - control ./control 2>/dev/null |
                 sed -ne 's/^Version: *//Ip' | head -n 1
         )"

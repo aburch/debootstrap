@@ -6,6 +6,8 @@ debootstrap (1.0.2) UNRELEASED; urgency=low
     dep-resolved by default.
 
   [ Colin Watson ]
+  * Extensive quoting fixes, allowing installation to a target containing
+    spaces (closes: #387673).
   * scripts/debian/sid: Handle libc0.3 on hurd-i386 (thanks, Michael Banck;
     closes: #314304).
 

@@ -176,8 +176,8 @@ finddebs_style () {
 
 mk_download_dirs () {
   if [ $DLDEST = "apt_dest" ]; then
-    mkdir -p $TARGET/$APTSTATE/lists/partial
-    mkdir -p $TARGET/var/cache/apt/archives/partial
+    mkdir -p "$TARGET/$APTSTATE/lists/partial"
+    mkdir -p "$TARGET/var/cache/apt/archives/partial"
   fi
 }
 
@@ -261,7 +261,7 @@ get () {
       return 0
     fi
     info VALIDATING "Validating %s" "$displayname"
-    if check_md5 $2 $3 $4; then
+    if check_md5 "$2" "$3" "$4"; then
       return 0
     else
       rm -f "$2"
@@ -289,9 +289,9 @@ get () {
     esac
 
     if [ "${dest#/}" = "$dest" ]; then
-      dest=./$dest
+      dest="./$dest"
     fi
-    local dest2=$dest
+    local dest2="$dest"
     if [ -d "${dest2%/*}/partial" ]; then
       dest2="${dest2%/*}/partial/${dest2##*/}"
     fi
@@ -300,7 +300,7 @@ get () {
     if ! just_get "$from" "$dest2"; then continue; fi
     if [ "$md5" != "" ]; then
       info VALIDATING "Validating %s" "$displayname"
-      if check_md5 $dest2 $md5 $siz; then
+      if check_md5 "$dest2" "$md5" "$siz"; then
         md5=""
       fi
     fi
@@ -346,7 +346,7 @@ just_get () {
       base="/${from#file://*/}"
     fi
     if [ -e "$base" ]; then
-      cp "$base" $dest
+      cp "$base" "$dest"
       return 0
     else
       return 1
@@ -370,7 +370,7 @@ debfor () {
     (while read pkg path; do
       for p in "$@"; do
         [ "$p" = "$pkg" ] || continue;
-        echo $path
+        echo "$path"
       done
     done <"$TARGET/debootstrap/debpaths"
   )
@@ -389,7 +389,7 @@ apt_dest () {
       local m="$5"
       m="debootstrap.invalid"
       #if [ "${m#http://}" != "$m" ]; then
-      #  m=${m#http://}
+      #  m="${m#http://}"
       #elif [ "${m#file://}" != "$m" ]; then
       #  m="file_localhost_${m#file://*/}"
       #elif [ "${m#file:/}" != "$m" ]; then
@@ -403,7 +403,7 @@ apt_dest () {
       local m="$3"
       m="debootstrap.invalid"
       #if [ "${m#http://}" != "$m" ]; then
-      #  m=${m#http://}
+      #  m="${m#http://}"
       #elif [ "${m#file://}" != "$m" ]; then
       #  m="file_localhost_${m#file://*/}"
       #elif [ "${m#file:/}" != "$m" ]; then
@@ -420,7 +420,7 @@ apt_dest () {
 get_release_md5 () {
   local reldest="$1"
   local path="$2"
-  sed -n '/^[Mm][Dd]5[Ss][Uu][Mm]/,/^[^ ]/p' < $reldest | while read a b c; do
+  sed -n '/^[Mm][Dd]5[Ss][Uu][Mm]/,/^[^ ]/p' < "$reldest" | while read a b c; do
     if [ "$c" = "$path" ]; then echo "$a $b"; fi
   done | head -n 1
 }
@@ -428,12 +428,12 @@ get_release_md5 () {
 download_release_sig () {
   local m1="$1"
   local reldest="$2"
-  local relsigdest="$TARGET/$($DLDEST rel $SUITE $m1 dists/$SUITE/Release.gpg)"
+  local relsigdest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release.gpg")"
 
   if [ -n "$KEYRING" ]; then
     progress 0 100 DOWNRELSIG "Downloading Release file signature"
     progress_next 50
-    get "$m1/dists/$SUITE/Release.gpg" $relsigdest ||
+    get "$m1/dists/$SUITE/Release.gpg" "$relsigdest" ||
       error 1 NOGETRELSIG "Failed getting release signature file %s" \
         "$m1/dists/$SUITE/Release.gpg"
     progress 50 100 DOWNRELSIG "Downloading Release file signature"
@@ -448,14 +448,14 @@ download_release_sig () {
 }
 
 download_release_indices () {
-  local m1=${MIRRORS%% *}
-  local reldest="$TARGET/$($DLDEST rel $SUITE $m1 dists/$SUITE/Release)"
+  local m1="${MIRRORS%% *}"
+  local reldest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release")"
   progress 0 100 DOWNREL "Downloading Release file"
   progress_next 100
-  get "$m1/dists/$SUITE/Release" $reldest || 
+  get "$m1/dists/$SUITE/Release" "$reldest" ||
     error 1 NOGETREL "Failed getting release file %s" "$m1/dists/$SUITE/Release"
 
-  TMPCOMPONENTS="$(sed -n 's/Components: *//p' $reldest)"
+  TMPCOMPONENTS="$(sed -n 's/Components: *//p' "$reldest")"
   for c in $TMPCOMPONENTS ; do
       eval "
     case \"\$c\" in
@@ -468,7 +468,7 @@ download_release_indices () {
   COMPONENTS="$(echo $COMPONENTS)"
 
   if [ "$COMPONENTS" = "" ]; then
-    mv $reldest "$reldest.malformed"
+    mv "$reldest" "$reldest.malformed"
     error 1 INVALIDREL "Invalid Release file, no valid components"
   fi
   progress 100 100 DOWNREL "Downloading Release file"
@@ -478,9 +478,9 @@ download_release_indices () {
   local totalpkgs=0
   for c in $COMPONENTS; do
       local subpath="$c/binary-$ARCH/Packages"
-      local normmd="`get_release_md5 $reldest ${subpath}`"
+      local normmd="`get_release_md5 "$reldest" "$subpath"`"
       if [ "$normmd" = "" ]; then
-        mv $reldest "$reldest.malformed"
+        mv "$reldest" "$reldest.malformed"
         error 1 MISSINGRELENTRY "Invalid Release file, no entry for %s" "$subpath"
       fi
       totalpkgs="$(( $totalpkgs + ${normmd#* } ))"
@@ -491,9 +491,9 @@ download_release_indices () {
   for c in $COMPONENTS; do
     local subpath="$c/binary-$ARCH/Packages"
     local path="dists/$SUITE/$subpath"
-    local bz2md="`get_release_md5 $reldest ${subpath}.bz2`"
-    local gzmd="`get_release_md5 $reldest ${subpath}.gz`"
-    local normmd="`get_release_md5 $reldest ${subpath}`"
+    local bz2md="`get_release_md5 "$reldest" "$subpath.bz2"`"
+    local gzmd="`get_release_md5 "$reldest" "$subpath.gz"`"
+    local normmd="`get_release_md5 "$reldest" "$subpath"`"
     local ext="$normmd ."
     if [ -x /usr/bin/bunzip2 -a "$bz2md" != "" ]; then
       ext="$ext $bz2md bz2"
@@ -503,7 +503,7 @@ download_release_indices () {
     fi
     progress_next "$(($donepkgs + ${normmd#* }))"
     for m in $MIRRORS; do
-      local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m $path)"
+      local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
       if get "$m/$path" "$pkgdest" $ext; then break; fi
     done
     donepkgs="$(($donepkgs + ${normmd#* }))"
@@ -513,9 +513,9 @@ download_release_indices () {
 
 get_package_sizes () {
   # mirror pkgdest debs..
-  local m=$1; shift
-  local pkgdest=$1; shift
-  $PKGDETAILS PKGS $m $pkgdest "$@" | (
+  local m="$1"; shift
+  local pkgdest="$1"; shift
+  $PKGDETAILS PKGS "$m" "$pkgdest" "$@" | (
     newleft=""
     totaldebs=0
     countdebs=0
@@ -538,15 +538,15 @@ download_debs () {
   local pkgdest="$2"
   shift; shift
 
-  $PKGDETAILS PKGS $m $pkgdest "$@" | (
+  $PKGDETAILS PKGS "$m" "$pkgdest" "$@" | (
     leftover=""
     while read p ver arc mdup fil md5 size; do
       if [ "$ver" = "-" ]; then
         leftover="$leftover $p"
       else 
         progress_next "$(($dloaddebs + $size))"
-        local debdest="$($DLDEST deb $p $ver $arc $m $fil)"
-        if get "$m/$fil" "$TARGET/$debdest" $md5 $size; then
+        local debdest="$($DLDEST deb "$p" "$ver" "$arc" "$m" "$fil")"
+        if get "$m/$fil" "$TARGET/$debdest" "$md5" "$size"; then
           dloaddebs="$(($dloaddebs + $size))"
           echo >>$TARGET/debootstrap/debpaths "$p $debdest"
         else
@@ -559,7 +559,7 @@ download_debs () {
 }
 
 download_release () {
-  local m1=${MIRRORS%% *}
+  local m1="${MIRRORS%% *}"
 
   local numdebs="$#"
 
@@ -572,12 +572,12 @@ download_release () {
     if [ "$countdebs" -ge "$numdebs" ]; then break; fi
 
     local path="dists/$SUITE/$c/binary-$ARCH/Packages"
-    local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m1 $path)"
+    local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m1" "$path")"
     if [ ! -e "$pkgdest" ]; then continue; fi
 
     info CHECKINGSIZES "Checking component %s on %s..." "$c" "$m1"
 
-    leftoverdebs="$(get_package_sizes $m1 $pkgdest $leftoverdebs)"
+    leftoverdebs="$(get_package_sizes "$m1" "$pkgdest" $leftoverdebs)"
 
     countdebs=$(($countdebs + ${leftoverdebs%% *}))
     leftoverdebs=${leftoverdebs#* }
@@ -601,7 +601,7 @@ download_release () {
   for c in $COMPONENTS; do
     local path="dists/$SUITE/$c/binary-$ARCH/Packages"
     for m in $MIRRORS; do
-      local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m $path)"
+      local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
       if [ ! -e "$pkgdest" ]; then continue; fi
       pkgs_to_get="$(download_debs "$m" "$pkgdest" $pkgs_to_get 5>&1 1>&6)"
       if [ "$pkgs_to_get" = "" ]; then break; fi
@@ -615,7 +615,7 @@ download_release () {
 }
 
 download_main_indices () {
-  local m1=${MIRRORS%% *}
+  local m1="${MIRRORS%% *}"
   progress 0 100 DOWNMAINPKGS "Downloading Packages file"
   progress_next 100
   COMPONENTS=main
@@ -623,10 +623,10 @@ download_main_indices () {
   for m in $MIRRORS; do
     for c in $COMPONENTS; do
       local path="dists/$SUITE/$c/binary-$ARCH/Packages"
-      local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m $path)"
+      local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
       if [ -x /bin/gunzip ] && get "$m/${path}.gz" "${pkgdest}.gz"; then
-        rm -f ${pkgdest}
-        gunzip ${pkgdest}.gz
+        rm -f "$pkgdest"
+        gunzip "$pkgdest.gz"
       elif get "$m/$path" "$pkgdest"; then
         true
       fi
@@ -636,7 +636,7 @@ download_main_indices () {
 }
 
 download_main () {
-  local m1=${MIRRORS%% *}
+  local m1="${MIRRORS%% *}"
 
   :>$TARGET/debootstrap/debpaths
   for p in "$@"; do
@@ -644,14 +644,14 @@ download_main () {
       local details=""
       for m in $MIRRORS; do
         local path="dists/$SUITE/$c/binary-$ARCH/Packages"
-        local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m $path)"
+        local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
         if [ ! -e "$pkgdest" ]; then continue; fi
-        details="$($PKGDETAILS PKGS $m $pkgdest $p)"
+        details="$($PKGDETAILS PKGS "$m" "$pkgdest" "$p")"
         if [ "$details" = "$p -" ]; then continue; fi
         size="${details##* }"; details="${details% *}"
         md5="${details##* }"; details="${details% *}"
         local debdest="$($DLDEST deb $details)"
-        if get "$m/${details##* }" "$TARGET/$debdest" $md5 $size; then
+        if get "$m/${details##* }" "$TARGET/$debdest" "$md5" "$size"; then
 	  echo >>$TARGET/debootstrap/debpaths "$p $debdest"
           details="done"
           break
@@ -676,8 +676,8 @@ get_debs () {
   for m1 in $MIRRORS; do
     for c in $COMPONENTS; do
       local path="dists/$SUITE/$c/binary-$ARCH/Packages"
-      local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m1 $path)"
-      echo $("$PKGDETAILS" FIELD "$field" $m1 "$pkgdest" "$@" | sed 's/ .*//')
+      local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m1" "$path")"
+      echo $("$PKGDETAILS" FIELD "$field" "$m1" "$pkgdest" "$@" | sed 's/ .*//')
     done
   done
 }
@@ -692,12 +692,12 @@ extract () { (
     progress "$p" "$#" EXTRACTPKGS "Extracting packages"
     packagename="$(echo "$pkg" | sed 's,^.*/,,;s,_.*$,,')"
     info EXTRACTING "Extracting %s..." "$packagename"
-    ar -p ./$pkg data.tar.gz | zcat | tar -xf -
+    ar -p "./$pkg" data.tar.gz | zcat | tar -xf -
   done
 ); }
 
 in_target_nofail () {
-  if ! eval chroot "$TARGET" "$@" 2>/dev/null; then
+  if ! chroot "$TARGET" "$@" 2>/dev/null; then
     true
   fi
   return 0
@@ -708,7 +708,7 @@ in_target_failmsg () {
   local msg="$2"
   local arg="$3"
   shift; shift; shift
-  if ! eval chroot "$TARGET" "$@"; then
+  if ! chroot "$TARGET" "$@"; then
     warning "$code" "$msg" "$arg"
     return 1
   fi
@@ -732,11 +732,11 @@ conditional_cp () {
 }
 
 mv_invalid_to () {
-  local m=$1
-  m=$(echo ${m#http://} | tr '/' '_' | sed 's/_*//')
-  (cd $TARGET/$APTSTATE/lists
+  local m="$1"
+  m="$(echo "${m#http://}" | tr '/' '_' | sed 's/_*//')"
+  (cd "$TARGET/$APTSTATE/lists"
    for a in debootstrap.invalid_*; do
-     mv $a ${m}_${a#*_}
+     mv "$a" "${m}_${a#*_}"
    done
   )
 }
@@ -747,7 +747,7 @@ setup_apt_sources () {
     local cs=""
     for c in $COMPONENTS; do
       local path="dists/$SUITE/$c/binary-$ARCH/Packages"
-      local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m $path)"
+      local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
       if [ -e "$pkgdest" ]; then cs="$cs $c"; fi
     done
     if [ "$cs" != "" ]; then echo "deb $m $SUITE$cs"; fi
@@ -765,24 +765,41 @@ setup_etc () {
   fi
 }
 
+UMOUNT_DIRS=
+
+umount_exit_function () {
+  for dir in $UMOUNT_DIRS; do
+    umount "$TARGET/${dir#/}"
+  done
+}
+
+umount_on_exit () {
+  if [ "$UMOUNT_DIRS" ]; then
+    UMOUNT_DIRS="$UMOUNT_DIRS $1"
+  else
+    UMOUNT_DIRS="$1"
+    on_exit umount_exit_function
+  fi
+}
+
 setup_proc () {
   case "$ARCH" in
     kfreebsd-*)
-      on_exit "umount $TARGET/dev"
-      on_exit "umount $TARGET/proc"
-      umount $TARGET/proc 2>/dev/null || true
+      umount_on_exit /dev
+      umount_on_exit /proc
+      umount "$TARGET/proc" 2>/dev/null || true
       in_target mount -t linprocfs proc /proc
     ;;
     *)
-      on_exit "umount $TARGET/dev/pts"
-      on_exit "umount $TARGET/dev/shm"
-      on_exit "umount $TARGET/proc/bus/usb"
-      on_exit "umount $TARGET/proc"
-      umount $TARGET/proc 2>/dev/null || true
+      umount_on_exit /dev/pts
+      umount_on_exit /dev/shm
+      umount_on_exit /proc/bus/usb
+      umount_on_exit /proc
+      umount "$TARGET/proc" 2>/dev/null || true
       in_target mount -t proc proc /proc
       if [ -d "$TARGET/sys" ] && grep -q '[[:space:]]sysfs' /proc/filesystems 2>/dev/null; then
-        on_exit "umount $TARGET/sys"
-        umount $TARGET/sys 2>/dev/null || true
+        umount_on_exit /sys
+        umount "$TARGET/sys" 2>/dev/null || true
         in_target mount -t sysfs sysfs /sys
       fi
     ;;
@@ -799,8 +816,8 @@ setup_devices () {
     kfreebsd-*)
       in_target mount -t devfs devfs /dev ;;
     *)
-      if [ -e $DEVICES_TARGZ ]; then
-        (cd "$TARGET"; zcat $DEVICES_TARGZ | tar -xf -)
+      if [ -e "$DEVICES_TARGZ" ]; then
+        (cd "$TARGET"; zcat "$DEVICES_TARGZ" | tar -xf -)
       else
         if [ -e /dev/.devfsd ] ; then
           in_target mount -t devfs devfs /dev
@@ -893,7 +910,7 @@ for $v (keys %fields) {
     fi
   }
 elif [ -e "$DEBOOTSTRAP_DIR/pkgdetails" ]; then
-  PKGDETAILS=$DEBOOTSTRAP_DIR/pkgdetails
+  PKGDETAILS="$DEBOOTSTRAP_DIR/pkgdetails"
 else
   PKGDETAILS=""
 fi
@@ -901,14 +918,14 @@ fi
 ##################################################### dependency resolution
 
 resolve_deps () {
-  local m1=${MIRRORS%% *}
+  local m1="${MIRRORS%% *}"
 
   # XXX: I can't think how to deal well with dependency resolution and
   #      lots of Packages files. -- aj 2005/06/12
 
   c="${COMPONENTS%% *}"
   local path="dists/$SUITE/$c/binary-$ARCH/Packages"
-  local pkgdest="$TARGET/$($DLDEST pkg $SUITE $c $ARCH $m1 $path)"
+  local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m1" "$path")"
 
   local PKGS="$*"
   local ALLPKGS="$PKGS"; 
