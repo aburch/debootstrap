@@ -790,6 +790,8 @@ setup_proc () {
       umount "$TARGET/proc" 2>/dev/null || true
       in_target mount -t linprocfs proc /proc
     ;;
+    hurd-*)
+    ;;
     *)
       umount_on_exit /dev/pts
       umount_on_exit /dev/shm
@@ -815,6 +817,8 @@ setup_devices () {
   case "$ARCH" in
     kfreebsd-*)
       in_target mount -t devfs devfs /dev ;;
+    hurd-*)
+      setup_devices_hurd ;;
     *)
       if [ -e "$DEVICES_TARGZ" ]; then
         (cd "$TARGET"; zcat "$DEVICES_TARGZ" | tar -xf -)
@@ -827,6 +831,22 @@ setup_devices () {
       fi
     ;;
   esac
+}
+
+setup_devices_hurd () {
+  mkdir -p "$TARGET/servers/socket"
+  /bin/settrans -cfk "$TARGET/servers/socket/1" /hurd/pflocal
+  /bin/settrans -cf "$TARGET/servers/socket/2" /hurd/pfinet
+  /bin/settrans -cfk "$TARGET/servers/exec" /hurd/exec
+  /bin/settrans -cf "$TARGET/servers/crash-suspend" /hurd/crash --suspend
+  /bin/settrans -cf "$TARGET/servers/crash-kill" /hurd/crash --kill
+  /bin/settrans -cf "$TARGET/servers/crash-dump-core" /hurd/crash --dump-core
+  /bin/settrans -cf "$TARGET/servers/password" /hurd/password
+  /bin/settrans -cf "$TARGET/servers/default-pager" /hurd/proxy-defpager
+  ln -fs crash-kill "$TARGET/servers/crash"
+  ln -fs 1 "$TARGET/servers/socket/local"
+  ln -fs 2 "$TARGET/servers/socket/inet"
+  (cd "$TARGET/dev"; /sbin/MAKEDEV fd std ptyp ptyq vcs tty1 tty2 tty3 tty4 tty5 tty6)
 }
 
 setup_devices_fakechroot () {
