@@ -14,7 +14,11 @@ debootstrap (1.0.2) UNRELEASED; urgency=low
     (thanks, Michael Banck; closes: #314311).
   * Add --version option (closes: #294484).
 
- -- Joey Hess <joeyh@debian.org>  Fri, 20 Jul 2007 16:57:37 -0400
+  [ Otavio Salvador ]
+  * Fix bunzip2 path. Thanks Martín Ferrari <martin.ferrari@gmail.com> by
+    the patch (closes: #436218).
+
+ -- Otavio Salvador <otavio@debian.org>  Mon, 06 Aug 2007 10:25:05 -0300
 
 debootstrap (1.0.1) unstable; urgency=low
 

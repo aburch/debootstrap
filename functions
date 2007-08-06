@@ -495,7 +495,7 @@ download_release_indices () {
     local gzmd="`get_release_md5 "$reldest" "$subpath.gz"`"
     local normmd="`get_release_md5 "$reldest" "$subpath"`"
     local ext="$normmd ."
-    if [ -x /usr/bin/bunzip2 -a "$bz2md" != "" ]; then
+    if [ -x /bin/bunzip2 -a "$bz2md" != "" ]; then
       ext="$ext $bz2md bz2"
     fi
     if [ -x /bin/gunzip -a "$gzmd" != "" ]; then
