@@ -769,7 +769,7 @@ UMOUNT_DIRS=
 
 umount_exit_function () {
   for dir in $UMOUNT_DIRS; do
-    umount "$TARGET/${dir#/}"
+    umount "$TARGET/${dir#/}" || true
   done
 }
 

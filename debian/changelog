@@ -1,3 +1,10 @@
+debootstrap (1.0.3) UNRELEASED; urgency=low
+
+  * Ignore errors when unmounting filesystems, to avoid stopping at the
+    first one with problems.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 21 Aug 2007 12:31:53 +0100
+
 debootstrap (1.0.2) unstable; urgency=low
 
   [ Joey Hess ]
