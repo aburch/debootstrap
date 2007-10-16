@@ -1,3 +1,11 @@
+debootstrap (1.0.4) UNRELEASED; urgency=low
+
+  [ Neil Williams ]
+  * Add --second-stage-target option that allows embedded to to test an
+    installation in a chroot on the device (closes: #445157).
+
+ -- Otavio Salvador <otavio@debian.org>  Tue, 16 Oct 2007 16:47:55 -0200
+
 debootstrap (1.0.3) unstable; urgency=low
 
   * Ignore errors when unmounting filesystems, to avoid stopping at the

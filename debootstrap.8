@@ -92,6 +92,10 @@ installed as /debootstrap/debootstrap in the target filesystem.
 Complete the bootstrapping process. Other arguments are generally not
 needed.
 .IP
+.IP "\fB\-\-second\-stage\-target DIR\fP"
+Run second stage in a subdirectory instead of root. (can be used to create
+a foreign chroot) (requires --second-stage)
+.IP
 .IP "\fB\-\-keep\-debootstrap\-dir\fP"
 Don't delete the /debootstrap directory in the target after completing the
 installation.

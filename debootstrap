@@ -87,7 +87,10 @@ usage()
 
       --unpack-tarball T     acquire .debs from a tarball instead of http
       --make-tarball T       download .debs and create a tarball (tgz format)
-
+      --second-stage-target DIR
+                             Run second stage in a subdirectory instead of root
+                               (can be used to create a foreign chroot)
+                               (requires --second-stage)
       --boot-floppies        used for internal purposes by boot-floppies
       --debian-installer     used for internal purposes by debian-installer
 EOF
@@ -142,6 +145,18 @@ if [ $# != 0 ] ; then
         SECOND_STAGE_ONLY=true
 	shift
 	;;
+    --second-stage-target)
+       if [ "$SECOND_STAGE_ONLY" = "true" ] ; then
+          if [ -n "$2" ] ; then
+            CHROOTDIR="$2"
+            shift 2
+          else
+            error 1 NEEDARG "option requires an argument: %s" "$1"
+          fi
+        else
+            error 1 NEEDARG "%s only applies in the second stage" "$1"
+        fi
+      ;;
       --print-debs)
         WHAT_TO_DO="finddebs printdebs kill_target"
         shift
@@ -242,7 +257,11 @@ if [ "$SECOND_STAGE_ONLY" = "true" ]; then
     VARIANT=$(cat $DEBOOTSTRAP_DIR/variant)
     SUPPORTED_VARIANTS="$VARIANT"
   fi
-  TARGET=/
+  if [ "$CHROOTDIR" = "" ]; then
+    TARGET=/
+  else
+    TARGET=$CHROOTDIR
+  fi
   SCRIPT=$DEBOOTSTRAP_DIR/suite-script
 else
   if [ "$1" = "" -o "$2" = "" ]; then
