@@ -989,6 +989,37 @@ resolve_deps () {
 
 ################################################################### helpers
 
+# Return zero if it is possible to create devices and execute programs in
+# this directory. (Both may be forbidden by mount options, e.g. nodev and
+# noexec respectively.)
+check_sane_mount () {
+  case "$ARCH" in
+    kfreebsd-*|hurd-*)
+    ;;
+    *)
+      mknod "$1/test-dev-null" c 1 3 || return 1
+      if ! echo test > "$1/test-dev-null"; then
+        rm -f "$1/test-dev-null"
+        return 1
+      fi
+      rm -f "$1/test-dev-null"
+      ;;
+  esac
+
+  cat > "$1/test-exec" <<EOF
+#! /bin/sh
+:
+EOF
+  chmod +x "$1/test-exec"
+  if ! "$1/test-exec"; then
+    rm -f "$1/test-exec"
+    return 1
+  fi
+  rm -f "$1/test-exec"
+
+  return 0
+}
+
 read_gpg_status () {
   badsig=
   unkkey=

@@ -12,6 +12,8 @@ debootstrap (1.0.4) UNRELEASED; urgency=low
   * Add support for ssh:/// URLs (thanks, Steffen Joeris; closes: #434893).
   * Fix Ubuntu hoary and breezy scripts to unmount /dev etc. on exit
     (closes: #327708).
+  * Emit an error if we cannot create working devices or executables on the
+    target (based on work by Bastian Kleineidam; closes: #233798).
 
  -- Otavio Salvador <otavio@debian.org>  Tue, 16 Oct 2007 16:47:55 -0200
 
