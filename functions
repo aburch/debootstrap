@@ -478,12 +478,23 @@ download_release_indices () {
   local totalpkgs=0
   for c in $COMPONENTS; do
       local subpath="$c/binary-$ARCH/Packages"
+      local bz2md="`get_release_md5 "$reldest" "$subpath.bz2"`"
+      local gzmd="`get_release_md5 "$reldest" "$subpath.gz"`"
       local normmd="`get_release_md5 "$reldest" "$subpath"`"
-      if [ "$normmd" = "" ]; then
+      local md=
+      if [ "$normmd" != "" ]; then
+        md="$normmd"
+      elif [ -x /bin/bunzip2 ] && [ "$bz2md" != "" ]; then
+        md="$bz2md"
+      elif [ -x /bin/gunzip ] && [ "$gzmd" != "" ]; then
+        md="$gzmd"
+      fi
+      if [ "$md" != "" ]; then
+        totalpkgs="$(( $totalpkgs + ${md#* } ))"
+      else
         mv "$reldest" "$reldest.malformed"
         error 1 MISSINGRELENTRY "Invalid Release file, no entry for %s" "$subpath"
       fi
-      totalpkgs="$(( $totalpkgs + ${normmd#* } ))"
   done
 
   local donepkgs=0
@@ -494,19 +505,26 @@ download_release_indices () {
     local bz2md="`get_release_md5 "$reldest" "$subpath.bz2"`"
     local gzmd="`get_release_md5 "$reldest" "$subpath.gz"`"
     local normmd="`get_release_md5 "$reldest" "$subpath"`"
-    local ext="$normmd ."
+    local ext=
+    local md=
+    if [ "$normmd" != "" ]; then
+      ext="$ext $normmd ."
+      md="$normmd"
+    fi
     if [ -x /bin/bunzip2 -a "$bz2md" != "" ]; then
       ext="$ext $bz2md bz2"
+      md="${md:-$bz2md}"
     fi
     if [ -x /bin/gunzip -a "$gzmd" != "" ]; then
       ext="$ext $gzmd gz"
+      md="${md:-$gzmd}"
     fi
-    progress_next "$(($donepkgs + ${normmd#* }))"
+    progress_next "$(($donepkgs + ${md#* }))"
     for m in $MIRRORS; do
       local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
       if get "$m/$path" "$pkgdest" $ext; then break; fi
     done
-    donepkgs="$(($donepkgs + ${normmd#* }))"
+    donepkgs="$(($donepkgs + ${md#* }))"
     progress $donepkgs $totalpkgs DOWNPKGS "Downloading Packages files"
   done
 }

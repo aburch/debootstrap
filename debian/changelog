@@ -7,6 +7,7 @@ debootstrap (1.0.4) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Add (Ubuntu) hardy as a symlink to gutsy.
   * Unmount /lib/init/rw on exit (closes: #391604).
+  * Cope if uncompressed Packages is missing from Release (closes: #402380).
 
  -- Otavio Salvador <otavio@debian.org>  Tue, 16 Oct 2007 16:47:55 -0200
 
