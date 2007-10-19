@@ -37,6 +37,8 @@ install:
 	ln -s sid $(DSDIR)/scripts/etch
 	ln -s sid $(DSDIR)/scripts/lenny
 
+	ln -s gutsy $(DSDIR)/scripts/hardy
+
 	install -o root -g root -m 0755 debootstrap.8 $(DESTDIR)/usr/share/man/man8/
 	sed 's/@VERSION@/$(VERSION)/g' debootstrap >$(DESTDIR)/usr/sbin/debootstrap
 	chown root:root $(DESTDIR)/usr/sbin/debootstrap
