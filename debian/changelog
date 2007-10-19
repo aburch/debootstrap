@@ -9,6 +9,7 @@ debootstrap (1.0.4) UNRELEASED; urgency=low
   * Unmount /lib/init/rw on exit (closes: #391604).
   * Cope if uncompressed Packages is missing from Release (closes: #402380).
   * Don't rely on XSI test(1) extensions.
+  * Add support for ssh:/// URLs (thanks, Steffen Joeris; closes: #434893).
 
  -- Otavio Salvador <otavio@debian.org>  Tue, 16 Oct 2007 16:47:55 -0200
 

@@ -351,6 +351,14 @@ just_get () {
     else
       return 1
     fi
+  elif [ "${from#ssh:}" != "$from" ]; then
+    local ssh_dest="$(echo $from | sed -e 's#ssh://##' -e 's#/#:/#')"
+    if [ -n "$ssh_dest" ]; then
+      scp "$ssh_dest" "$dest"
+      return 0
+    else
+      return 1
+    fi
   else
     error 1 UNKNOWNLOC "unknown location %s" "$from"
   fi

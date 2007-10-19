@@ -22,9 +22,14 @@ from
 by running
 .IR SCRIPT .
 .I MIRROR
-can be an http:// URL or a file:/// URL. Notice that file:/ URLs are
-translated to file:/// (correct scheme as described in RFC1738 for local filenames),
-and file:// will \fBnot\fR work.
+can be an http:// URL, a file:/// URL, or an ssh:/// URL.
+Notice that file:/ URLs are translated to file:/// (correct scheme as
+described in RFC1738 for local filenames), and file:// will \fBnot\fR work.
+ssh://USER@HOST/PATH URLs are retrieved using
+.BR scp ;
+use of
+.B ssh\-agent
+or similar is strongly recommended.
 .PP
 \fBDebootstrap\fR can be used to install Debian in a system without using an
 installation disk but can also be used to run a different Debian flavor in a \fBchroot\fR
