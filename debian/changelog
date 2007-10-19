@@ -1,4 +1,4 @@
-debootstrap (1.0.4) UNRELEASED; urgency=low
+debootstrap (1.0.4) unstable; urgency=low
 
   [ Neil Williams ]
   * Add --second-stage-target option that allows embedded to test for
@@ -15,7 +15,7 @@ debootstrap (1.0.4) UNRELEASED; urgency=low
   * Emit an error if we cannot create working devices or executables on the
     target (based on work by Bastian Kleineidam; closes: #233798).
 
- -- Otavio Salvador <otavio@debian.org>  Tue, 16 Oct 2007 16:47:55 -0200
+ -- Colin Watson <cjwatson@debian.org>  Fri, 19 Oct 2007 14:57:37 +0100
 
 debootstrap (1.0.3) unstable; urgency=low
 
