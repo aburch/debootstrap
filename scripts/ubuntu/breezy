@@ -76,6 +76,8 @@ second_stage_install () {
     }
 
     setup_proc
+    umount_on_exit /dev/.static/dev
+    umount_on_exit /dev
     in_target /sbin/ldconfig
 
     DEBIAN_FRONTEND=noninteractive

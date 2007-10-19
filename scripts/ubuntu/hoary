@@ -103,6 +103,8 @@ second_stage_install () {
     bases=7
 
     setup_proc
+    umount_on_exit /.dev
+    umount_on_exit /dev
     in_target /sbin/ldconfig
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #1

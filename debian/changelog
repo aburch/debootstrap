@@ -10,6 +10,8 @@ debootstrap (1.0.4) UNRELEASED; urgency=low
   * Cope if uncompressed Packages is missing from Release (closes: #402380).
   * Don't rely on XSI test(1) extensions.
   * Add support for ssh:/// URLs (thanks, Steffen Joeris; closes: #434893).
+  * Fix Ubuntu hoary and breezy scripts to unmount /dev etc. on exit
+    (closes: #327708).
 
  -- Otavio Salvador <otavio@debian.org>  Tue, 16 Oct 2007 16:47:55 -0200
 
