@@ -70,10 +70,10 @@ progress_next () {
 wgetprogress () {
   [ ! "$verbose" ] && QSWITCH="-q"
   local ret=0
-  if [ "$USE_DEBIANINSTALLER_INTERACTION" -a "$PROGRESS_NEXT" ]; then
+  if [ "$USE_DEBIANINSTALLER_INTERACTION" ] && [ "$PROGRESS_NEXT" ]; then
     wget "$@" 2>&1 >/dev/null | $PKGDETAILS "WGET%" $PROGRESS_NOW $PROGRESS_NEXT $PROGRESS_END >&3
     ret=$?
-  elif [ "$USE_BOOTFLOPPIES_INTERACTION" -a "$PROGRESS_NEXT" ]; then
+  elif [ "$USE_BOOTFLOPPIES_INTERACTION" ] && [ "$PROGRESS_NEXT" ]; then
     wget "$@" 2>&1 >/dev/null | $PKGDETAILS "WGET%" $PROGRESS_NOW $PROGRESS_NEXT $PROGRESS_END "$PROGRESS_WHAT" >&3
     ret=$?
   else
@@ -202,7 +202,7 @@ download_style () {
 
 doing_variant () {
   if [ "$1" = "$VARIANT" ]; then return 0; fi
-  if [ "$1" = "-" -a "$VARIANT" = "" ]; then return 0; fi
+  if [ "$1" = "-" ] && [ "$VARIANT" = "" ]; then return 0; fi
   return 1
 }
 
@@ -241,7 +241,7 @@ check_md5 () {
   local expsize="$3"
   relmd5=`md5sum < "$1" | sed 's/ .*$//'`
   relsize=`wc -c < "$1"`
-  if [ "$expsize" -ne "$relsize" -o "$expmd5" != "$relmd5" ]; then
+  if [ "$expsize" -ne "$relsize" ] || [ "$expmd5" != "$relmd5" ]; then
     return 1
   fi
   return 0
@@ -325,7 +325,7 @@ just_get () {
   mkdir -p "${dest%/*}"
   if [ "${from#null:}" != "$from" ]; then
     error 1 NOTPREDL "%s was not pre-downloaded" "${from#null:}"
-  elif [ "${from#http://}" != "$from" -o "${from#ftp://}" != "$from" ]; then
+  elif [ "${from#http://}" != "$from" ] || [ "${from#ftp://}" != "$from" ]; then
     # http/ftp mirror
     if wgetprogress -O "$dest" "$from"; then
       return 0
@@ -511,11 +511,11 @@ download_release_indices () {
       ext="$ext $normmd ."
       md="$normmd"
     fi
-    if [ -x /bin/bunzip2 -a "$bz2md" != "" ]; then
+    if [ -x /bin/bunzip2 ] && [ "$bz2md" != "" ]; then
       ext="$ext $bz2md bz2"
       md="${md:-$bz2md}"
     fi
-    if [ -x /bin/gunzip -a "$gzmd" != "" ]; then
+    if [ -x /bin/gunzip ] && [ "$gzmd" != "" ]; then
       ext="$ext $gzmd gz"
       md="${md:-$gzmd}"
     fi
@@ -778,7 +778,7 @@ setup_etc () {
   conditional_cp /etc/resolv.conf "$TARGET"
   conditional_cp /etc/hostname "$TARGET"
   
-  if [ "$DLDEST" = apt_dest -a ! -e "$TARGET/etc/apt/sources.list" ]; then
+  if [ "$DLDEST" = apt_dest ] && [ ! -e "$TARGET/etc/apt/sources.list" ]; then
     setup_apt_sources "http://debootstrap.invalid/"
   fi
 }

@@ -264,7 +264,7 @@ if [ "$SECOND_STAGE_ONLY" = "true" ]; then
   fi
   SCRIPT=$DEBOOTSTRAP_DIR/suite-script
 else
-  if [ "$1" = "" -o "$2" = "" ]; then
+  if [ "$1" = "" ] || [ "$2" = "" ]; then
     usage_err 1 NEEDSUITETARGET "You must specify a suite and a target."
   fi
   SUITE="$1"
@@ -279,7 +279,7 @@ else
   fi
 
   SCRIPT="$DEBOOTSTRAP_DIR/scripts/$1"
-  if [ -n "$VARIANT" -a -e "${SCRIPT}.${VARIANT}" ]; then
+  if [ -n "$VARIANT" ] && [ -e "${SCRIPT}.${VARIANT}" ]; then
     SCRIPT="${SCRIPT}.${VARIANT}"
     SUPPORTED_VARIANTS="$VARIANT"
   fi
@@ -391,7 +391,7 @@ fi
 ###########################################################################
 
 if am_doing_phase finddebs; then
-  if [ "$FINDDEBS_NEEDS_INDICES" = "true" -o "$RESOLVE_DEPS" = "true" ]; then
+  if [ "$FINDDEBS_NEEDS_INDICES" = "true" ] || [ "$RESOLVE_DEPS" = "true" ]; then
     download_indices
     GOT_INDICES=true
   fi

@@ -13,7 +13,7 @@ variants - buildd
 
 work_out_debs () {
     LIBC6=libc6
-    if [ "$ARCH" = "alpha" -o "$ARCH" = "ia64" ]; then LIBC6="libc6.1"; fi
+    if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then LIBC6="libc6.1"; fi
 
     required="$(get_debs Priority: required)"
 

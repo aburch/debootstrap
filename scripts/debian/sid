@@ -17,7 +17,7 @@ fi
 
 work_out_debs () {
     LIBC=libc6
-    if [ "$ARCH" = "alpha" -o "$ARCH" = "ia64" ]; then
+    if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
       LIBC="libc6.1"
     elif [ "$ARCH" = "hurd-i386" ]; then
       LIBC="libc0.3"
@@ -52,7 +52,7 @@ first_stage_install () {
         chown 0.0 "$TARGET/etc/fstab"; chmod 644 "$TARGET/etc/fstab"
     fi
 
-    if [ -x "$TARGET/usr/bin/md5sum.textutils" -a \! -e "$TARGET/usr/bin/md5sum" ]; then
+    if [ -x "$TARGET/usr/bin/md5sum.textutils" ] && [ \! -e "$TARGET/usr/bin/md5sum" ]; then
         cp "$TARGET/usr/bin/md5sum.textutils" "$TARGET/usr/bin/md5sum"
     fi
 
