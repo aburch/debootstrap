@@ -806,6 +806,7 @@ setup_proc () {
       fi
     ;;
   esac
+  umount_on_exit /lib/init/rw
 }
 
 setup_proc_fakechroot () {
