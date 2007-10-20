@@ -1,3 +1,9 @@
+debootstrap (1.0.5) UNRELEASED; urgency=low
+
+  * Don't rely on GNU sed's s///I extension (closes: #350583).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 20 Oct 2007 13:49:37 +0100
+
 debootstrap (1.0.4) unstable; urgency=low
 
   [ Neil Williams ]

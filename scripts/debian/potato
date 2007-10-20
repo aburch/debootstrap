@@ -44,7 +44,7 @@ first_stage_install () {
         local ver="$(
             ar -p "$TARGET/$deb" control.tar.gz | zcat |
                 tar -O -xf - control ./control 2>/dev/null |
-                sed -ne 's/^Version: *//Ip' | head -n 1
+                grep -i ^Version: | sed -e 's/[^:]*: *//' | head -n 1
         )"
 
         mkdir -p "$TARGET/var/lib/dpkg/info"
