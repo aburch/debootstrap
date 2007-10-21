@@ -993,6 +993,8 @@ resolve_deps () {
 # this directory. (Both may be forbidden by mount options, e.g. nodev and
 # noexec respectively.)
 check_sane_mount () {
+  mkdir -p "$1"
+
   case "$ARCH" in
     kfreebsd-*|hurd-*)
     ;;
