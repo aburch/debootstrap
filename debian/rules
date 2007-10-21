@@ -9,7 +9,7 @@ configure:
 clean:
 	dh_testdir
 
-	-$(MAKE) clean
+	[ ! -f Makefile ] || $(MAKE) clean
 
 	dh_clean
 
