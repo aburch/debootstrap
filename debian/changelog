@@ -1,3 +1,10 @@
+debootstrap (1.0.7) UNRELEASED; urgency=low
+
+  * No longer include full devices tarball in udeb.
+    Requires base-installer 1.85.
+
+ -- Frans Pop <fjp@debian.org>  Fri, 09 Nov 2007 21:21:11 +0100
+
 debootstrap (1.0.6) unstable; urgency=low
 
   * Ensure that the target directory exists in check_sane_mount.

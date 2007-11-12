@@ -30,8 +30,8 @@ install: real-build
 	dh_installdirs
 
 #	 install the package into debian/debootstrap
-	$(MAKE) install-allarch DESTDIR=$(CURDIR)/debian/debootstrap
-	$(MAKE) install-arch    DESTDIR=$(CURDIR)/debian/debootstrap-udeb
+	$(MAKE) install      DESTDIR=$(CURDIR)/debian/debootstrap
+	$(MAKE) install-udeb DESTDIR=$(CURDIR)/debian/debootstrap-udeb
 
 binary-indep: install
 # We have nothing to do by default.
