@@ -940,10 +940,34 @@ for $v (keys %fields) {
 	pkgdetails_perl () {
 		if [ "$1" = "WGET%" ]; then
 			shift;
-			perl -e '$v = 0; while (read STDIN, $x, 1) { if ($x =~ m/\d/) { $v *= 10; $v += $x; } elsif ($x eq "%") { printf "P: %d %d%s\n", int($v / 100.0 * ($ARGV[1] - $ARGV[0]) + $ARGV[0]), $ARGV[2], ($#ARGV == 3 ? " $ARGV[3]" : ""); $v = 0; } else { $v = 0; } }' "$@"
+			perl -e '
+$v = 0;
+while (read STDIN, $x, 1) {
+	if ($x =~ m/\d/) {
+		$v *= 10;
+		$v += $x;
+	} elsif ($x eq "%") {
+		printf "P: %d %d%s\n", int($v / 100.0 * ($ARGV[1] - $ARGV[0]) + $ARGV[0]), $ARGV[2], ($#ARGV == 3 ? " $ARGV[3]" : "");
+		$v = 0;
+	} else {
+		$v = 0;
+	}
+}' "$@"
 		elif [ "$1" = "GETDEPS" ]; then
 			local pkgdest="$2"; shift; shift
-			perl -e 'while (<STDIN>) { chomp; $in = 1 if (/^Package: (.*)$/ && grep {$_ eq $1} @ARGV); $in = 0 if (/^$/); if ($in and (/^Depends: (.*)$/ or /^Pre-Depends: (.*)$/)) { for $d (split /\s*,\s*/, $1) { $d =~ s/\s*[|].*$//; $d =~ s/\s*[(].*[)]\s*//; print "$d\n"; }}}' <"$pkgdest" "$@" | sort | uniq
+			perl -e '
+while (<STDIN>) {
+	chomp;
+	$in = 1 if (/^Package: (.*)$/ && grep {$_ eq $1} @ARGV);
+	$in = 0 if (/^$/);
+	if ($in and (/^Depends: (.*)$/ or /^Pre-Depends: (.*)$/)) {
+		for $d (split /\s*,\s*/, $1) {
+			$d =~ s/\s*[|].*$//;
+			$d =~ s/\s*[(].*[)]\s*//;
+			print "$d\n";
+		}
+	}
+}' <"$pkgdest" "$@" | sort | uniq
 		elif [ "$1" = "PKGS" ]; then
 			local m="$2"
 			local p="$3"
