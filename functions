@@ -897,6 +897,10 @@ setup_dselect_method () {
 
 ################################################################ pkgdetails
 
+# NOTE
+# For the debootstrap udeb, pkgdetails is provided by the bootstrap-base
+# udeb, so the pkgdetails API needs to be kept in sync with that.
+
 if [ -x /usr/bin/perl ]; then
 	PKGDETAILS=pkgdetails_perl
 
