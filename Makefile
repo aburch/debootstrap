@@ -1,6 +1,3 @@
-CC=gcc
-CFLAGS=-Wall -W -O2
-
 # avoid dpkg-dev dependency; fish out the version with sed
 VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
 
@@ -8,10 +5,9 @@ ARCH := $(shell dpkg --print-architecture)
 
 MAKEDEV := $(shell if [ -e /dev/MAKEDEV ]; then echo /dev/MAKEDEV; else echo /sbin/MAKEDEV; fi)
 
-all: pkgdetails devices.tar.gz debootstrap-arch
+all: devices.tar.gz
 clean:
-	rm -f pkgdetails pkgdetails.o devices.tar.gz
-	rm -f debootstrap-arch
+	rm -f devices.tar.gz
 	rm -rf dev
 
 DSDIR=$(DESTDIR)/usr/lib/debootstrap
@@ -35,16 +31,6 @@ install:
 	chmod 0755 $(DESTDIR)/usr/sbin/debootstrap
 
 	install -o root -g root -m 0644 devices.tar.gz $(DSDIR)/
-
-install-udeb: install
-	install -o root -g root -m 0755 pkgdetails $(DSDIR)/
-	install -o root -g root -m 0644 debootstrap-arch $(DSDIR)/arch
-
-pkgdetails: pkgdetails.o
-	$(CC) -o $@ $^
-
-debootstrap-arch:
-	echo $(ARCH) >debootstrap-arch
 
 devices.tar.gz:
 	rm -rf dev

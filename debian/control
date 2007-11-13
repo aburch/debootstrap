@@ -20,6 +20,6 @@ Package: debootstrap-udeb
 Priority: required
 Section: debian-installer
 XC-Package-Type: udeb
-Architecture: any
-Depends: ${shlibs:Depends}, mounted-partitions
+Architecture: all
+Depends: mounted-partitions
 Description: Bootstrap the Debian system

@@ -31,7 +31,7 @@ install: real-build
 
 #	 install the package into debian/debootstrap
 	$(MAKE) install      DESTDIR=$(CURDIR)/debian/debootstrap
-	$(MAKE) install-udeb DESTDIR=$(CURDIR)/debian/debootstrap-udeb
+	$(MAKE) install      DESTDIR=$(CURDIR)/debian/debootstrap-udeb
 
 binary-indep: install
 # We have nothing to do by default.
@@ -64,17 +64,6 @@ binary-indep: install
 	dh_installman -i debootstrap.8
 	dh_installchangelogs -i
 	dh_link -i
-	dh_compress -i
-	dh_fixperms -i
-	dh_installdeb -i
-	dh_shlibdeps -i
-	dh_gencontrol -i
-	dh_md5sums -i
-	dh_builddeb -i
-
-binary-arch: install
-	dh_testdir
-	dh_testroot
 	-rm -rf debian/debootstrap-udeb/usr/share \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/potato \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/woody \
@@ -87,13 +76,15 @@ binary-arch: install
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/feisty \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.buildd \
 		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.fakechroot
-	dh_strip -s
-	dh_compress -s
-	dh_fixperms -s
-	dh_installdeb -s
-	dh_shlibdeps -s
-	dh_gencontrol -s
-	dh_builddeb -s
+	dh_compress -i
+	dh_fixperms -i
+	dh_installdeb -i
+	dh_shlibdeps -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary-arch:
 
 binary: binary-indep binary-arch
 .PHONY: build real-build clean binary-indep binary-arch binary install configure binary-basedebs
