@@ -985,6 +985,8 @@ while (<STDIN>) {
 			pkgdetails_field 0 "$f" "$m" "$@" < "$p"
 		fi
 	}
+elif [ -e "/usr/lib/debootstrap/pkgdetails" ]; then
+	PKGDETAILS="/usr/lib/debootstrap/pkgdetails"
 elif [ -e "$DEBOOTSTRAP_DIR/pkgdetails" ]; then
 	PKGDETAILS="$DEBOOTSTRAP_DIR/pkgdetails"
 else
