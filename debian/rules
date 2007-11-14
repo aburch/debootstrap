@@ -64,18 +64,17 @@ binary-indep: install
 	dh_installman -i debootstrap.8
 	dh_installchangelogs -i
 	dh_link -i
-	-rm -rf debian/debootstrap-udeb/usr/share \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/potato \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/woody \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/sarge \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/warty \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/hoary \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/breezy \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/dapper \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/edgy \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/feisty \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.buildd \
-		debian/debootstrap-udeb/usr/lib/debootstrap/scripts/*.fakechroot
+	-rm -rf debian/debootstrap-udeb/usr/share/debootstrap/scripts/potato \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/woody \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/sarge \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/warty \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/hoary \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/breezy \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/dapper \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/edgy \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/feisty \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.buildd \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.fakechroot
 	dh_compress -i
 	dh_fixperms -i
 	dh_installdeb -i

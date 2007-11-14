@@ -5,11 +5,15 @@ debootstrap (1.0.7) UNRELEASED; urgency=low
     architecture.
   * Utility pkgdetails moved from debootstrap-udeb to bootstrap-base so that
     the udeb can become 'Architecture: all'.
+  * Change /usr/lib/debootstrap to /usr/share/debootstrap. Closes: #430615.
   * Use tab indentation in debootstrap and functions saving 3kB (relevant for
     Debian Installer).
+  * Fix various inconsistencies in build scripts.
+  * Fix dpkg-genchanges warning 'missing Priority for source files'.
+  * Update Standards-Version to 3.7.2. No changes needed.
   * Changes in udeb require base-installer 1.85.
 
- -- Frans Pop <fjp@debian.org>  Tue, 13 Nov 2007 13:42:30 +0100
+ -- Frans Pop <fjp@debian.org>  Wed, 14 Nov 2007 10:03:05 +0100
 
 debootstrap (1.0.6) unstable; urgency=low
 

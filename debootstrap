@@ -10,7 +10,7 @@ if [ "$DEBOOTSTRAP_DIR" = "" ]; then
 	if [ -x /debootstrap/debootstrap ]; then
 		DEBOOTSTRAP_DIR=/debootstrap
 	else
-		DEBOOTSTRAP_DIR=/usr/lib/debootstrap
+		DEBOOTSTRAP_DIR=/usr/share/debootstrap
 	fi
 fi
 

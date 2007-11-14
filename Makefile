@@ -10,11 +10,9 @@ clean:
 	rm -f devices.tar.gz
 	rm -rf dev
 
-DSDIR=$(DESTDIR)/usr/lib/debootstrap
+DSDIR=$(DESTDIR)/usr/share/debootstrap
 install:
-	mkdir -p $(DSDIR)/scripts
-	mkdir -p $(DESTDIR)/usr/sbin
-	mkdir -p $(DESTDIR)/usr/share/man/man8
+	# Dirs are created by dh_installdirs
 	install -o root -g root -m 0644 scripts/debian/* $(DSDIR)/scripts/
 	install -o root -g root -m 0644 scripts/ubuntu/* $(DSDIR)/scripts/
 	install -o root -g root -m 0644 functions $(DSDIR)/
@@ -25,7 +23,6 @@ install:
 
 	ln -s gutsy $(DSDIR)/scripts/hardy
 
-	install -o root -g root -m 0755 debootstrap.8 $(DESTDIR)/usr/share/man/man8/
 	sed 's/@VERSION@/$(VERSION)/g' debootstrap >$(DESTDIR)/usr/sbin/debootstrap
 	chown root:root $(DESTDIR)/usr/sbin/debootstrap
 	chmod 0755 $(DESTDIR)/usr/sbin/debootstrap
