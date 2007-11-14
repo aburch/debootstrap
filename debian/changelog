@@ -1,4 +1,4 @@
-debootstrap (1.0.7) UNRELEASED; urgency=low
+debootstrap (1.0.7) unstable; urgency=low
 
   * No longer include full devices tarball in udeb.
   * Also try 'udpkg --print-architecture' when determining the target
@@ -13,7 +13,7 @@ debootstrap (1.0.7) UNRELEASED; urgency=low
   * Update Standards-Version to 3.7.2. No changes needed.
   * Changes in udeb require base-installer 1.85.
 
- -- Frans Pop <fjp@debian.org>  Wed, 14 Nov 2007 10:03:05 +0100
+ -- Frans Pop <fjp@debian.org>  Wed, 14 Nov 2007 12:15:45 +0100
 
 debootstrap (1.0.6) unstable; urgency=low
 
