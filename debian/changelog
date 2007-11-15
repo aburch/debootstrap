@@ -1,3 +1,9 @@
+debootstrap (1.0.8) UNRELEASED; urgency=low
+
+  * Change Priority for the udeb to extra in line with overrides file.
+
+ -- Frans Pop <fjp@debian.org>  Thu, 15 Nov 2007 10:04:33 +0100
+
 debootstrap (1.0.7) unstable; urgency=low
 
   * No longer include full devices tarball in udeb.

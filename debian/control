@@ -17,7 +17,6 @@ Description: Bootstrap a basic Debian system
  into a directory which can eventually be chrooted into.
 
 Package: debootstrap-udeb
-Priority: required
 Section: debian-installer
 XC-Package-Type: udeb
 Architecture: all
