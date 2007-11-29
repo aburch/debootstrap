@@ -12,7 +12,9 @@ clean:
 
 DSDIR=$(DESTDIR)/usr/share/debootstrap
 install:
-	# Dirs are created by dh_installdirs
+	mkdir -p $(DSDIR)/scripts
+	mkdir -p $(DESTDIR)/usr/sbin
+
 	install -o root -g root -m 0644 scripts/debian/* $(DSDIR)/scripts/
 	install -o root -g root -m 0644 scripts/ubuntu/* $(DSDIR)/scripts/
 	install -o root -g root -m 0644 functions $(DSDIR)/

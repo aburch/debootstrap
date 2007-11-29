@@ -1,6 +1,13 @@
 debootstrap (1.0.8) UNRELEASED; urgency=low
 
+  [ Frans Pop ]
   * Change Priority for the udeb to extra in line with overrides file.
+
+  [ Colin Watson ]
+  * Partially revert r50134; there are people who depend on being able to
+    use the "upstream" Makefile on non-Debian systems. Create necessary
+    directories in the Makefile rather than relying on dh_installdirs to do
+    it (LP: #172645).
 
  -- Frans Pop <fjp@debian.org>  Thu, 15 Nov 2007 10:04:33 +0100
 
