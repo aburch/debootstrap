@@ -9,7 +9,14 @@ debootstrap (1.0.8) UNRELEASED; urgency=low
     directories in the Makefile rather than relying on dh_installdirs to do
     it (LP: #172645).
 
- -- Frans Pop <fjp@debian.org>  Thu, 15 Nov 2007 10:04:33 +0100
+  [ Anthony Towns ]
+  * Add minbase variant for the sid script that only install apt (and
+    its dependencies) instead of all of base. (Closes: Bug#351912,
+    Bug#452654)
+  * Make --second-stage not bother recalculating required and base when
+    it's not needed.
+
+ -- Anthony Towns <ajt@debian.org>  Fri, 07 Dec 2007 18:57:24 +1000
 
 debootstrap (1.0.7) unstable; urgency=low
 

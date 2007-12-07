@@ -141,7 +141,7 @@ if [ $# != 0 ] ; then
 		shift
 		;;
 	    --second-stage)
-		WHAT_TO_DO="finddebs second_stage"
+		WHAT_TO_DO="second_stage"
 		SECOND_STAGE_ONLY=true
 		shift
 		;;

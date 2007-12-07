@@ -9,20 +9,20 @@ esac
 mirror_style release
 download_style apt
 finddebs_style from-indices
-variants - buildd fakechroot
+variants - buildd fakechroot minbase
 
 if doing_variant fakechroot; then
     test "$FAKECHROOT" = "true" || error 1 FAKECHROOTREQ "This variant requires fakechroot environment to be started"
 fi
 
-work_out_debs () {
-    LIBC=libc6
-    if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
-      LIBC="libc6.1"
-    elif [ "$ARCH" = "hurd-i386" ]; then
-      LIBC="libc0.3"
-    fi
+LIBC=libc6
+if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
+  LIBC="libc6.1"
+elif [ "$ARCH" = "hurd-i386" ]; then
+  LIBC="libc0.3"
+fi
 
+work_out_debs () {
     required="$(get_debs Priority: required)"
 
     if doing_variant - || doing_variant fakechroot; then 
@@ -31,6 +31,8 @@ work_out_debs () {
       base="$(get_debs Priority: important)"
     elif doing_variant buildd; then
       base="$(get_debs Build-Essential: yes)"
+    elif doing_variant minbase; then
+      base="apt"
     fi
 
     if doing_variant fakechroot; then 

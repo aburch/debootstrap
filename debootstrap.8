@@ -61,9 +61,10 @@ dependency resolve in the sense of dpkg or apt, and that it is far better
 to specify the entire base system than rely on this option. With this
 option set, this behaviour is disabled.
 .IP
-.IP "\fB\-\-variant=buildd|fakechroot\fP"
+.IP "\fB\-\-variant=minbase|buildd|fakechroot\fP"
 Name of the bootstrap script variant to use.  Currently, the variant
-supported are buildd, which installs the build-essential packages into
+supported are minbase, which only includes essential packages and apt; 
+buildd, which installs the build-essential packages into
 .IR TARGET
 and fakechroot, which installs the packages without root privileges.
 The default, with no \fB\-\-variant=X\fP argument, is to create a base
