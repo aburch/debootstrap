@@ -13,8 +13,11 @@ debootstrap (1.0.8) UNRELEASED; urgency=low
   * Add minbase variant for the sid script that only install apt (and
     its dependencies) instead of all of base. (Closes: Bug#351912,
     Bug#452654)
-  * Make --second-stage not bother recalculating required and base when
+  * Make --second-stage not bother recalculating required and base as
     it's not needed.
+  * Make --arch and other arguments accept both "--arch i386" and
+    "--arch=i386" forms of specifying a parameter to avoid the
+    inconsistency.
 
  -- Anthony Towns <ajt@debian.org>  Fri, 07 Dec 2007 18:57:24 +1000
 

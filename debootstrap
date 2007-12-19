@@ -73,8 +73,8 @@ usage()
       --download-only        download packages, but don't perform installation
       --print-debs           print the packages to be installed, and exit
 
-      --arch A               set the target architecture (use if no dpkg)
-                               [ --arch powerpc ]
+      --arch=A               set the target architecture (use if no dpkg)
+                               [ --arch=powerpc ]
 
       --include=A,B,C        adds specified names to the list of base packages
       --exclude=A,B,C        removes specified packages from the list
@@ -85,9 +85,9 @@ usage()
       --keyring=K            check Release files against keyring K
       --no-resolve-deps      don't try to resolve dependencies automatically
 
-      --unpack-tarball T     acquire .debs from a tarball instead of http
-      --make-tarball T       download .debs and create a tarball (tgz format)
-      --second-stage-target DIR
+      --unpack-tarball=T     acquire .debs from a tarball instead of http
+      --make-tarball=T       download .debs and create a tarball (tgz format)
+      --second-stage-target=DIR
                              Run second stage in a subdirectory instead of root
                                (can be used to create a foreign chroot)
                                (requires --second-stage)
@@ -145,16 +145,18 @@ if [ $# != 0 ] ; then
 		SECOND_STAGE_ONLY=true
 		shift
 		;;
-	    --second-stage-target)
-		if [ "$SECOND_STAGE_ONLY" = "true" ] ; then
-			if [ -n "$2" ] ; then
-				CHROOTDIR="$2"
-				shift 2
-			else
-				error 1 NEEDARG "option requires an argument: %s" "$1"
-			fi
+	    --second-stage-target|--second-stage-target=?*)
+		if [ "$SECOND_STAGE_ONLY" != "true" ] ; then
+			error 1 STAGE2ONLY "option %s only applies in the second stage" "$1"
+		fi
+		if [ "$1" = "--second-stage-target" -a -n "$2" ] ; then
+			CHROOTDIR="$2"
+			shift 2
+		elif [ "$1" != "${1#--second-stage-target=}" ]; then
+			CHROOTDIR="${1#--second-stage-target=}"
+			shift
 		else
-			error 1 NEEDARG "%s only applies in the second stage" "$1"
+			error 1 NEEDARG "option requires an argument: %s" "$1"
 		fi
 		;;
 	    --print-debs)
@@ -165,11 +167,14 @@ if [ $# != 0 ] ; then
 		WHAT_TO_DO="finddebs dldebs"
 		shift
 		;;
-	    --make-tarball)
+	    --make-tarball|--make-tarball=?*)
 		WHAT_TO_DO="finddebs dldebs maketarball kill_target"
-		if [ -n "$2" ] ; then
+		if [ "$1" = "--make-tarball" -a -n "$2" ] ; then
 			MAKE_TARBALL="$2"
 			shift 2
+		elif [ "$1" != "${1#--mnake-tarball=}" ]; then
+			MAKE_TARBALL="${1#--mnake-tarball=}"
+			shift
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
@@ -187,10 +192,13 @@ if [ $# != 0 ] ; then
 		KEEP_DEBOOTSTRAP_DIR=true
 		shift
 		;;
-	    --arch)
-		if [ -n "$2" ] ; then
+	    --arch|--arch=?*)
+		if [ "$1" = "--arch" -a -n "$2" ] ; then
 			ARCH="$2"
 			shift 2
+                elif [ "$1" != "${1#--arch=}" ]; then
+			ARCH="${1#--arch=}"
+			shift
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
@@ -206,40 +214,71 @@ if [ $# != 0 ] ; then
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
 		;;
-	    --include*)
-		additional="$(echo $1 | cut -f2 -d"="|tr , " ")"
-		shift 1
+	    --include|--include=?*)
+		if [ "$1" = "--include" -a -n "$2" ]; then
+			additional="$2"
+			shift 2
+                elif [ "$1" != "${1#--include=}" ]; then
+			additional="${1#--include=}"
+			shift 1
+		else
+			error 1 NEEDARG "option requires an argument %s" "$1"
+		fi
+		additional="$(echo "$additional" | tr , " ")"
 		;;
-	    --exclude*)
-		exclude="$(echo $1 | cut -f2 -d"="|tr , " ")"
-		shift 1
+	    --exclude|--exclude=?*)
+		if [ "$1" = "--exclude" -a -n "$2" ]; then
+			exclude="$2"
+			shift 2
+                elif [ "$1" != "${1#--exclude=}" ]; then
+			exclude="${1#--exclude=}"
+			shift 1
+		else
+			error 1 NEEDARG "option requires an argument %s" "$1"
+		fi
+		exclude="$(echo "$exclude" | tr , " ")"
 		;;
 	    --verbose)
 		verbose=true
 		export verbose
 		shift 1
 		;;
-	    --components*)
-		USE_COMPONENTS="$(echo "$1" | cut -f2 -d"="|tr , "|")"
-		if [ "$USE_COMPONENTS" = "" ]; then
+	    --components|--components=?*)
+		if [ "$1" = "--components" -a -n "$2" ]; then
+			USE_COMPONENTS="$2"
+			shift 2
+                elif [ "$1" != "${1#--components=}" ]; then
+			USE_COMPONENTS="${1#--components=}"
+			shift 1
+		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
-		export USE_COMPONENTS
-		shift 1
+		USE_COMPONENTS="$(echo "$USE_COMPONENTS" | tr , "|")"
 		;;
-	    --variant*)
-		VARIANT="$(echo "$1" | cut -f2 -d"=")"
-		shift 1
+	    --variant|--variant=?*)
+		if [ "$1" = "--variant" -a -n "$2" ]; then
+			VARIANT="$2"
+			shift 2
+                elif [ "$1" != "${1#--variant=}" ]; then
+			VARIANT="${1#--variant=}"
+			shift 1
+		else
+			error 1 NEEDARG "option requires an argument %s" "$1"
+		fi
 		;;
-	    --keyring*)
+	    --keyring|--keyring=?*)
 		if ! gpgv --version >/dev/null 2>&1; then
 			error 1 NEEDGPGV "gpgv not installed, but required for Release verification"
 		fi
-		KEYRING="$(echo "$1" | cut -f2 -d"=")"
-		if [ "$KEYRING" = "" ]; then
+		if [ "$1" = "--keyring" -a -n "$2" ]; then
+			KEYRING="$2"
+			shift 2
+                elif [ "$1" != "${1#--keyring=}" ]; then
+			KEYRING="${1#--keyring=}"
+			shift 1
+		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
-		shift 1
 		;;
 	    *)
 		break

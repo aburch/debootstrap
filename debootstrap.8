@@ -39,7 +39,7 @@ If you are looking for a chroot system to build packages please take a look at
 \fBpbuilder\fR.
 .SH "OPTIONS"
 .PP
-.IP "\fB\-\-arch ARCH\fP"
+.IP "\fB\-\-arch=ARCH\fP"
 Set the target architecture (use if dpkg isn't installed). See also \-\-foreign.
 .IP
 .IP "\fB\-\-include=alpha,beta\fP"
@@ -98,7 +98,7 @@ installed as /debootstrap/debootstrap in the target filesystem.
 Complete the bootstrapping process. Other arguments are generally not
 needed.
 .IP
-.IP "\fB\-\-second\-stage\-target DIR\fP"
+.IP "\fB\-\-second\-stage\-target=DIR\fP"
 Run second stage in a subdirectory instead of root. (can be used to create
 a foreign chroot) (requires \-\-second\-stage)
 .IP
@@ -106,10 +106,10 @@ a foreign chroot) (requires \-\-second\-stage)
 Don't delete the /debootstrap directory in the target after completing the
 installation.
 .IP
-.IP "\fB\-\-unpack\-tarball FILE\fP"
+.IP "\fB\-\-unpack\-tarball=FILE\fP"
 Acquire .debs from tarball FILE instead of downloading via http
 .IP
-.IP "\fB\-\-make\-tarball FILE\fP"
+.IP "\fB\-\-make\-tarball=FILE\fP"
 Instead of bootstrapping, make a tarball (written to FILE) of the downloaded
 packages.
 The resulting tarball may be passed to a later
