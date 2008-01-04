@@ -21,6 +21,7 @@ install:
 
         # no special script for etch anymore
 	ln -s sid $(DSDIR)/scripts/etch
+	ln -s sid $(DSDIR)/scripts/etch-m68k
 	ln -s sid $(DSDIR)/scripts/lenny
 
 	ln -s gutsy $(DSDIR)/scripts/hardy
