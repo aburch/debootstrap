@@ -39,7 +39,7 @@ binary-indep: install
 ARCHES="i386"
 SUITE="testing"
 VERSION=$(SUITE)
-MIRROR="http://ftp.debian.org/debian"
+MIRROR="http://ftp.us.debian.org/debian"
 
 binary-basedebs:
 	dh_testdir

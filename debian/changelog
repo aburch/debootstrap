@@ -8,6 +8,8 @@ debootstrap (1.0.8) UNRELEASED; urgency=low
     use the "upstream" Makefile on non-Debian systems. Create necessary
     directories in the Makefile rather than relying on dh_installdirs to do
     it (LP: #172645).
+  * Use ftp.us.debian.org rather than ftp.debian.org
+    (http://lists.debian.org/debian-devel-announce/2007/12/msg00002.html).
 
   [ Anthony Towns ]
   * Add minbase variant for the sid script that only install apt (and

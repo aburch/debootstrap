@@ -126,14 +126,14 @@ Used for internal purposes by the debian-installer
 .PP 
 To setup a \fIsarge\fR system:
 .PP 
-# debootstrap sarge ./sarge-chroot http://ftp.debian.org/debian
+# debootstrap sarge ./sarge-chroot http://ftp.us.debian.org/debian
 .PP
 # debootstrap sarge ./sarge-chroot file:///PATH_TO_LOCAL_MIRROR/debian
 .PP
 Full process to create a complete Debian installation of \fIsid\fR (unstable):
 .PP
      main # cd / ; mkdir /sid-root
-     main # debootstrap sid /sid-root http://ftp.debian.org/debian/
+     main # debootstrap sid /sid-root http://ftp.us.debian.org/debian/
      [ ... watch it download the whole system ]
      main # echo "proc /sid-root/proc proc none 0 0" >> /etc/fstab
      main # mount proc /sid-root/proc -t proc
