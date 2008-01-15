@@ -1,4 +1,4 @@
-debootstrap (1.0.8) UNRELEASED; urgency=low
+debootstrap (1.0.8) unstable; urgency=low
 
   [ Frans Pop ]
   * Change Priority for the udeb to extra in line with overrides file.
@@ -28,7 +28,7 @@ debootstrap (1.0.8) UNRELEASED; urgency=low
   * Add minbase variant for Ubuntu gutsy/hardy; see Anthony's change above.
   * Minor manual page formatting improvements.
 
- -- Anthony Towns <ajt@debian.org>  Fri, 07 Dec 2007 18:57:24 +1000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 15 Jan 2008 11:19:34 +0000
 
 debootstrap (1.0.7) unstable; urgency=low
 
