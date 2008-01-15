@@ -9,7 +9,7 @@ esac
 mirror_style release
 download_style apt
 finddebs_style from-indices
-variants - buildd fakechroot
+variants - buildd fakechroot minbase
 
 if doing_variant fakechroot; then
     test "$FAKECHROOT" = "true" || error 1 FAKECHROOTREQ "This variant requires fakechroot environment to be started"
@@ -27,7 +27,7 @@ work_out_debs () {
       base="$(get_debs Priority: important)"
     elif doing_variant buildd; then
       base="$(get_debs Build-Essential: yes)"
-    elif doing_variant fakechroot; then
+    elif doing_variant fakechroot || doing_variant minbase; then
       base="apt"
     fi
 }

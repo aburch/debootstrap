@@ -24,6 +24,9 @@ debootstrap (1.0.8) UNRELEASED; urgency=low
   [ Stephen R. Marenka ]
   * Allow installation of etch-m68k. (Closes: Bug#458965)
 
+  [ Colin Watson ]
+  * Add minbase variant for Ubuntu gutsy/hardy; see Anthony's change above.
+
  -- Anthony Towns <ajt@debian.org>  Fri, 07 Dec 2007 18:57:24 +1000
 
 debootstrap (1.0.7) unstable; urgency=low
