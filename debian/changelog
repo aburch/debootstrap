@@ -26,6 +26,7 @@ debootstrap (1.0.8) UNRELEASED; urgency=low
 
   [ Colin Watson ]
   * Add minbase variant for Ubuntu gutsy/hardy; see Anthony's change above.
+  * Minor manual page formatting improvements.
 
  -- Anthony Towns <ajt@debian.org>  Fri, 07 Dec 2007 18:57:24 +1000
 
