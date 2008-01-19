@@ -280,6 +280,9 @@ if [ $# != 0 ] ; then
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
 		;;
+	    --*)
+		error 1 BADARG "unrecognized or invalid option %s" "$1"
+		;;
 	    *)
 		break
 		;;
