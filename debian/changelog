@@ -5,7 +5,8 @@ debootstrap (1.0.9) UNRELEASED; urgency=low
     recognized as arguments.
 
   [ Colin Watson ]
-  * Use 'chown 0:0' in all scripts rather than deprecated 'chown 0.0'.
+  * Use 'chown 0:0' in all scripts rather than deprecated 'chown 0.0'
+    (thanks, Evan Klitzke).
 
  -- Frans Pop <fjp@debian.org>  Sat, 19 Jan 2008 10:05:26 +0100
 
