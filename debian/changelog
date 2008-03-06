@@ -1,7 +1,11 @@
 debootstrap (1.0.9) UNRELEASED; urgency=low
 
+  [ Frans Pop ]
   * Error out on unrecognized options to avoid invalid options to be
     recognized as arguments.
+
+  [ Colin Watson ]
+  * Use 'chown 0:0' in all scripts rather than deprecated 'chown 0.0'.
 
  -- Frans Pop <fjp@debian.org>  Sat, 19 Jan 2008 10:05:26 +0100
 
