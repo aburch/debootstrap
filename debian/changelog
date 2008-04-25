@@ -7,6 +7,7 @@ debootstrap (1.0.9) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Use 'chown 0:0' in all scripts rather than deprecated 'chown 0.0'
     (thanks, Evan Klitzke).
+  * Add (Ubuntu) intrepid as a symlink to gutsy.
 
  -- Frans Pop <fjp@debian.org>  Sat, 19 Jan 2008 10:05:26 +0100
 
