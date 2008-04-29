@@ -1,4 +1,4 @@
-debootstrap (1.0.9) UNRELEASED; urgency=low
+debootstrap (1.0.9) unstable; urgency=low
 
   [ Frans Pop ]
   * Error out on unrecognized options to avoid invalid options to be
@@ -9,7 +9,7 @@ debootstrap (1.0.9) UNRELEASED; urgency=low
     (thanks, Evan Klitzke).
   * Add (Ubuntu) intrepid as a symlink to gutsy.
 
- -- Frans Pop <fjp@debian.org>  Sat, 19 Jan 2008 10:05:26 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 29 Apr 2008 19:36:19 +0100
 
 debootstrap (1.0.8) unstable; urgency=low
 
