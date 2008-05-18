@@ -2,7 +2,7 @@
 
 smallyes() {
 	YES="${1-y}"
-	while echo "$YES" ; do : ; done
+	while echo "$YES" 2>/dev/null ; do : ; done
 }
 
 ############################################################### interaction
