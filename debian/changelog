@@ -5,11 +5,7 @@ debootstrap (1.0.10) UNRELEASED; urgency=low
     The errors themselves are inherent to how the function is used, so just
     suppress them. Closes: #480560.
 
-  [ Frans Pop ]
-  * scripts/debian/sid: also install build-essential for the buildd variant.
-    Closes: #481924.
-
- -- Frans Pop <fjp@debian.org>  Mon, 19 May 2008 18:28:30 +0200
+ -- Frans Pop <fjp@debian.org>  Mon, 19 May 2008 00:35:55 +0200
 
 debootstrap (1.0.9) unstable; urgency=low
 

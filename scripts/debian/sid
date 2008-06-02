@@ -23,7 +23,6 @@ work_out_debs () {
       base="$(get_debs Priority: important)"
     elif doing_variant buildd; then
       base="$(get_debs Build-Essential: yes)"
-      base="$base build-essential"
     elif doing_variant minbase; then
       base="apt"
     fi
