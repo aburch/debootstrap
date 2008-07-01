@@ -5,7 +5,12 @@ debootstrap (1.0.10) UNRELEASED; urgency=low
     The errors themselves are inherent to how the function is used, so just
     suppress them. Closes: #480560.
 
- -- Frans Pop <fjp@debian.org>  Mon, 19 May 2008 00:35:55 +0200
+  [ Frans Pop ]
+  * Do not cache Release and Release.gpg files. Closes: #488424.
+  * Abort if a Packages file failed to verify.
+  * Update standards versionto 3.8.0; no other changes needed.
+
+ -- Frans Pop <fjp@debian.org>  Tue, 01 Jul 2008 13:02:41 +0200
 
 debootstrap (1.0.9) unstable; urgency=low
 

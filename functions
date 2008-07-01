@@ -247,6 +247,7 @@ check_md5 () {
 }
 
 get () {
+	# args: from dest 'nocache'
 	# args: from dest [md5sum size] [alt {md5sum size type}]
 	local displayname
 	if [ "${2%.deb}" != "$2" ]; then
@@ -258,14 +259,22 @@ get () {
 	if [ -e "$2" ]; then
 		if [ "$3" = "" ]; then
 			return 0
-		fi
-		info VALIDATING "Validating %s" "$displayname"
-		if check_md5 "$2" "$3" "$4"; then
-			return 0
-		else
+		elif [ "$3" = nocache ]; then
 			rm -f "$2"
+		else
+			info VALIDATING "Validating %s" "$displayname"
+			if check_md5 "$2" "$3" "$4"; then
+				return 0
+			else
+				rm -f "$2"
+			fi
 		fi
 	fi
+	# Drop 'nocache' option
+	if [ "$3" = nocache ]; then
+		set "$1" "$2"
+	fi
+
 	if [ "$#" -gt 5 ]; then
 		local st=3
 		if [ "$5" = "-" ]; then st=6; fi
@@ -441,7 +450,7 @@ download_release_sig () {
 	if [ -n "$KEYRING" ]; then
 		progress 0 100 DOWNRELSIG "Downloading Release file signature"
 		progress_next 50
-		get "$m1/dists/$SUITE/Release.gpg" "$relsigdest" ||
+		get "$m1/dists/$SUITE/Release.gpg" "$relsigdest" nocache ||
 			error 1 NOGETRELSIG "Failed getting release signature file %s" \
 			"$m1/dists/$SUITE/Release.gpg"
 		progress 50 100 DOWNRELSIG "Downloading Release file signature"
@@ -460,7 +469,7 @@ download_release_indices () {
 	local reldest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release")"
 	progress 0 100 DOWNREL "Downloading Release file"
 	progress_next 100
-	get "$m1/dists/$SUITE/Release" "$reldest" ||
+	get "$m1/dists/$SUITE/Release" "$reldest" nocache ||
 		error 1 NOGETREL "Failed getting release file %s" "$m1/dists/$SUITE/Release"
 
 	TMPCOMPONENTS="$(sed -n 's/Components: *//p' "$reldest")"
@@ -506,6 +515,7 @@ download_release_indices () {
 	done
 
 	local donepkgs=0
+	local pkgdest
 	progress 0 $totalpkgs DOWNPKGS "Downloading Packages files"
 	for c in $COMPONENTS; do
 		local subpath="$c/binary-$ARCH/Packages"
@@ -529,9 +539,12 @@ download_release_indices () {
 		fi
 		progress_next "$(($donepkgs + ${md#* }))"
 		for m in $MIRRORS; do
-			local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
+			pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
 			if get "$m/$path" "$pkgdest" $ext; then break; fi
 		done
+		if [ ! -f "$pkgdest" ]; then
+			error 1 COULDNTDL "Couldn't download %s" "$path"
+		fi
 		donepkgs="$(($donepkgs + ${md#* }))"
 		progress $donepkgs $totalpkgs DOWNPKGS "Downloading Packages files"
 	done
