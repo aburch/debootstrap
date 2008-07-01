@@ -8,7 +8,7 @@ debootstrap (1.0.10) UNRELEASED; urgency=low
   [ Frans Pop ]
   * Do not cache Release and Release.gpg files. Closes: #488424.
   * Abort if a Packages file failed to verify.
-  * Update standards versionto 3.8.0; no other changes needed.
+  * Update standards version to 3.8.0; no other changes needed.
 
  -- Frans Pop <fjp@debian.org>  Tue, 01 Jul 2008 13:02:41 +0200
 
