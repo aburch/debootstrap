@@ -1,4 +1,4 @@
-debootstrap (1.0.10) UNRELEASED; urgency=low
+debootstrap (1.0.10) unstable; urgency=low
 
   [ Joey Hess ]
   * Avoid "broken pipe" errors in bootstrap.log from the the smallyes function.
@@ -10,7 +10,7 @@ debootstrap (1.0.10) UNRELEASED; urgency=low
   * Abort if a Packages file failed to verify.
   * Update standards version to 3.8.0; no other changes needed.
 
- -- Frans Pop <fjp@debian.org>  Tue, 01 Jul 2008 13:02:41 +0200
+ -- Frans Pop <fjp@debian.org>  Wed, 02 Jul 2008 17:44:25 +0200
 
 debootstrap (1.0.9) unstable; urgency=low
 
