@@ -2,6 +2,11 @@ default_mirror http://old-releases.ubuntu.com/ubuntu
 mirror_style release
 download_style apt
 
+LIBC=libc6
+if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
+  LIBC="libc6.1"
+fi
+
 work_out_debs () {
 
     required="base-files base-passwd bash bsdutils build-essential coreutils debianutils diff dpkg dselect e2fslibs e2fsprogs fakeroot findutils gcc-3.3-base grep gzip hostname initscripts libacl1 libattr1 libblkid1 libc6 libcap1 libcomerr2 libdb1-compat libdb3 libgcc1 libncurses5 libpam-modules libpam-runtime libpam0g libss2 libstdc++5 libuuid1 login lsb-base mawk mount ncurses-base ncurses-bin perl-base sed slang1a-utf8 sysv-rc sysvinit tar util-linux zlib1g"
@@ -15,8 +20,6 @@ work_out_debs () {
         echo "$3" | tr ' ' '\n' | sed "s/^$1$/$2/" | tr '\n' ' '
     }
 
-    LIBC6=libc6
-
     case $ARCH in
         "amd64")
             ;;
@@ -29,12 +32,10 @@ work_out_debs () {
         "alpha")
             required="$(subst_package "libc6" "libc6.1" "$required")"
 	    base="$(subst_package "libc6-dev" "libc6.1-dev" "$base")"
-            LIBC6="libc6.1"
             ;;
         "ia64")
             required="$(subst_package "libc6" "libc6.1" "$required")"
 	    base="$(subst_package "libc6-dev" "libc6.1-dev" "$base")"
-            LIBC6="libc6.1"
             ;;
         *)
             # who knows?
@@ -115,7 +116,7 @@ second_stage_install () {
     fi
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #4
-    x_core_install $LIBC6
+    x_core_install $LIBC
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #5
     x_core_install perl-base

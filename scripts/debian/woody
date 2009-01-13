@@ -1,6 +1,11 @@
 mirror_style release
 download_style apt
 
+LIBC=libc6
+if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
+  LIBC="libc6.1"
+fi
+
 work_out_debs () {
 
     required="base-files base-passwd bash bsdutils debconf debianutils diff dpkg e2fsprogs fileutils findutils grep gzip hostname libcap1 libc6 libdb2 libdb3 libncurses5 libnewt0 libpam-modules libpam-runtime libpam0g libperl5.6 libpopt0 libreadline4 libstdc++2.10-glibc2.2 login makedev mawk modutils mount ncurses-base ncurses-bin passwd perl-base procps sed shellutils slang1 sysvinit tar textutils util-linux whiptail"
@@ -11,14 +16,12 @@ work_out_debs () {
         echo "$2" | tr ' ' '\n' | grep -v "^$1$" | tr '\n' ' '
     }
 
-    LIBC6=libc6
     IPFWTOOL=iptables
 
     case $ARCH in
         "alpha")
             required="$(without_package "libc6" "$required") libc6.1"
             base="$base setserial aboot pciutils"
-            LIBC6="libc6.1"
 	    IPFWTOOL="ipchains"
             ;;
         "arm")
@@ -33,7 +36,6 @@ work_out_debs () {
         "ia64")
             required="$(without_package "libc6" "$required") libc6.1 gcc-2.96-base"
             base="$base elilo efibootmgr dosfstools libparted1.4 parted"
-            LIBC6="libc6.1"
             ;;
         "m68k")
             base="$base atari-bootstrap atari-fdisk amiga-fdisk eject mac-fdisk pmac-fdisk-cross setserial vmelilo"
@@ -146,7 +148,7 @@ second_stage_install () {
     fi
 
     p; progress $baseprog $bases INSTBASE "Installing base system" #4
-    x_core_install $LIBC6
+    x_core_install $LIBC
 
     p; progress $baseprog $bases INSTBASE "Installing base system" #5
     x_core_install perl-base

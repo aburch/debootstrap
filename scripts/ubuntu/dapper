@@ -11,10 +11,12 @@ download_style apt
 finddebs_style from-indices
 variants - buildd
 
-work_out_debs () {
-    LIBC6=libc6
-    if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then LIBC6="libc6.1"; fi
+LIBC=libc6
+if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
+  LIBC="libc6.1"
+fi
 
+work_out_debs () {
     required="$(get_debs Priority: required)"
 
     if doing_variant -; then 
@@ -27,7 +29,7 @@ work_out_debs () {
 
       add () { if [ "$ARCH" = "$1" ]; then eval "$2=\"\$$2 $3\""; fi; }
 
-      base="apt binutils cpio cpp cpp-4.0 dpkg-dev g++ g++-4.0 gcc gcc-4.0 ${LIBC6}-dev libgdbm3 libstdc++6 libstdc++6-4.0-dev linux-kernel-headers make patch perl perl-modules"
+      base="apt binutils cpio cpp cpp-4.0 dpkg-dev g++ g++-4.0 gcc gcc-4.0 ${LIBC}-dev libgdbm3 libstdc++6 libstdc++6-4.0-dev linux-kernel-headers make patch perl perl-modules"
 
       add ia64 base "libunwind7-dev"
       add sparc base "lib64gcc1"
@@ -106,7 +108,7 @@ second_stage_install () {
     fi
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #4
-    x_core_install $LIBC6
+    x_core_install $LIBC
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #5
     x_core_install perl-base

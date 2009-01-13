@@ -1,6 +1,11 @@
 mirror_style release
 download_style apt var-state
 
+LIBC=libc6
+if [ "$ARCH" = alpha ]; then
+  LIBC="libc6.1"
+fi
+
 work_out_debs () {
     required="base-files base-passwd bash bsdutils debconf-tiny debianutils diff dpkg e2fsprogs fileutils findutils grep gzip hostname ldso libc6 libdb2 libgdbmg1 libncurses5 libnewt0 libpam-modules libpam-runtime libpam0g libpopt0 libreadline4 libstdc++2.10 login makedev mawk modutils mount ncurses-base ncurses-bin passwd perl-5.005-base perl-base procps sed shellutils slang1 sysklogd sysvinit tar textutils update util-linux whiptail"
 
@@ -10,12 +15,9 @@ work_out_debs () {
         echo "$2" | tr ' ' '\n' | grep -v "^$1$" | tr '\n' ' '
     }
 
-    LIBC6=libc6
-
     case $ARCH in
       "alpha")
         required="$(without_package "libc6" "$required") libc6.1"
-        LIBC6="libc6.1"
         ;;
       "i386")
         base="$base fdflush isapnptools lilo mbr pciutils pcmcia-cs psmisc setserial syslinux"
@@ -82,7 +84,7 @@ second_stage_install () {
     x_core_install dpkg
 
     ln -sf /usr/share/zoneinfo/UTC "$TARGET/etc/localtime"
-    x_core_install $LIBC6
+    x_core_install $LIBC
 
     smallyes '' | x_core_install perl-5.005-base
     x_core_install mawk

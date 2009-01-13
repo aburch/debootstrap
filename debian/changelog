@@ -4,6 +4,9 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
   * Clarify that --second-stage is needed to complete the bootstrapping
     process after --foreign.
   * Fix --make-tarball= option (closes: #484869).
+  * Fix old Debian scripts and all Ubuntu scripts cope with Anthony's change
+    in 1.0.8 to make --second-stage not bother recalculating required and
+    base.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 

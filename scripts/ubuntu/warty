@@ -2,6 +2,8 @@ default_mirror http://old-releases.ubuntu.com/ubuntu
 mirror_style release
 download_style apt
 
+LIBC=libc6
+
 work_out_debs () {
 
     required="base-files base-passwd bash bsdutils coreutils libacl1 libattr1 debconf debconf-i18n liblocale-gettext-perl libtext-iconv-perl libtext-wrapi18n-perl libtext-charwidth-perl debianutils diff dpkg dselect libblkid1 e2fsprogs e2fslibs libcomerr2 libss2 libuuid1 findutils grep gzip hostname libcap1 libc6 libdb1-compat libdb3 libncurses5 libnewt0.51 libpam-modules libpam-runtime libpam0g libpopt0 login makedev mawk modutils mount ncurses-base ncurses-bin passwd perl-base procps sed slang1a-utf8 lsb-base initscripts sysvinit sysv-rc tar util-linux zlib1g whiptail libgcc1 gcc-3.3-base libstdc++5"
@@ -14,8 +16,6 @@ work_out_debs () {
     subst_package () {
         echo "$3" | tr ' ' '\n' | sed "s/^$1$/$2/" | tr '\n' ' '
     }
-
-    LIBC6=libc6
 
     case $ARCH in
         "i386")
@@ -110,7 +110,7 @@ second_stage_install () {
     fi
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #4
-    x_core_install $LIBC6
+    x_core_install $LIBC
 
     p; progress $baseprog $bases INSTCORE "Installing core packages" #5
     x_core_install perl-base
