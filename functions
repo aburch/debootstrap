@@ -399,7 +399,7 @@ apt_dest () {
 	#   rel suite mirror path
 	case "$1" in
 	    deb)
-		echo "var/cache/apt/archives/${2}_${3}_${4}.deb" | sed 's/:/%3a/'
+		echo "/var/cache/apt/archives/${2}_${3}_${4}.deb" | sed 's/:/%3a/'
 		;;
 	    pkg)
 		local m="$5"
