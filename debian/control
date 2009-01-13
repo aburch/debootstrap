@@ -10,6 +10,7 @@ Vcs-Svn: svn://svn.debian.org/d-i/trunk/packages/debootstrap
 Package: debootstrap
 Architecture: all
 Depends: wget, binutils
+Recommends: gnupg
 Description: Bootstrap a basic Debian system
  debootstrap is used to create a Debian base system from scratch,
  without requiring the availability of dpkg or apt. It does this by

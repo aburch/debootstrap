@@ -16,6 +16,8 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
     closes: #503460).
   * Cope with ancient versions of chroot(8) that don't call chdir() (thanks,
     Patrik Arvhult; closes: #350635).
+  * Recommend gnupg for --keyring option (thanks, Robert Millan; closes:
+    #467571).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 
