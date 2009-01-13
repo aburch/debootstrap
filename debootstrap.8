@@ -47,6 +47,11 @@ See also \-\-foreign.
 .IP "\fB\-\-include=alpha,beta\fP"
 Comma separated list of packages which will be added to download and extract
 lists.
+Beware that including packages that declare a Pre\-Depends relationship on
+any package that is not in the "required" set (i.e. "Priority: required"),
+or that depend directly or indirectly on packages that do so, will not work;
+you will need to install such packages separately after \fBdebootstrap\fP
+has completed.
 .IP
 .IP "\fB\-\-exclude=alpha,beta\fP"
 Comma separated list of packages which will be removed from download and

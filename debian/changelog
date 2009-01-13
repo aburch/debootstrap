@@ -18,6 +18,8 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
     Patrik Arvhult; closes: #350635).
   * Recommend gnupg for --keyring option (thanks, Robert Millan; closes:
     #467571).
+  * Note that you can't --include packages with non-required Pre-Depends
+    (see #487908).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 
