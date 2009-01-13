@@ -862,7 +862,7 @@ setup_devices () {
 		setup_devices_hurd ;;
 	    *)
 		if [ -e "$DEVICES_TARGZ" ]; then
-			(cd "$TARGET"; zcat "$DEVICES_TARGZ" | tar -xf -)
+			zcat "$DEVICES_TARGZ" | (cd "$TARGET"; tar -xf -)
 		else
 			if [ -e /dev/.devfsd ] ; then
 				in_target mount -t devfs devfs /dev

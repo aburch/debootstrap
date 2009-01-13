@@ -12,6 +12,8 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
     when linked to /bin/sh (closes: #340058).
   * Fix --unpack-tarball= option (thanks, Torsten Landschoff; closes:
     #500759).
+  * Fix handling of relative DEBOOTSTRAP_DIR (thanks, Mikhail Gusarov;
+    closes: #503460).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 
