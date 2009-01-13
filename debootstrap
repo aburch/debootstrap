@@ -172,8 +172,8 @@ if [ $# != 0 ] ; then
 		if [ "$1" = "--make-tarball" -a -n "$2" ] ; then
 			MAKE_TARBALL="$2"
 			shift 2
-		elif [ "$1" != "${1#--mnake-tarball=}" ]; then
-			MAKE_TARBALL="${1#--mnake-tarball=}"
+		elif [ "$1" != "${1#--make-tarball=}" ]; then
+			MAKE_TARBALL="${1#--make-tarball=}"
 			shift
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
