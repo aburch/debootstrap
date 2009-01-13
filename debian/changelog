@@ -1,6 +1,8 @@
 debootstrap (1.0.11) UNRELEASED; urgency=low
 
   * Add (Ubuntu) jaunty as a symlink to gutsy.
+  * Clarify that --second-stage is needed to complete the bootstrapping
+    process after --foreign.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 
