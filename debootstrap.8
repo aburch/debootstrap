@@ -149,8 +149,10 @@ Full process to create a complete Debian installation of \fIsid\fR (unstable):
      main # cd / ; mkdir /sid-root
      main # debootstrap sid /sid-root http://ftp.us.debian.org/debian/
      [ ... watch it download the whole system ]
-     main # echo "proc /sid-root/proc proc none 0 0" >> /etc/fstab
+     main # echo "proc /sid-root/proc proc defaults 0 0" >> /etc/fstab
      main # mount proc /sid-root/proc -t proc
+     main # echo "sysfs /sid-root/sys sysfs defaults 0 0" >> /etc/fstab
+     main # mount sysfs /sid-root/sys -t sysfs
      main # cp /etc/hosts /sid-root/etc/hosts
      main # chroot /sid-root /bin/bash
      chroot # dselect  
