@@ -10,6 +10,8 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
   * Rename 'repeat' to 'repeatn', since 'repeat' is a reserved word in zsh;
     although strictly speaking this seems like an incompatibility in zsh
     when linked to /bin/sh (closes: #340058).
+  * Fix --unpack-tarball= option (thanks, Torsten Landschoff; closes:
+    #500759).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 

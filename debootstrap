@@ -203,15 +203,18 @@ if [ $# != 0 ] ; then
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
 		;;
-	    --unpack-tarball)
-		if [ -n "$2" ] ; then
-			if [ ! -f "$2" ] ; then
-				error 1 NOTARBALL "%s: No such file or directory" "$2"
-			fi
+	    --unpack-tarball|--unpack-tarball=?*)
+		if [ "$1" = "--unpack-tarball" -a -n "$2" ] ; then
 			UNPACK_TARBALL="$2"
 			shift 2
+		elif [ "$1" != "${1#--unpack-tarball=}" ]; then
+			UNPACK_TARBALL="${1#--unpack-tarball=}"
+			shift
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
+		fi
+		if [ ! -f "$UNPACK_TARBALL" ] ; then
+			error 1 NOTARBALL "%s: No such file or directory" "$UNPACK_TARBALL"
 		fi
 		;;
 	    --include|--include=?*)
