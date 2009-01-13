@@ -1096,7 +1096,8 @@ without () {
 	echo
 }
 
-repeat () {
+# Formerly called 'repeat', but that's a reserved word in zsh.
+repeatn () {
 	local n="$1"
 	shift
 	while [ "$n" -gt 0 ]; do

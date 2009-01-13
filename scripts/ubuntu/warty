@@ -125,7 +125,7 @@ second_stage_install () {
 
     info UNPACKREQ "Unpacking required packages..."
 
-    smallyes '' | (repeat 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" dpkg --status-fd 8 --force-depends --unpack $(debfor $required) 8>&1 1>&7 | dpkg_progress $baseprog $bases UNPACKREQ "Unpacking required packages" UNPACKING) 7>&1
+    smallyes '' | (repeatn 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" dpkg --status-fd 8 --force-depends --unpack $(debfor $required) 8>&1 1>&7 | dpkg_progress $baseprog $bases UNPACKREQ "Unpacking required packages" UNPACKING) 7>&1
 
     baseprog=0
 
@@ -148,7 +148,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 
     info UNPACKBASE "Unpacking the base system..."
 
-    smallyes '' | (repeat 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" dpkg --status-fd 8 --force-auto-select --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 | dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING) 7>&1
+    smallyes '' | (repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" dpkg --status-fd 8 --force-auto-select --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 | dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING) 7>&1
 
     baseprog=0
 
@@ -157,7 +157,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
     mv "$TARGET/usr/sbin/sendmail" "$TARGET/usr/sbin/sendmail.REAL"
     ln -s /bin/true "$TARGET/usr/sbin/sendmail"
 
-    smallyes '' | (repeat 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be attempted 5 times." "" dpkg --status-fd 8 --force-confold --skip-same-version  --configure -a 8>&1 1>&7 | dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING) 7>&1
+    smallyes '' | (repeatn 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be attempted 5 times." "" dpkg --status-fd 8 --force-confold --skip-same-version  --configure -a 8>&1 1>&7 | dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING) 7>&1
 
     rm -f "$TARGET/usr/sbin/sendmail"
     mv "$TARGET/usr/sbin/sendmail.REAL" "$TARGET/usr/sbin/sendmail"

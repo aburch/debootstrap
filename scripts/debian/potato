@@ -92,7 +92,7 @@ second_stage_install () {
 
     in_target dpkg-preconfigure $(debfor $required $base)
 
-    repeat 5 in_target dpkg --force-depends --unpack $(debfor $required)
+    repeatn 5 in_target dpkg --force-depends --unpack $(debfor $required)
 
     mv "$TARGET/sbin/start-stop-daemon" "$TARGET/sbin/start-stop-daemon.REAL"
     cp "$TARGET/bin/true" "$TARGET/sbin/start-stop-daemon"
@@ -101,7 +101,7 @@ second_stage_install () {
 
     in_target dpkg --configure --pending --force-configure-any --force-depends
 
-    smallyes '' | repeat 5 in_target dpkg --force-auto-select --force-overwrite --skip-same-version --install $(debfor $base)
+    smallyes '' | repeatn 5 in_target dpkg --force-auto-select --force-overwrite --skip-same-version --install $(debfor $base)
 
     mv "$TARGET/sbin/start-stop-daemon.REAL" "$TARGET/sbin/start-stop-daemon"
 }

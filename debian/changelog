@@ -7,6 +7,9 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
   * Fix old Debian scripts and all Ubuntu scripts to cope with Anthony's
     change in 1.0.8 to make --second-stage not bother recalculating required
     and base.
+  * Rename 'repeat' to 'repeatn', since 'repeat' is a reserved word in zsh;
+    although strictly speaking this seems like an incompatibility in zsh
+    when linked to /bin/sh (closes: #340058).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 

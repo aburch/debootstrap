@@ -135,7 +135,7 @@ second_stage_install () {
     info UNPACKREQ "Unpacking required packages..."
 
     p; progress $baseprog $bases INSTBASE "Installing base system" #8
-    smallyes '' | repeat 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" dpkg --force-depends --unpack $(debfor $required)
+    smallyes '' | repeatn 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" dpkg --force-depends --unpack $(debfor $required)
     p 10; progress $baseprog $bases INSTBASE "Installing base system" #18
 
     info CONFREQ "Configuring required packages..."
@@ -156,9 +156,9 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
     info INSTBASE "Installing base packages..."
 
     p; progress $baseprog $bases INSTBASE "Installing base system" #30
-    smallyes '' | repeat 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" dpkg --force-auto-select --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base)
+    smallyes '' | repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" dpkg --force-auto-select --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base)
 
-    smallyes '' | repeat 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be attempted 5 times." "" dpkg  --force-confold --skip-same-version  --configure -a
+    smallyes '' | repeatn 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be attempted 5 times." "" dpkg  --force-confold --skip-same-version  --configure -a
 
     p 9; progress $baseprog $bases INSTBASE "Installing base system" #39
 
