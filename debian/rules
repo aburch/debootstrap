@@ -33,9 +33,6 @@ install: real-build
 	$(MAKE) install      DESTDIR=$(CURDIR)/debian/debootstrap
 	$(MAKE) install      DESTDIR=$(CURDIR)/debian/debootstrap-udeb
 
-binary-indep: install
-# We have nothing to do by default.
-
 ARCHES="i386"
 SUITE="testing"
 VERSION=$(SUITE)
