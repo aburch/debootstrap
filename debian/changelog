@@ -23,6 +23,9 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
   * Mention /sys in EXAMPLE section of manual page, and use "defaults"
     rather than "none" as the mount options for /proc (thanks, Raúl Sánchez
     Siles; closes: #410787).
+  * Add /dev/console to devices.tar.gz (after all, MAKEDEV's 'consoleonly'
+    was added for boot-floppies in the first place; see
+    https://lists.ubuntu.com/archives/ubuntu-devel/2009-January/027230.html).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
 
