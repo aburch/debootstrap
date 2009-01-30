@@ -23,6 +23,7 @@ install:
 	ln -s sid $(DSDIR)/scripts/etch
 	ln -s sid $(DSDIR)/scripts/etch-m68k
 	ln -s sid $(DSDIR)/scripts/lenny
+	ln -s sid $(DSDIR)/scripts/squeeze
 
 	ln -s gutsy $(DSDIR)/scripts/hardy
 	ln -s gutsy $(DSDIR)/scripts/intrepid
