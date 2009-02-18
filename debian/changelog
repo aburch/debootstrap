@@ -1,4 +1,4 @@
-debootstrap (1.0.11) UNRELEASED; urgency=low
+debootstrap (1.0.11) unstable; urgency=low
 
   * Add (Ubuntu) jaunty as a symlink to gutsy.
   * Clarify that --second-stage is needed to complete the bootstrapping
@@ -28,7 +28,7 @@ debootstrap (1.0.11) UNRELEASED; urgency=low
     https://lists.ubuntu.com/archives/ubuntu-devel/2009-January/027230.html).
   * Add support for squeeze (closes: #513488).
 
- -- Colin Watson <cjwatson@ubuntu.com>  Fri, 31 Oct 2008 13:37:01 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 18 Feb 2009 23:46:12 +0000
 
 debootstrap (1.0.10) unstable; urgency=low
 
