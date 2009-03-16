@@ -8,11 +8,11 @@ if doing_variant fakechroot; then
 fi
 
 LIBC=libc6
-if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
-  LIBC="libc6.1"
-elif [ "$ARCH" = "hurd-i386" ]; then
-  LIBC="libc0.3"
-fi
+case $ARCH in
+  alpha|ia64) LIBC6="libc6.1" ;;
+  kfreebsd-*) LIBC6="libc0.1" ;;
+  hurd-*)     LIBC6="libc0.3" ;;
+esac
 
 work_out_debs () {
     required="$(get_debs Priority: required)"

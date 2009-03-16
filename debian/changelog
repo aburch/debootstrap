@@ -1,3 +1,10 @@
+debootstrap (1.0.12) UNRELEASED; urgency=low
+
+  * Improve code to choose between libc packages. Thanks to Luca Favatella
+    <slackydeb@gmail.com> for the patch.
+
+ -- Otavio Salvador <otavio@ossystems.com.br>  Mon, 16 Mar 2009 09:02:49 -0300
+
 debootstrap (1.0.11) unstable; urgency=low
 
   * Add (Ubuntu) jaunty as a symlink to gutsy.
