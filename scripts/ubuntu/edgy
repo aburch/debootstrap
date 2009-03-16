@@ -15,10 +15,10 @@ if doing_variant fakechroot; then
     test "$FAKECHROOT" = "true" || error 1 FAKECHROOTREQ "This variant requires fakechroot environment to be started"
 fi
 
-LIBC=libc6
-if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
-  LIBC="libc6.1"
-fi
+case $ARCH in
+  alpha|ia64) LIBC="libc6.1" ;;
+  *)          LIBC="libc6" ;;
+esac
 
 work_out_debs () {
     required="$(get_debs Priority: required)"

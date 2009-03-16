@@ -2,10 +2,10 @@ default_mirror http://old-releases.ubuntu.com/ubuntu
 mirror_style release
 download_style apt
 
-LIBC=libc6
-if [ "$ARCH" = "ia64" ]; then
-  LIBC="libc6.1"
-fi
+case $ARCH in
+  ia64)       LIBC="libc6.1" ;;
+  *)          LIBC="libc6" ;;
+esac
 
 work_out_debs () {
 
