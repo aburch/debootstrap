@@ -1,4 +1,4 @@
-debootstrap (1.0.12) unstable; urgency=low
+debootstrap (1.0.12) UNRELEASED; urgency=low
 
   [ Otavio Salvador ]
   * Improve code to choose between libc packages. Thanks to Luca Favatella
@@ -18,7 +18,7 @@ debootstrap (1.0.12) unstable; urgency=low
     is unwilling to export it by default; it's easy enough to do so here
     (LP: #320188).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 17 Mar 2009 16:29:07 +0000
+ -- Otavio Salvador <otavio@ossystems.com.br>  Mon, 16 Mar 2009 09:02:49 -0300
 
 debootstrap (1.0.11) unstable; urgency=low
 
