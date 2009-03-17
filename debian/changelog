@@ -13,6 +13,10 @@ debootstrap (1.0.12) UNRELEASED; urgency=low
     pile of infrastructure and some non-trivial patches, plus arranging to
     copy all the translations over from base-installer, and it just doesn't
     seem worth it, so lose the cruft (LP: #188690).
+  * Export PATH, just to make sure. It isn't necessarily exported by shells
+    running from init=/bin/sh or similar, and the upstream bash maintainer
+    is unwilling to export it by default; it's easy enough to do so here
+    (LP: #320188).
 
  -- Otavio Salvador <otavio@ossystems.com.br>  Mon, 16 Mar 2009 09:02:49 -0300
 

@@ -4,6 +4,9 @@ VERSION='@VERSION@'
 
 unset TMP TEMP TMPDIR || true
 
+# might not be exported if we're running from init=/bin/sh or similar
+export PATH
+
 ###########################################################################
 
 if [ "$DEBOOTSTRAP_DIR" = "" ]; then
