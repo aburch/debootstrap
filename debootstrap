@@ -14,16 +14,11 @@ if [ "$DEBOOTSTRAP_DIR" = "" ]; then
 	fi
 fi
 
-if [ -x "/usr/bin/gettext" ]; then
-	USE_GETTEXT_INTERACTION=yes
-fi
-
 DEVICES_TARGZ=$DEBOOTSTRAP_DIR/devices.tar.gz
 
 . $DEBOOTSTRAP_DIR/functions
 exec 4>&1
 
-GETTEXT_LANG=$LANG
 LANG=C
 USE_COMPONENTS=main
 KEYRING=""
@@ -123,7 +118,6 @@ if [ $# != 0 ] ; then
 			error 1 ARG_BFBYHAND "If running debootstrap by hand, don't use --boot-floppies"
 		fi
 		USE_BOOTFLOPPIES_INTERACTION=yes
-		unset USE_GETTEXT_INTERACTION
 		shift
 		;;
 	    --debian-installer)

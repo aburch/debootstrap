@@ -1,7 +1,18 @@
 debootstrap (1.0.12) UNRELEASED; urgency=low
 
+  [ Otavio Salvador ]
   * Improve code to choose between libc packages. Thanks to Luca Favatella
     <slackydeb@gmail.com> for first version of the patch.
+
+  [ Colin Watson ]
+  * Remove partial support for emitting translated progress messages with
+    gettext. Don't panic; d-i still has all the support necessary for this.
+    debootstrap's own support for doing this outside d-i with gettext's
+    shell bindings has been completely broken ever since it was added in
+    2003, though, and nobody has complained. Fixing it would require a big
+    pile of infrastructure and some non-trivial patches, plus arranging to
+    copy all the translations over from base-installer, and it just doesn't
+    seem worth it, so lose the cruft (LP: #188690).
 
  -- Otavio Salvador <otavio@ossystems.com.br>  Mon, 16 Mar 2009 09:02:49 -0300
 

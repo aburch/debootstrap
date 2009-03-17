@@ -17,8 +17,6 @@ error () {
 		(echo "E: $name"
 		for x in "$@"; do echo "EA: $x"; done
 		echo "EF: $fmt") >&4
-	elif [ "$USE_GETTEXT_INTERACTION" ]; then
-		(printf "E: `LANG=$GETTEXT_LANG gettext debootstrap "$fmt"`\n" "$@") >&4
 	else
 		(printf "E: $fmt\n" "$@") >&4
 	fi
@@ -34,8 +32,6 @@ warning () {
 		(echo "W: $name"
 		for x in "$@"; do echo "WA: $x"; done
 		echo "WF: $fmt") >&4
-	elif [ "$USE_GETTEXT_INTERACTION" ]; then
-		printf "W: `LANG=$GETTEXT_LANG gettext debootstrap "$fmt"`\n" "$@" >&4
 	else
 		printf "W: $fmt\n" "$@" >&4
 	fi
@@ -50,8 +46,6 @@ info () {
 		(echo "I: $name"
 		for x in "$@"; do echo "IA: $x"; done
 		echo "IF: $fmt") >&4
-	elif [ "$USE_GETTEXT_INTERACTION" ]; then
-		printf "I: `LANG=$GETTEXT_LANG gettext debootstrap "$fmt"`\n" "$@" >&4
 	else
 		printf "I: $fmt\n" "$@" >&4
 	fi
