@@ -251,7 +251,7 @@ get () {
 	fi
 
 	if [ -e "$2" ]; then
-		if [ "$3" = "" ]; then
+		if [ -z "$3" ]; then
 			return 0
 		elif [ "$3" = nocache ]; then
 			rm -f "$2"
@@ -306,7 +306,7 @@ get () {
 				md5=""
 			fi
 		fi
-		if [ "$md5" = "" ]; then
+		if [ -z "$md5" ]; then
 			[ "$dest2" = "$dest" ] || mv "$dest2" "$dest"
 			case "$typ" in
 			    gz)  gunzip "$dest" ;;
@@ -478,7 +478,7 @@ download_release_indices () {
 	done
 	COMPONENTS="$(echo $COMPONENTS)"
 
-	if [ "$COMPONENTS" = "" ]; then
+	if [ -z "$COMPONENTS" ]; then
 		mv "$reldest" "$reldest.malformed"
 		error 1 INVALIDREL "Invalid Release file, no valid components"
 	fi
@@ -637,9 +637,9 @@ download_release () {
 		local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
 		if [ ! -e "$pkgdest" ]; then continue; fi
 		pkgs_to_get="$(download_debs "$m" "$pkgdest" $pkgs_to_get 5>&1 1>&6)"
-		if [ "$pkgs_to_get" = "" ]; then break; fi
+		if [ -z "$pkgs_to_get" ]; then break; fi
 	    done 6>&1
-	    if [ "$pkgs_to_get" = "" ]; then break; fi
+	    if [ -z "$pkgs_to_get" ]; then break; fi
 	done
 	progress $dloaddebs $totaldebs DOWNDEBS "Downloading packages"
 	if [ "$pkgs_to_get" != "" ]; then

@@ -9,7 +9,7 @@ export PATH
 
 ###########################################################################
 
-if [ "$DEBOOTSTRAP_DIR" = "" ]; then
+if [ -z "$DEBOOTSTRAP_DIR" ]; then
 	if [ -x /debootstrap/debootstrap ]; then
 		DEBOOTSTRAP_DIR=/debootstrap
 	else
@@ -96,7 +96,7 @@ EOF
 
 ###########################################################################
 
-if [ "$PKGDETAILS" = "" ]; then
+if [ -z "$PKGDETAILS" ]; then
 	error 1 NO_PKGDETAILS "No pkgdetails available; either install perl, or build pkgdetails.c from source"
 fi
 
@@ -299,14 +299,14 @@ if [ "$SECOND_STAGE_ONLY" = "true" ]; then
 		VARIANT=$(cat $DEBOOTSTRAP_DIR/variant)
 		SUPPORTED_VARIANTS="$VARIANT"
 	fi
-	if [ "$CHROOTDIR" = "" ]; then
+	if [ -z "$CHROOTDIR" ]; then
 		TARGET=/
 	else
 		TARGET=$CHROOTDIR
 	fi
 	SCRIPT=$DEBOOTSTRAP_DIR/suite-script
 else
-	if [ "$1" = "" ] || [ "$2" = "" ]; then
+	if [ -z "$1" ] || [ -z "$2" ]; then
 		usage_err 1 NEEDSUITETARGET "You must specify a suite and a target."
 	fi
 	SUITE="$1"
