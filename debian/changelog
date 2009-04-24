@@ -1,7 +1,11 @@
 debootstrap (1.0.13) UNRELEASED; urgency=low
 
+  [ Otavio Salvador ]
   * Apply patch from Luca Favatella <slackydeb@gmail.com> to improve
     coding style.
+
+  [ Colin Watson ]
+  * Add (Ubuntu) karmic as a symlink to gutsy.
 
  -- Otavio Salvador <otavio@ossystems.com.br>  Tue, 24 Mar 2009 11:02:52 -0300
 
