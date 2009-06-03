@@ -335,8 +335,8 @@ fi
 if [ "$ARCH" != "" ]; then
 	true
 elif [ -x /usr/bin/dpkg ] && \
-     /usr/bin/dpkg --print-installation-architecture >/dev/null 2>&1; then
-	ARCH=`/usr/bin/dpkg --print-installation-architecture`
+     /usr/bin/dpkg --print-architecture >/dev/null 2>&1; then
+	ARCH=`/usr/bin/dpkg --print-architecture`
 elif type udpkg >/dev/null 2>&1 && \
      udpkg --print-architecture >/dev/null 2>&1; then
 	ARCH=`/usr/bin/udpkg --print-architecture`
