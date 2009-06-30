@@ -15,7 +15,7 @@ debootstrap \- Bootstrap a basic Debian system
 .B debootstrap
 bootstraps a basic Debian system of
 .I SUITE
-(eg, sarge, etch, lenny, sid) into
+(eg, lenny, squeeze, sid) into
 .I TARGET
 from
 .I MIRROR
@@ -138,11 +138,11 @@ Used for internal purposes by the debian-installer
 .SH "EXAMPLE"
 .
 .PP 
-To setup a \fIsarge\fR system:
+To setup a \fIsqueeze\fR system:
 .PP 
-# debootstrap sarge ./sarge-chroot http://ftp.us.debian.org/debian
+# debootstrap squeeze ./squeeze-chroot http://ftp.us.debian.org/debian
 .PP
-# debootstrap sarge ./sarge-chroot file:///PATH_TO_LOCAL_MIRROR/debian
+# debootstrap squeeze ./squeeze-chroot file:///PATH_TO_LOCAL_MIRROR/debian
 .PP
 Full process to create a complete Debian installation of \fIsid\fR (unstable):
 .PP
