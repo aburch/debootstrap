@@ -1,7 +1,7 @@
 mirror_style release
 download_style apt
 finddebs_style from-indices
-variants - buildd fakechroot minbase
+variants - buildd fakechroot minbase scratchbox
 
 if doing_variant fakechroot; then
     test "$FAKECHROOT" = "true" || error 1 FAKECHROOTREQ "This variant requires fakechroot environment to be started"
@@ -21,7 +21,7 @@ work_out_debs () {
       #required="$required $(get_debs Priority: important)"
       #  ^^ should be getting debconf here somehow maybe
       base="$(get_debs Priority: important)"
-    elif doing_variant buildd; then
+    elif doing_variant buildd || doing_variant scratchbox; then
       base="$(get_debs Build-Essential: yes)"
     elif doing_variant minbase; then
       base="apt"
@@ -89,6 +89,8 @@ second_stage_install () {
 
     if doing_variant fakechroot; then 
 	setup_proc_fakechroot
+    elif doing_variant scratchbox; then
+	true
     else
 	setup_proc
 	in_target /sbin/ldconfig

@@ -4,6 +4,8 @@ debootstrap (1.0.14) UNRELEASED; urgency=low
     --print-architecture" to avoid deprecation warning. Closes: #531680.
   * Reference squeeze instead of sarge in manpage. Based on a patch from
     Geoff Simmons <gsimmons@gsimmons.org>. Closes: #534575.
+  * Apply patch from Riku Voipio <riku.voipio@iki.fi> to add support for
+    scratchbox variant. Closes: #536820.
 
  -- Otavio Salvador <otavio@ossystems.com.br>  Wed, 03 Jun 2009 14:26:22 -0300
 

@@ -730,7 +730,7 @@ extract () { (
 ); }
 
 in_target_nofail () {
-	if ! chroot "$TARGET" "$@" 2>/dev/null; then
+	if ! $CHROOT_CMD "$@" 2>/dev/null; then
 		true
 	fi
 	return 0
@@ -741,7 +741,7 @@ in_target_failmsg () {
 	local msg="$2"
 	local arg="$3"
 	shift; shift; shift
-	if ! chroot "$TARGET" "$@"; then
+	if ! $CHROOT_CMD "$@"; then
 		warning "$code" "$msg" "$arg"
 		return 1
 	fi
@@ -749,7 +749,7 @@ in_target_failmsg () {
 }
 
 in_target () {
-	in_target_failmsg IN_TARGET_FAIL "Failure trying to run: %s" "chroot $TARGET $*" "$@"
+	in_target_failmsg IN_TARGET_FAIL "Failure trying to run: %s" "$CHROOT_CMD $*" "$@"
 }
 
 ###################################################### standard setup stuff

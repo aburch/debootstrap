@@ -79,7 +79,8 @@ usage()
       --components=A,B,C     use packages from the listed components of the
                              archive
       --variant=X            use variant X of the bootstrap scripts
-                             (currently supported variants: buildd, fakechroot)
+                             (currently supported variants: buildd, fakechroot,
+                              scratchbox)
       --keyring=K            check Release files against keyring K
       --no-resolve-deps      don't try to resolve dependencies automatically
 
@@ -346,7 +347,23 @@ else
 	error 1 WHATARCH "Couldn't work out current architecture"
 fi
 
-export ARCH SUITE TARGET
+if [ "$TARGET" = "/" ]; then
+	CHROOT_CMD=""
+elif doing_variant scratchbox; then
+	for config in ~/.scratchbox2/*/sb2.config;
+	do
+		export `grep ^SBOX_TARGET_ROOT= $config`
+		if [ "x$SBOX_TARGET_ROOT" = "x$TARGET" ]; then
+			SB2_TARGET=$(basename $(dirname $config))
+		fi
+	done
+	[ "x$SB2_TARGET" != "x" ] || error 1 SBOXTARGETREQ "No scratchbox target configured for $TARGET"
+	CHROOT_CMD="sb2 -eR -t $SB2_TARGET"
+else
+	CHROOT_CMD="chroot $TARGET"
+fi
+
+export ARCH SUITE TARGET CHROOT_CMD
 
 if am_doing_phase first_stage second_stage; then
 	if [ -x /usr/bin/id ] && [ `id -u` -ne 0 ]; then
