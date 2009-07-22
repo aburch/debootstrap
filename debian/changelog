@@ -1,4 +1,4 @@
-debootstrap (1.0.14) UNRELEASED; urgency=low
+debootstrap (1.0.14) unstable; urgency=low
 
   * Apply patch from Felix Zielcke <fzielcke@z-51.de> to use "dpkg
     --print-architecture" to avoid deprecation warning. Closes: #531680.
@@ -7,7 +7,7 @@ debootstrap (1.0.14) UNRELEASED; urgency=low
   * Apply patch from Riku Voipio <riku.voipio@iki.fi> to add support for
     scratchbox variant. Closes: #536820.
 
- -- Otavio Salvador <otavio@ossystems.com.br>  Wed, 03 Jun 2009 14:26:22 -0300
+ -- Otavio Salvador <otavio@ossystems.com.br>  Wed, 22 Jul 2009 12:34:54 -0300
 
 debootstrap (1.0.13) unstable; urgency=low
 
