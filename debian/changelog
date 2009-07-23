@@ -1,11 +1,11 @@
-debootstrap (1.0.15) UNRELEASED; urgency=low
+debootstrap (1.0.15) unstable; urgency=low
 
   * On Linux, clear out /etc/mtab on exit if it's not a symlink. Should fix
     problems Wouter Verhelst and Martin Michlmayr are seeing with
     initramfs-tools MODULES=dep, although it probably isn't a perfect
     solution.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 23 Jul 2009 11:29:50 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 23 Jul 2009 16:45:00 +0100
 
 debootstrap (1.0.14) unstable; urgency=low
 
