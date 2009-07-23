@@ -815,6 +815,12 @@ umount_on_exit () {
 	fi
 }
 
+clear_mtab () {
+	if [ -f "$TARGET/etc/mtab" ] && [ ! -h "$TARGET/etc/mtab" ]; then
+		rm -f "$TARGET/etc/mtab"
+	fi
+}
+
 setup_proc () {
 	case "$ARCH" in
 	    kfreebsd-*)
@@ -838,6 +844,7 @@ setup_proc () {
 			umount "$TARGET/sys" 2>/dev/null || true
 			in_target mount -t sysfs sysfs /sys
 		fi
+		on_exit clear_mtab
 		;;
 	esac
 	umount_on_exit /lib/init/rw
