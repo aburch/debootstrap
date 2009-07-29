@@ -997,6 +997,24 @@ while (<STDIN>) {
 			local p="$4"
 			shift; shift; shift; shift
 			pkgdetails_field 0 "$f" "$m" "$@" < "$p"
+		elif [ "$1" = "STANZAS" ]; then
+			local pkgdest="$2"; shift; shift
+			perl -e '
+my $accum = "";
+while (<STDIN>) {
+	$accum .= $_;
+	$in = 1 if (/^Package: (.*)$/ && grep {$_ eq $1} @ARGV);
+	if ($in and /^$/) {
+		print $accum;
+		if (substr($accum, -1) != "\n") {
+			print "\n\n";
+		} elsif (substr($accum, -2, 1) != "\n") {
+			print "\n";
+		}
+		$in = 0;
+	}
+	$accum = "" if /^$/;
+}' <"$pkgdest" "$@"
 		fi
 	}
 elif [ -e "/usr/lib/debootstrap/pkgdetails" ]; then
@@ -1030,6 +1048,28 @@ resolve_deps () {
 		ALLPKGS="$ALLPKGS2"
 	done
 	echo $ALLPKGS
+}
+
+setup_available () {
+	local m1="${MIRRORS%% *}"
+
+	for c in $COMPONENTS; do
+		local path="dists/$SUITE/$c/binary-$ARCH/Packages"
+		local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m1" "$path")"
+		# XXX: What if a package is in more than one component?
+		# -- cjwatson 2009-07-29
+		"$PKGDETAILS" STANZAS "$pkgdest" "$@"
+	done >"$TARGET/var/lib/dpkg/available"
+
+	for pkg; do
+		echo "$pkg install" | sudo dpkg --admindir "$TARGET/var/lib/dpkg" --set-selections
+	done
+}
+
+get_next_predep () {
+	local stanza="$(dpkg --admindir "$TARGET/var/lib/dpkg" --predep-package)" || return 1
+	[ "$stanza" ] || return 1
+	echo "$stanza" | grep '^Package:' | sed 's/^Package://; s/^ *//'
 }
 
 ################################################################### helpers

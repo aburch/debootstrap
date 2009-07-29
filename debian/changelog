@@ -1,3 +1,10 @@
+debootstrap (1.0.16) UNRELEASED; urgency=low
+
+  * Cope with pre-dependencies of included packages that aren't in Priority:
+    required (closes: #487908).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 29 Jul 2009 10:46:56 +0100
+
 debootstrap (1.0.15) unstable; urgency=low
 
   * On Linux, clear out /etc/mtab on exit if it's not a symlink. Should fix
