@@ -1,4 +1,4 @@
-#!/usr/bin/make -f
+#! /usr/bin/make -f
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -8,9 +8,7 @@ configure:
 
 clean:
 	dh_testdir
-
-	$(MAKE) clean
-
+	dh_auto_clean
 	dh_clean
 
 build: configure
@@ -19,14 +17,12 @@ build: configure
 real-build: build
 	dh_testdir
 	dh_testroot
-
-	$(MAKE) all
+	dh_auto_build
 
 install: real-build
 	dh_testdir
 	dh_testroot
-
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 #	 install the package into debian/debootstrap
@@ -58,7 +54,7 @@ binary-indep: install
 	dh_testdir
 	dh_testroot
 	dh_installdocs -i
-	dh_installman -i debootstrap.8
+	dh_installman -i
 	dh_installchangelogs -i
 	dh_link -i
 	-rm -rf debian/debootstrap-udeb/usr/share/debootstrap/scripts/potato \
