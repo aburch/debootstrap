@@ -1,11 +1,15 @@
 debootstrap (1.0.16) UNRELEASED; urgency=low
 
+  [ Colin Watson ]
   * Cope with pre-dependencies of included packages that aren't in Priority:
     required (closes: #487908).
   * Upgrade to debhelper v7. (Override rules get pretty hairy for this
     package, so I haven't switched to dh(1).)
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 29 Jul 2009 10:46:56 +0100
+  [ Frans Pop ]
+  * Makefile: remove unused ARCH variable.
+
+ -- Frans Pop <fjp@debian.org>  Sun, 23 Aug 2009 00:56:05 +0200
 
 debootstrap (1.0.15) unstable; urgency=low
 
