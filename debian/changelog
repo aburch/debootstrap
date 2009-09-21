@@ -1,4 +1,4 @@
-debootstrap (1.0.16) UNRELEASED; urgency=low
+debootstrap (1.0.16) unstable; urgency=low
 
   [ Colin Watson ]
   * Cope with pre-dependencies of included packages that aren't in Priority:
@@ -12,7 +12,7 @@ debootstrap (1.0.16) UNRELEASED; urgency=low
   [ Frans Pop ]
   * Makefile: remove unused ARCH variable.
 
- -- Frans Pop <fjp@debian.org>  Sun, 23 Aug 2009 00:56:05 +0200
+ -- Colin Watson <cjwatson@debian.org>  Mon, 21 Sep 2009 16:28:40 +0100
 
 debootstrap (1.0.15) unstable; urgency=low
 
