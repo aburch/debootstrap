@@ -1,8 +1,8 @@
-debootstrap (1.0.17) UNRELEASED; urgency=low
+debootstrap (1.0.17) unstable; urgency=low
 
   * Remove boneheaded use of sudo left over from testing (closes: #547949).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 22 Sep 2009 20:09:52 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 22 Sep 2009 20:10:19 +0100
 
 debootstrap (1.0.16) unstable; urgency=low
 
