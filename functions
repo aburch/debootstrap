@@ -1062,7 +1062,7 @@ setup_available () {
 	done >"$TARGET/var/lib/dpkg/available"
 
 	for pkg; do
-		echo "$pkg install" | sudo dpkg --admindir "$TARGET/var/lib/dpkg" --set-selections
+		echo "$pkg install" | dpkg --admindir "$TARGET/var/lib/dpkg" --set-selections
 	done
 }
 
