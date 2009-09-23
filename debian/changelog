@@ -1,3 +1,10 @@
+debootstrap (1.0.18) UNRELEASED; urgency=low
+
+  * Only use dpkg from the chroot, as there is no guarantee dpkg is 
+    available outside of the chroot (d-i installation for example).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Wed, 23 Sep 2009 11:33:50 +0200
+
 debootstrap (1.0.17) unstable; urgency=low
 
   * Remove boneheaded use of sudo left over from testing (closes: #547949).
