@@ -1067,7 +1067,7 @@ setup_available () {
 }
 
 get_next_predep () {
-	local stanza="$(in_target dpkg --predep-package)" || return 1
+	local stanza="$(in_target_nofail dpkg --predep-package)"
 	[ "$stanza" ] || return 1
 	echo "$stanza" | grep '^Package:' | sed 's/^Package://; s/^ *//'
 }
