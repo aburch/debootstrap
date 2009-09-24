@@ -1,11 +1,11 @@
-debootstrap (1.0.19) UNRELEASED; urgency=low
+debootstrap (1.0.19) unstable; urgency=low
 
   * Ignore failures from dpkg --predep-package. It exits 1 if there are no
     suitable packages available, which isn't an error for us, but in_target
     complains anyway, so just use in_target_nofail; the termination
     condition is handled immediately afterwards anyway.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 24 Sep 2009 19:55:12 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 24 Sep 2009 19:57:05 +0100
 
 debootstrap (1.0.18) unstable; urgency=low
 
