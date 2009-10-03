@@ -164,6 +164,15 @@ echo
 echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/start-stop-daemon"
     chmod 755 "$TARGET/sbin/start-stop-daemon"
 
+    if [ -x "$TARGET/sbin/initctl" ]; then
+      mv "$TARGET/sbin/initctl" "$TARGET/sbin/initctl.REAL"
+      echo \
+"#!/bin/sh
+echo
+echo \"Warning: Fake initctl called, doing nothing\"" > "$TARGET/sbin/initctl"
+      chmod 755 "$TARGET/sbin/initctl"
+    fi
+
     setup_dselect_method apt
 
     smallyes '' | 
@@ -201,6 +210,9 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
       dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 |
       dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING) 7>&1
 
+    if [ -x "$TARGET/sbin/initctl.REAL" ]; then
+      mv "$TARGET/sbin/initctl.REAL" "$TARGET/sbin/initctl"
+    fi
     mv "$TARGET/sbin/start-stop-daemon.REAL" "$TARGET/sbin/start-stop-daemon"
 
     progress $bases $bases CONFBASE "Configuring base system"
