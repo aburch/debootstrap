@@ -1,11 +1,11 @@
-debootstrap (1.0.20) UNRELEASED; urgency=low
+debootstrap (1.0.20) unstable; urgency=low
 
   * For recent Ubuntu versions, move $TARGET/sbin/initctl aside in the same
     way we do start-stop-daemon, so that attempts to control Upstart jobs
     won't inadvertently affect jobs in the host system.
   * Rename EXAMPLE section in debootstrap(8) to EXAMPLES (closes: #548458).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 03 Oct 2009 22:54:13 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 04 Oct 2009 21:23:07 +0100
 
 debootstrap (1.0.19) unstable; urgency=low
 
