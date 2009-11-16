@@ -1,3 +1,10 @@
+debootstrap (1.0.21) UNRELEASED; urgency=low
+
+  * Apply patch from Clint Adams <schizo@debian.org> to add support for
+    gz/bz2/xz data.tar (closes: #458663).
+
+ -- Otavio Salvador <otavio@debian.org>  Mon, 16 Nov 2009 15:20:09 -0200
+
 debootstrap (1.0.20) unstable; urgency=low
 
   * For recent Ubuntu versions, move $TARGET/sbin/initctl aside in the same

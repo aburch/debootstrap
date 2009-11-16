@@ -719,13 +719,19 @@ get_debs () {
 
 extract () { (
 	cd "$TARGET"
-	local p=0
+	local p=0 tarball
 	for pkg in $(debfor "$@"); do
 		p="$(($p + 1))"
 		progress "$p" "$#" EXTRACTPKGS "Extracting packages"
 		packagename="$(echo "$pkg" | sed 's,^.*/,,;s,_.*$,,')"
 		info EXTRACTING "Extracting %s..." "$packagename"
-		ar -p "./$pkg" data.tar.gz | zcat | tar -xf -
+		tarball=$(ar -t "./$pkg" | grep "^data.tar.[bgx]z")
+		case "$tarball" in
+			data.tar.gz) ar -p "./$pkg" data.tar.gz | zcat | tar -xf - ;;
+			data.tar.bz2) ar -p "./$pkg" data.tar.bz2 | bzcat | tar -xf - ;;
+			data.tar.xz) ar -p "./$pkg" data.tar.xz | xzcat | tar -xf - ;;
+			*) error 1 UNKNOWNDATACOMP "Unknown compression type for %s in %s" "$tarball" "$pkg" ;;
+		esac
 	done
 ); }
 
