@@ -719,7 +719,7 @@ get_debs () {
 
 extract () { (
 	cd "$TARGET"
-	local p=0 tarball
+	local p=0 tarball cat_cmd
 	for pkg in $(debfor "$@"); do
 		p="$(($p + 1))"
 		progress "$p" "$#" EXTRACTPKGS "Extracting packages"
@@ -727,11 +727,17 @@ extract () { (
 		info EXTRACTING "Extracting %s..." "$packagename"
 		tarball=$(ar -t "./$pkg" | grep "^data.tar.[bgx]z")
 		case "$tarball" in
-			data.tar.gz) ar -p "./$pkg" data.tar.gz | zcat | tar -xf - ;;
-			data.tar.bz2) ar -p "./$pkg" data.tar.bz2 | bzcat | tar -xf - ;;
-			data.tar.xz) ar -p "./$pkg" data.tar.xz | xzcat | tar -xf - ;;
+			data.tar.gz) cat_cmd=zcat ;;
+			data.tar.bz2) cat_cmd=bzcat ;;
+			data.tar.xz) cat_cmd=xzcat ;;
 			*) error 1 UNKNOWNDATACOMP "Unknown compression type for %s in %s" "$tarball" "$pkg" ;;
 		esac
+
+		if type $cat_cmd >/dev/null 2>&1; then
+			ar -p "./$pkg" data.tar.gz | $cat_cmd | tar -xf -
+		else
+			error 1 UNPACKCMDUNVL "The $cat_cmd is not available on the system"
+		fi
 	done
 ); }
 
