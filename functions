@@ -717,27 +717,95 @@ get_debs () {
 
 ################################################################ extraction
 
+EXTRACTORS_SUPPORTED="dpkg-deb ar"
+
+# Native dpkg-deb based extractors
+extract_dpkg_deb_field () {
+	local pkg="$1"
+	local field="$2"
+
+	dpkg-deb -f "$pkg" "$field"
+}
+
+extract_dpkg_deb_data () {
+	local pkg="$1"
+
+	dpkg-deb --fsys-tarfile "$pkg" | tar -xf -
+}
+
+# Raw .deb extractors
+extract_ar_deb_field () {
+	local pkg="$1"
+	local field="$2"
+
+	ar -p "$pkg" control.tar.gz | zcat |
+	    tar -O -xf - control ./control 2>/dev/null |
+	    grep -i "^$field:" | sed -e 's/[^:]*: *//' | head -n 1
+}
+
+extract_ar_deb_data () {
+	local pkg="$1"
+	local tarball=$(ar -t "$pkg" | grep "^data.tar.[bgx]z")
+
+	case "$tarball" in
+		data.tar.gz) cat_cmd=zcat ;;
+		data.tar.bz2) cat_cmd=bzcat ;;
+		data.tar.xz) cat_cmd=xzcat ;;
+		*) error 1 UNKNOWNDATACOMP "Unknown compression type for %s in %s" "$tarball" "$pkg" ;;
+	esac
+
+	if type $cat_cmd >/dev/null 2>&1; then
+		ar -p "$pkg" data.tar.gz | $cat_cmd | tar -xf -
+	else
+		error 1 UNPACKCMDUNVL "The $cat_cmd is not available on the system"
+	fi
+}
+
+valid_extractor () {
+	local extractor="$1"
+
+	for E in $EXTRACTORS_SUPPORTED; do
+		if [ "$extractor" = "$E" ]; then
+			return 0
+		fi
+	done
+
+	return 1
+}
+
+choose_extractor () {
+	local extractor
+
+	if [ -n "$EXTRACTOR_OVERRIDE" ]; then
+		extractor="$EXTRACTOR_OVERRIDE"
+	elif type dpkg-deb >/dev/null 2>&1; then
+		extractor="dpkg-deb"
+	else
+		extractor="ar"
+	fi
+
+	info CHOSENEXTRACTOR "Chosen extractor for .deb packages: %s" "$extractor"
+	case "$extractor" in
+	dpkg-deb)
+		extract_deb_field () { extract_dpkg_deb_field "$@"; }
+		extract_deb_data () { extract_dpkg_deb_data "$@"; }
+		;;
+	ar)
+		extract_deb_field () { extract_ar_deb_field "$@"; }
+		extract_deb_data () { extract_ar_deb_data "$@"; }
+		;;
+	esac
+}
+
 extract () { (
 	cd "$TARGET"
-	local p=0 tarball cat_cmd
+	local p=0 cat_cmd
 	for pkg in $(debfor "$@"); do
 		p="$(($p + 1))"
 		progress "$p" "$#" EXTRACTPKGS "Extracting packages"
 		packagename="$(echo "$pkg" | sed 's,^.*/,,;s,_.*$,,')"
 		info EXTRACTING "Extracting %s..." "$packagename"
-		tarball=$(ar -t "./$pkg" | grep "^data.tar.[bgx]z")
-		case "$tarball" in
-			data.tar.gz) cat_cmd=zcat ;;
-			data.tar.bz2) cat_cmd=bzcat ;;
-			data.tar.xz) cat_cmd=xzcat ;;
-			*) error 1 UNKNOWNDATACOMP "Unknown compression type for %s in %s" "$tarball" "$pkg" ;;
-		esac
-
-		if type $cat_cmd >/dev/null 2>&1; then
-			ar -p "./$pkg" data.tar.gz | $cat_cmd | tar -xf -
-		else
-			error 1 UNPACKCMDUNVL "The $cat_cmd is not available on the system"
-		fi
+		extract_deb_data "./$pkg"
 	done
 ); }
 

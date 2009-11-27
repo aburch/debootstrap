@@ -90,6 +90,8 @@ usage()
                              Run second stage in a subdirectory instead of root
                                (can be used to create a foreign chroot)
                                (requires --second-stage)
+      --extractor=TYPE       override automatic .deb extractor selection
+                               (supported: $EXTRACTORS_SUPPORTED)
       --boot-floppies        used for internal purposes by boot-floppies
       --debian-installer     used for internal purposes by debian-installer
 EOF
@@ -199,6 +201,24 @@ if [ $# != 0 ] ; then
 			shift
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
+		fi
+		;;
+	    --extractor|--extractor=?*)
+		if [ "$1" = "--extractor" -a -n "$2" ] ; then
+			EXTRACTOR_OVERRIDE="$2"
+			shift 2
+		elif [ "$1" != "${1#--extractor=}" ]; then
+			EXTRACTOR_OVERRIDE="${1#--extractor=}"
+			shift
+		else
+			error 1 NEEDARG "option requires an argument %s" "$1"
+		fi
+		if valid_extractor "$EXTRACTOR_OVERRIDE"; then
+			if ! type "$EXTRACTOR_OVERRIDE" >/dev/null 2>&1; then
+				error 1 MISSINGEXTRACTOR "The selected extractor cannot be found: %s" "$EXTRACTOR_OVERRIDE"
+			fi
+		else
+			error 1 BADEXTRACTOR "%s: unknown extractor" "$EXTRACTOR_OVERRIDE"
 		fi
 		;;
 	    --unpack-tarball|--unpack-tarball=?*)
@@ -517,6 +537,8 @@ if am_doing_phase maketarball; then
 fi
 
 if am_doing_phase first_stage; then
+	choose_extractor
+
 	# first stage sets up the chroot -- no calls should be made to
 	# "chroot $TARGET" here; but they should be possible by the time it's
 	# finished

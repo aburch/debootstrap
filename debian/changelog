@@ -1,7 +1,13 @@
 debootstrap (1.0.21) UNRELEASED; urgency=low
 
+  [ Otavio Salvador ]
   * Apply patch from Clint Adams <schizo@debian.org> to add support for
     gz/bz2/xz data.tar (closes: #458663).
+
+  [ Guillem Jover ]
+  * Refactor deb extractors into two new functions.
+  * Use dpkg-deb if available instead of ar (closes: #557296).
+  * Add an --extractor option to override the automatic extractor selection.
 
  -- Otavio Salvador <otavio@debian.org>  Mon, 16 Nov 2009 15:20:09 -0200
 
