@@ -836,7 +836,7 @@ in_target () {
 
 conditional_cp () {
 	if [ ! -e "$2/$1" ]; then
-		if [ -L "$1" ]; then
+		if [ -L "$1" ] && [ -e "$1" ]; then
 			cat "$1" >"$2/$1"
 		elif [ -e "$1" ]; then
 			cp -a "$1" "$2/$1"

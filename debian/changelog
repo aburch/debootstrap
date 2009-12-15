@@ -11,6 +11,8 @@ debootstrap (1.0.21) UNRELEASED; urgency=low
 
   [ Otavio Salvador ]
   * Document new --extractor option in manpage.
+  * Apply patch from Vagrant Cascadian <vagrant+bugs@freegeek.org> not
+    fail if resolv.conf is a broken symlink (closes: #390647).
 
  -- Otavio Salvador <otavio@debian.org>  Mon, 16 Nov 2009 15:20:09 -0200
 
