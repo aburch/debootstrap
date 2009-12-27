@@ -23,7 +23,7 @@ esac
 work_out_debs () {
     required="$(get_debs Priority: required)"
 
-    if doing_variant -; then 
+    if doing_variant -; then
       #required="$required $(get_debs Priority: important)"
       #  ^^ should be getting debconf here somehow maybe
       base="$(get_debs Priority: important)"
@@ -117,7 +117,7 @@ second_stage_install () {
         ln -sf /usr/share/zoneinfo/UTC "$TARGET/etc/localtime"
     fi
 
-    if doing_variant fakechroot; then 
+    if doing_variant fakechroot; then
 	install_fakechroot_tools
     fi
 
@@ -141,7 +141,7 @@ second_stage_install () {
 
     info UNPACKREQ "Unpacking required packages..."
 
-    smallyes '' | 
+    smallyes '' |
       (repeatn 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" \
       dpkg --status-fd 8 --force-depends --unpack $(debfor $required) 8>&1 1>&7 |
       dpkg_progress $baseprog $bases UNPACKREQ "Unpacking required packages" UNPACKING) 7>&1
@@ -162,7 +162,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 
     setup_dselect_method apt
 
-    smallyes '' | 
+    smallyes '' |
       (in_target_failmsg CONF_REQ_FAIL "Failure while configuring required packages." "" \
       dpkg --status-fd 8 --configure --pending --force-configure-any --force-depends 8>&1 1>&7 |
       dpkg_progress $baseprog $bases CONFREQ "Configuring required packages" CONFIGURING) 7>&1
@@ -172,7 +172,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 
     info UNPACKBASE "Unpacking the base system..."
 
-    smallyes '' | 
+    smallyes '' |
       (repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" \
       dpkg --status-fd 8 --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 |
       dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING) 7>&1

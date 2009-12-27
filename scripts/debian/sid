@@ -17,7 +17,7 @@ esac
 work_out_debs () {
 	required="$(get_debs Priority: required)"
 
-	if doing_variant - || doing_variant fakechroot; then 
+	if doing_variant - || doing_variant fakechroot; then
 		#required="$required $(get_debs Priority: important)"
 		#  ^^ should be getting debconf here somehow maybe
 		base="$(get_debs Priority: important)"
@@ -27,7 +27,7 @@ work_out_debs () {
 		base="apt"
 	fi
 
-	if doing_variant fakechroot; then 
+	if doing_variant fakechroot; then
 		# ldd.fake needs binutils
 		required="$required binutils"
 	fi
@@ -51,7 +51,7 @@ first_stage_install () {
 		cp "$TARGET/usr/bin/md5sum.textutils" "$TARGET/usr/bin/md5sum"
 	fi
 
-	if doing_variant fakechroot; then 
+	if doing_variant fakechroot; then
 		setup_devices_fakechroot
 	else
 		setup_devices
@@ -84,7 +84,7 @@ second_stage_install () {
 		baseprog="$(($baseprog + ${1:-1}))"
 	}
 
-	if doing_variant fakechroot; then 
+	if doing_variant fakechroot; then
 		setup_proc_fakechroot
 	elif doing_variant scratchbox; then
 		true
@@ -113,7 +113,7 @@ second_stage_install () {
 		ln -sf /usr/share/zoneinfo/UTC "$TARGET/etc/localtime"
 	fi
 
-	if doing_variant fakechroot; then 
+	if doing_variant fakechroot; then
 		install_fakechroot_tools
 	fi
 
@@ -139,7 +139,7 @@ second_stage_install () {
 
 	exec 7>&1
 
-	smallyes '' | 
+	smallyes '' |
 	  (repeatn 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" \
 	   dpkg --status-fd 8 --force-depends --unpack $(debfor $required) 8>&1 1>&7 || echo EXITCODE $?) |
 	  dpkg_progress $baseprog $bases UNPACKREQ "Unpacking required packages" UNPACKING
@@ -155,7 +155,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 
 	setup_dselect_method apt
 
-	smallyes '' | 
+	smallyes '' |
 	  (in_target_failmsg CONF_REQ_FAIL "Failure while configuring required packages." "" \
 	   dpkg --status-fd 8 --configure --pending --force-configure-any --force-depends 8>&1 1>&7 || echo EXITCODE $?) |
 	  dpkg_progress $baseprog $bases CONFREQ "Configuring required packages" CONFIGURING
@@ -179,7 +179,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 		done_predeps="$done_predeps $predep"
 	done
 
-	smallyes '' | 
+	smallyes '' |
 	  (repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" \
 	   dpkg --status-fd 8 --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 || echo EXITCODE $?) |
 	  dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING
@@ -190,7 +190,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 	  (repeatn 5 in_target_failmsg CONF_BASE_FAIL "Failure while configuring base packages." "" \
 	   dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 || echo EXITCODE $?) |
 	  dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING
-  
+
 	mv "$TARGET/sbin/start-stop-daemon.REAL" "$TARGET/sbin/start-stop-daemon"
 
 	progress $bases $bases CONFBASE "Configuring base system"

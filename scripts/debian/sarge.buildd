@@ -147,7 +147,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 
     p; progress $baseprog $bases INSTBASE "Installing base system" #19
     smallyes '' | in_target_failmsg CONF_REQ_FAIL "Failure while configuring required packages." "" dpkg --configure --pending --force-configure-any --force-depends
-    p 10; progress $baseprog $bases INSTBASE "Installing base system" #29 
+    p 10; progress $baseprog $bases INSTBASE "Installing base system" #29
 
     info INSTBASE "Installing base packages..."
 
