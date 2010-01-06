@@ -649,9 +649,13 @@ download_release () {
 
 download_main_indices () {
 	local m1="${MIRRORS%% *}"
+	local comp="${USE_COMPONENTS}"
 	progress 0 100 DOWNMAINPKGS "Downloading Packages file"
 	progress_next 100
-	COMPONENTS=main
+
+	if [ -z "$comp" ]; then comp=main; fi
+	COMPONENTS="$(echo $comp | tr '|' ' ')"
+
 	export COMPONENTS
 	for m in $MIRRORS; do
 	    for c in $COMPONENTS; do
