@@ -684,7 +684,10 @@ download_main () {
 			local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
 			if [ ! -e "$pkgdest" ]; then continue; fi
 			details="$($PKGDETAILS PKGS "$m" "$pkgdest" "$p")"
-			if [ "$details" = "$p -" ]; then continue; fi
+			if [ "$details" = "$p -" ]; then
+				details=""
+				continue
+			fi
 			size="${details##* }"; details="${details% *}"
 			md5="${details##* }"; details="${details% *}"
 			local debdest="$($DLDEST deb $details)"
