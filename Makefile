@@ -17,12 +17,18 @@ install:
 	install -o root -g root -m 0644 scripts/ubuntu/* $(DSDIR)/scripts/
 	install -o root -g root -m 0644 functions $(DSDIR)/
 
-        # no special script for etch anymore
+        # recent debian releases can all be handled by the sid script
 	ln -s sid $(DSDIR)/scripts/etch
 	ln -s sid $(DSDIR)/scripts/etch-m68k
 	ln -s sid $(DSDIR)/scripts/lenny
 	ln -s sid $(DSDIR)/scripts/squeeze
+	
+	# allow using symbolic release names instead of code names too
+	ln -s sid $(DSDIR)/scripts/stable
+	ln -s sid $(DSDIR)/scripts/testing
+	ln -s sid $(DSDIR)/scripts/unstable
 
+	# recent ubuntu releases can all be handled by the gutsy script
 	ln -s gutsy $(DSDIR)/scripts/hardy
 	ln -s gutsy $(DSDIR)/scripts/intrepid
 	ln -s gutsy $(DSDIR)/scripts/jaunty
