@@ -3,6 +3,28 @@ README for debootstrap
 
 See the manpage for (some) documentation.
 
+Running debootstrap from source
+-------------------------------
+
+You can run debootstrap from its source tree without installing it. This
+can be useful if you want a quick way to make a Debian chroot on another
+system, or if you are testing modifications to debootstrap.
+
+First, get the source. 
+
+* Either by using subversion:
+  svn checkout svn://svn.debian.org/d-i/trunk/packages/debootstrap
+
+* Or by visiting <http://packages.debian.org/source/sid/debootstrap>
+  and downloading the tar.gz file
+
+Then as root, in the debootstrap source directory:
+
+make devices.tar.gz
+export DEBOOTSTRAP_DIR=`pwd`
+debootstrap sid sid
+
+
 Future
 ------
 
@@ -21,6 +43,7 @@ Future
     packages you want to install -- this varies between making a chroot,
     doing an install, and doing a buildd. Also, some installs want
     different base packages (to setup networking, or kernels, eg)
+
 
 NMUing
 ------
