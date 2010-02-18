@@ -67,7 +67,10 @@ binary-indep: install
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/edgy \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/feisty \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.buildd \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.fakechroot
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.fakechroot \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/stable \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/testing \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/unstable
 	dh_compress -i
 	dh_fixperms -i
 	dh_installdeb -i
