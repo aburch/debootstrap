@@ -32,6 +32,7 @@ debootstrap (1.0.21) UNRELEASED; urgency=low
   * Make scripts directory in source tree look like installed directory,
     and add a section to README explaining an easy way to run
     debootstrap w/o installing it. Closes: #345762
+  * Convert rules file to use dh with overrides.
 
  -- Frans Pop <fjp@debian.org>  Sun, 27 Dec 2009 18:51:06 +0100
 

@@ -1,33 +1,34 @@
 #! /usr/bin/make -f
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+%:
+	dh $@
 
-configure:
-	dh_testdir
+# need to be root to make devices, so build is done in install target
+override_dh_auto_build:
 
-clean:
-	dh_testdir
-	dh_auto_clean
-	dh_clean
-
-build: configure
-#	 need to be root to make devices, so build is done in install target
-
-real-build: build
-	dh_testdir
-	dh_testroot
+override_dh_auto_install:
 	dh_auto_build
+	
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/debootstrap
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/debootstrap-udeb
+	
+	# remove scripts not needed by d-i
+	-rm -rf debian/debootstrap-udeb/usr/share/debootstrap/scripts/potato \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/woody \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/sarge \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/warty \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/hoary \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/breezy \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/dapper \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/edgy \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/feisty \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.buildd \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.fakechroot \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/stable \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/testing \
+		debian/debootstrap-udeb/usr/share/debootstrap/scripts/unstable
 
-install: real-build
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
 
-#	 install the package into debian/debootstrap
-	$(MAKE) install      DESTDIR=$(CURDIR)/debian/debootstrap
-	$(MAKE) install      DESTDIR=$(CURDIR)/debian/debootstrap-udeb
 
 ARCHES="i386"
 SUITE="testing"
@@ -49,37 +50,3 @@ binary-basedebs:
 	    rm -rf chroot-dir; \
 	done
 	rm -f scripts
-
-binary-indep: install
-	dh_testdir
-	dh_testroot
-	dh_installdocs -i
-	dh_installman -i
-	dh_installchangelogs -i
-	dh_link -i
-	-rm -rf debian/debootstrap-udeb/usr/share/debootstrap/scripts/potato \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/woody \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/sarge \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/warty \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/hoary \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/breezy \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/dapper \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/edgy \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/feisty \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.buildd \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/*.fakechroot \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/stable \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/testing \
-		debian/debootstrap-udeb/usr/share/debootstrap/scripts/unstable
-	dh_compress -i
-	dh_fixperms -i
-	dh_installdeb -i
-	dh_shlibdeps -i
-	dh_gencontrol -i
-	dh_md5sums -i
-	dh_builddeb -i
-
-binary-arch:
-
-binary: binary-indep binary-arch
-.PHONY: build real-build clean binary-indep binary-arch binary install configure binary-basedebs
