@@ -13,7 +13,7 @@ override_dh_auto_install:
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/debootstrap-udeb
 	
 	# remove scripts not needed by d-i
-	-rm -rf debian/debootstrap-udeb/usr/share/debootstrap/scripts/potato \
+	-rm -f debian/debootstrap-udeb/usr/share/debootstrap/scripts/potato \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/woody \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/sarge \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/warty \
