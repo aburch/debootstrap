@@ -27,26 +27,3 @@ override_dh_auto_install:
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/stable \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/testing \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/unstable
-
-
-
-ARCHES="i386"
-SUITE="testing"
-VERSION=$(SUITE)
-MIRROR="http://ftp.us.debian.org/debian"
-
-binary-basedebs:
-	dh_testdir
-	dh_testroot
-
-	$(MAKE) pkgdetails
-
-	ln -s . scripts
-	for a in $(ARCHES); do \
-	    rm -rf chroot-dir; \
-	    mkdir -p chroot-dir; \
-	    DEBOOTSTRAP_DIR=. ./debootstrap --arch $$a --download-only $(SUITE) chroot-dir $(MIRROR); \
-	    (cd chroot-dir && tar cf ../../basedebs_$(VERSION)_$$a.tar *); \
-	    rm -rf chroot-dir; \
-	done
-	rm -f scripts

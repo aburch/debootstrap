@@ -33,6 +33,10 @@ debootstrap (1.0.21) UNRELEASED; urgency=low
     and add a section to README explaining an easy way to run
     debootstrap w/o installing it. Closes: #345762
   * Convert rules file to use dh with overrides.
+  * Remove binary-basedebs target from debian/rules.
+    This target has been broken in multiple ways since 2007. While I
+    accidentially partially fixed it with the above changes, this is evidence
+    it's dead code that can be safely removed.
 
  -- Frans Pop <fjp@debian.org>  Sun, 27 Dec 2009 18:51:06 +0100
 
