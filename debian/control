@@ -9,7 +9,7 @@ Vcs-Svn: svn://svn.debian.org/d-i/trunk/packages/debootstrap
 
 Package: debootstrap
 Architecture: all
-Depends: wget
+Depends: ${misc:Depends}, wget
 Recommends: gnupg
 Description: Bootstrap a basic Debian system
  debootstrap is used to create a Debian base system from scratch,
@@ -21,5 +21,5 @@ Package: debootstrap-udeb
 Section: debian-installer
 XC-Package-Type: udeb
 Architecture: all
-Depends: mounted-partitions
+Depends: ${misc:Depends}, mounted-partitions
 Description: Bootstrap the Debian system
