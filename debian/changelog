@@ -1,9 +1,9 @@
-debootstrap (1.0.23) UNRELEASED; urgency=low
+debootstrap (1.0.23) unstable; urgency=low
 
   * Add (Ubuntu) maverick as a symlink to gutsy.
   * Add ${misc:Depends}.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 06 Apr 2010 13:46:00 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 19 May 2010 13:35:34 +0100
 
 debootstrap (1.0.22) unstable; urgency=low
 
