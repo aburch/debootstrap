@@ -70,7 +70,7 @@ wgetprogress () {
 		wget "$@" 2>&1 >/dev/null | $PKGDETAILS "WGET%" $PROGRESS_NOW $PROGRESS_NEXT $PROGRESS_END "$PROGRESS_WHAT" >&3
 		ret=$?
 	else
-		wget $QSWITCH "$@"
+		wget $QSWITCH "$@" 
 		ret=$?
 	fi
 	return $ret
@@ -336,6 +336,21 @@ just_get () {
 			while [ "$iters" -lt 3 ]; do
 				warning RETRYING "Retrying failed download of %s" "$from"
 				if wgetprogress -c -O "$dest" "$from"; then break; fi
+				iters="$(($iters + 1))"
+			done
+		else
+			rm -f "$dest"
+			return 1
+		fi
+	elif [ "${from#https://}" != "$from" ] ; then
+		# http/ftp mirror
+		if wgetprogress $CHECKCERTIF $CERTIFICATE $PRIVATEKEY -O "$dest" "$from"; then
+			return 0
+		elif [ -s "$dest" ]; then
+			local iters=0
+			while [ "$iters" -lt 3 ]; do
+				warning RETRYING "Retrying failed download of %s" "$from"
+				if wgetprogress $CHECKCERTIF $CERTIFICATE $PRIVATEKEY -c -O "$dest" "$from"; then break; fi
 				iters="$(($iters + 1))"
 			done
 		else

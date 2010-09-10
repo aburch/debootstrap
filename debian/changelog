@@ -1,5 +1,10 @@
 debootstrap (1.0.24) UNRELEASED; urgency=low
 
+  [ Miguel Figueiredo ]
+  * Apply patches from by Jonathan Klee and Guillaume Chauvel 
+    to add support to https (closes: #521196).
+
+  [ Colin Watson ]
   * Add (Ubuntu) natty as a symlink to gutsy.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 18 Aug 2010 12:07:52 +0100
