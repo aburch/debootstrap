@@ -506,7 +506,6 @@ fi
 ###########################################################################
 
 if am_doing_phase finddebs; then
-	echo "finddebs!!!"
 	if [ "$FINDDEBS_NEEDS_INDICES" = "true" ] || \
 	   [ "$RESOLVE_DEPS" = "true" ]; then
 		download_indices
