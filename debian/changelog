@@ -7,6 +7,9 @@ debootstrap (1.0.24) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Add (Ubuntu) natty as a symlink to gutsy.
 
+  [ Joey Hess ]
+  * Add support for wheezy. Closes: #597461
+
  -- Colin Watson <cjwatson@debian.org>  Wed, 18 Aug 2010 12:07:52 +0100
 
 debootstrap (1.0.23) unstable; urgency=low
