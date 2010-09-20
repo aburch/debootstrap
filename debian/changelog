@@ -1,4 +1,4 @@
-debootstrap (1.0.24) UNRELEASED; urgency=low
+debootstrap (1.0.24) unstable; urgency=low
 
   [ Miguel Figueiredo ]
   * Apply patches from by Jonathan Klee and Guillaume Chauvel 
@@ -10,7 +10,7 @@ debootstrap (1.0.24) UNRELEASED; urgency=low
   [ Joey Hess ]
   * Add support for wheezy. Closes: #597461
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 18 Aug 2010 12:07:52 +0100
+ -- Joey Hess <joeyh@debian.org>  Sun, 19 Sep 2010 21:40:00 -0400
 
 debootstrap (1.0.23) unstable; urgency=low
 
