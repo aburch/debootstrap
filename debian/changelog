@@ -1,11 +1,11 @@
-debootstrap (1.0.25) UNRELEASED; urgency=low
+debootstrap (1.0.25) unstable; urgency=low
 
   * Remove debug statement that slipped in.
   * Add test to guard against devices.tar.gz being empty.
   * /dev/MAKEDEV cannot be relied on (udev likes to make it a symlink to
     true). Always use /sbin/MAKEDEV. Closes: #598080
 
- -- Joey Hess <joeyh@debian.org>  Mon, 20 Sep 2010 13:22:56 -0400
+ -- Joey Hess <joeyh@debian.org>  Sun, 26 Sep 2010 13:18:31 -0400
 
 debootstrap (1.0.24) unstable; urgency=low
 
