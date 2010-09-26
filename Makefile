@@ -1,7 +1,7 @@
 # avoid dpkg-dev dependency; fish out the version with sed
 VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
 
-MAKEDEV := $(shell if [ -e /dev/MAKEDEV ]; then echo /dev/MAKEDEV; else echo /sbin/MAKEDEV; fi)
+MAKEDEV := /sbin/MAKEDEV
 
 all: devices.tar.gz
 clean:
