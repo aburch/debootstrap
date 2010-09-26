@@ -1,6 +1,7 @@
 debootstrap (1.0.25) UNRELEASED; urgency=low
 
   * Remove debug statement that slipped in.
+  * Add test that devices.tar.gz not be somehow empty. Closes: #598080
 
  -- Joey Hess <joeyh@debian.org>  Mon, 20 Sep 2010 13:22:56 -0400
 
