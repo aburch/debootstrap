@@ -1,3 +1,10 @@
+debootstrap (1.0.26) UNRELEASED; urgency=low
+
+  * Consistently use tab indenting in scripts/gutsy and scripts/sid
+    Ptach by Karl Goetz. Closes: #601821
+
+ -- Christian Perrier <bubulle@debian.org>  Sat, 30 Oct 2010 06:59:50 +0200
+
 debootstrap (1.0.25) unstable; urgency=low
 
   * Remove debug statement that slipped in.

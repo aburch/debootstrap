@@ -8,10 +8,10 @@ if doing_variant fakechroot; then
 fi
 
 case $ARCH in
-	alpha|ia64)	LIBC="libc6.1" ;;
-	kfreebsd-*)	LIBC="libc0.1" ;;
-	hurd-*)		LIBC="libc0.3" ;;
-	*)		LIBC="libc6" ;;
+	alpha|ia64) LIBC="libc6.1" ;;
+	kfreebsd-*) LIBC="libc0.1" ;;
+	hurd-*)     LIBC="libc0.3" ;;
+	*)          LIBC="libc6" ;;
 esac
 
 work_out_debs () {
@@ -47,7 +47,7 @@ first_stage_install () {
 	fi
 
 	if [ -x "$TARGET/usr/bin/md5sum.textutils" ] && \
-	   [ \! -e "$TARGET/usr/bin/md5sum" ]; then
+		[ \! -e "$TARGET/usr/bin/md5sum" ]; then
 		cp "$TARGET/usr/bin/md5sum.textutils" "$TARGET/usr/bin/md5sum"
 	fi
 
@@ -140,9 +140,9 @@ second_stage_install () {
 	exec 7>&1
 
 	smallyes '' |
-	  (repeatn 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" \
-	   dpkg --status-fd 8 --force-depends --unpack $(debfor $required) 8>&1 1>&7 || echo EXITCODE $?) |
-	  dpkg_progress $baseprog $bases UNPACKREQ "Unpacking required packages" UNPACKING
+		(repeatn 5 in_target_failmsg UNPACK_REQ_FAIL_FIVE "Failure while unpacking required packages.  This will be attempted up to five times." "" \
+		dpkg --status-fd 8 --force-depends --unpack $(debfor $required) 8>&1 1>&7 || echo EXITCODE $?) |
+		dpkg_progress $baseprog $bases UNPACKREQ "Unpacking required packages" UNPACKING
 
 	info CONFREQ "Configuring required packages..."
 
@@ -156,9 +156,9 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 	setup_dselect_method apt
 
 	smallyes '' |
-	  (in_target_failmsg CONF_REQ_FAIL "Failure while configuring required packages." "" \
-	   dpkg --status-fd 8 --configure --pending --force-configure-any --force-depends 8>&1 1>&7 || echo EXITCODE $?) |
-	  dpkg_progress $baseprog $bases CONFREQ "Configuring required packages" CONFIGURING
+		(in_target_failmsg CONF_REQ_FAIL "Failure while configuring required packages." "" \
+		dpkg --status-fd 8 --configure --pending --force-configure-any --force-depends 8>&1 1>&7 || echo EXITCODE $?) |
+		dpkg_progress $baseprog $bases CONFREQ "Configuring required packages" CONFIGURING
 
 	baseprog=0
 	bases="$(set -- $base; echo $#)"
@@ -174,22 +174,22 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 		# XXX: progress is tricky due to how dpkg_progress works
 		# -- cjwatson 2009-07-29
 		p; smallyes '' |
-		  in_target dpkg --force-overwrite --force-confold --skip-same-version --install $(debfor $predep)
+		in_target dpkg --force-overwrite --force-confold --skip-same-version --install $(debfor $predep)
 		base=$(without "$base" "$predep")
 		done_predeps="$done_predeps $predep"
 	done
 
 	smallyes '' |
-	  (repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" \
-	   dpkg --status-fd 8 --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 || echo EXITCODE $?) |
-	  dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING
+		(repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" \
+		dpkg --status-fd 8 --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 || echo EXITCODE $?) |
+		dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING
 
 	info CONFBASE "Configuring the base system..."
 
 	smallyes '' |
-	  (repeatn 5 in_target_failmsg CONF_BASE_FAIL "Failure while configuring base packages." "" \
-	   dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 || echo EXITCODE $?) |
-	  dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING
+		(repeatn 5 in_target_failmsg CONF_BASE_FAIL "Failure while configuring base packages." "" \
+		dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 || echo EXITCODE $?) |
+		dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING
 
 	mv "$TARGET/sbin/start-stop-daemon.REAL" "$TARGET/sbin/start-stop-daemon"
 
