@@ -183,7 +183,7 @@ if [ $# != 0 ] ; then
 		fi
 		;;
 	    --resolve-deps)
-		# redundant, but avoids breaking compatability
+		# redundant, but avoids breaking compatibility
 		RESOLVE_DEPS=true
 		shift
 		;;
