@@ -38,7 +38,7 @@ first_stage_install () {
 
 	mkdir -p "$TARGET/var/lib/dpkg"
 	: >"$TARGET/var/lib/dpkg/status"
-	echo >"$TARGET/var/lib/dpkg/available"
+	: >"$TARGET/var/lib/dpkg/available"
 
 	setup_etc
 	if [ ! -e "$TARGET/etc/fstab" ]; then
