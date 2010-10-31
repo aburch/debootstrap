@@ -203,7 +203,7 @@ echo \"Warning: Fake initctl called, doing nothing\"" > "$TARGET/sbin/initctl"
 	info CONFBASE "Configuring the base system..."
 
 	smallyes '' |
-		(repeatn 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be attempted 5 times." "" \
+		(repeatn 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be re-attempted up to five times." "" \
 		dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 |
 		dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING) 7>&1
 

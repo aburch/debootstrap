@@ -187,7 +187,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 	info CONFBASE "Configuring the base system..."
 
 	smallyes '' |
-		(repeatn 5 in_target_failmsg CONF_BASE_FAIL "Failure while configuring base packages." "" \
+		(repeatn 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be re-attempted up to five times." "" \
 		dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 || echo EXITCODE $?) |
 		dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING
 
