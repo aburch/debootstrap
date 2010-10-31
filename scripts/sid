@@ -46,11 +46,6 @@ first_stage_install () {
 		chown 0:0 "$TARGET/etc/fstab"; chmod 644 "$TARGET/etc/fstab"
 	fi
 
-	if [ -x "$TARGET/usr/bin/md5sum.textutils" ] && \
-		[ \! -e "$TARGET/usr/bin/md5sum" ]; then
-		cp "$TARGET/usr/bin/md5sum.textutils" "$TARGET/usr/bin/md5sum"
-	fi
-
 	if doing_variant fakechroot; then
 		setup_devices_fakechroot
 	else
