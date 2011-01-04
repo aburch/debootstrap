@@ -1,3 +1,11 @@
+debootstrap (1.0.27) unreleased; urgency=low
+
+  [ Miguel Figueiredo ]
+  * Fix bug and typo on --private-key
+    Patch by Jonathan Klee. 
+
+ -- Miguel Figueiredo <elmig@debianpt.org>  Tue, 04 Jan 2011 21:16:28 +0000
+
 debootstrap (1.0.26) unstable; urgency=low
 
   [ Christian Perrier ]

@@ -317,10 +317,10 @@ if [ $# != 0 ] ; then
 		;;
 	    --private-key|--private-key=?*)
 		if [ "$1" = "--private-key" -a -n "$2" ]; then
-			PRIVATEKEY="$2"
+			PRIVATEKEY="--private-key=$2"
 			shift 2
 		elif [ "$1" != "${1#--private-key=}" ]; then
-			PRIVATEKEY="--private--key=${1#--private-key=}" 
+			PRIVATEKEY="--private-key=${1#--private-key=}" 
 			shift 1
 		else
 		       error 1 NEEDARG "option requires an argument %s" "$1" 
