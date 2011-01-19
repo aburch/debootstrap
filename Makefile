@@ -3,7 +3,12 @@ VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
 
 MAKEDEV := /sbin/MAKEDEV
 
+ifneq ($(shell uname),GNU)
 all: devices.tar.gz
+else
+all:
+endif
+
 clean:
 	rm -f devices.tar.gz
 	rm -rf dev
@@ -20,7 +25,9 @@ install:
 	chown root:root $(DESTDIR)/usr/sbin/debootstrap
 	chmod 0755 $(DESTDIR)/usr/sbin/debootstrap
 
+ifneq ($(shell uname),GNU)
 	install -o root -g root -m 0644 devices.tar.gz $(DSDIR)/
+endif
 
 devices.tar.gz:
 	rm -rf dev
