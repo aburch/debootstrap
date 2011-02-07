@@ -1,4 +1,4 @@
-debootstrap (1.0.27) UNRELEASED; urgency=low
+debootstrap (1.0.27) unstable; urgency=low
 
   [ Miguel Figueiredo ]
   * Fix bug and typo on --private-key
@@ -10,7 +10,7 @@ debootstrap (1.0.27) UNRELEASED; urgency=low
       $TARGET/{dev,servers} in setup_devices_hurd;
     - Don't attempt to build devices.tar.gz, which is not needed.
 
- -- Samuel Thibault <sthibault@debian.org>  Thu, 20 Jan 2011 00:50:35 +0100
+ -- Otavio Salvador <otavio@debian.org>  Mon, 07 Feb 2011 19:40:24 -0200
 
 debootstrap (1.0.26) unstable; urgency=low
 
