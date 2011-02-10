@@ -1,3 +1,9 @@
+debootstrap (1.0.28) UNRELEASED; urgency=low
+
+  * Fix for ar usage, thanks to Guillem Jover. Closes: #598729
+
+ -- Miguel Figueiredo <elmig@debianpt.org>  Thu, 10 Feb 2011 21:45:23 +0000
+
 debootstrap (1.0.27) unstable; urgency=low
 
   [ Miguel Figueiredo ]
