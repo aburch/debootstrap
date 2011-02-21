@@ -228,13 +228,13 @@ mirror_style () {
 	export DOWNLOAD_DEBS
 }
 
-check_md5 () {
-	# args: dest md5 size
-	local expmd5="$2"
+verify_checksum () {
+	# args: dest checksum size
+	local expchecksum="$2"
 	local expsize="$3"
-	relmd5=`md5sum < "$1" | sed 's/ .*$//'`
+	relchecksum=`sha${SHA_SIZE}sum < "$1" | sed 's/ .*$//'`
 	relsize=`wc -c < "$1"`
-	if [ "$expsize" -ne "$relsize" ] || [ "$expmd5" != "$relmd5" ]; then
+	if [ "$expsize" -ne "$relsize" ] || [ "$expchecksum" != "$relchecksum" ]; then
 		return 1
 	fi
 	return 0
@@ -242,7 +242,7 @@ check_md5 () {
 
 get () {
 	# args: from dest 'nocache'
-	# args: from dest [md5sum size] [alt {md5sum size type}]
+	# args: from dest [checksum size] [alt {checksum size type}]
 	local displayname
 	if [ "${2%.deb}" != "$2" ]; then
 		displayname="$(echo "$2" | sed 's,^.*/,,;s,_.*$,,')"
@@ -257,7 +257,7 @@ get () {
 			rm -f "$2"
 		else
 			info VALIDATING "Validating %s" "$displayname"
-			if check_md5 "$2" "$3" "$4"; then
+			if verify_checksum "$2" "$3" "$4"; then
 				return 0
 			else
 				rm -f "$2"
@@ -278,7 +278,7 @@ get () {
 		local order=3
 	fi
 	for a in $order; do
-		local md5="$(eval echo \${$a})"
+		local checksum="$(eval echo \${$a})"
 		local siz="$(eval echo \${$(( $a+1 ))})"
 		local typ="$(eval echo \${$(( $a+2 ))})"
 		local from
@@ -300,13 +300,13 @@ get () {
 
 		info RETRIEVING "Retrieving %s" "$displayname"
 		if ! just_get "$from" "$dest2"; then continue; fi
-		if [ "$md5" != "" ]; then
+		if [ "$checksum" != "" ]; then
 			info VALIDATING "Validating %s" "$displayname"
-			if check_md5 "$dest2" "$md5" "$siz"; then
-				md5=""
+			if verify_checksum "$dest2" "$checksum" "$siz"; then
+				checksum=""
 			fi
 		fi
-		if [ -z "$md5" ]; then
+		if [ -z "$checksum" ]; then
 			[ "$dest2" = "$dest" ] || mv "$dest2" "$dest"
 			case "$typ" in
 			    gz)  gunzip "$dest" ;;
@@ -442,10 +442,10 @@ apt_dest () {
 
 ################################################################## download
 
-get_release_md5 () {
+get_release_checksum () {
 	local reldest="$1"
 	local path="$2"
-	sed -n '/^[Mm][Dd]5[Ss][Uu][Mm]/,/^[^ ]/p' < "$reldest" | \
+	sed -n "/^[Sa][Hh][Aa]$SHA_SIZE:/,/^[^ ]/p" < "$reldest" | \
 		while read a b c; do
 			if [ "$c" = "$path" ]; then echo "$a $b"; fi
 		done | head -n 1
@@ -504,19 +504,19 @@ download_release_indices () {
 	local totalpkgs=0
 	for c in $COMPONENTS; do
 		local subpath="$c/binary-$ARCH/Packages"
-		local bz2md="`get_release_md5 "$reldest" "$subpath.bz2"`"
-		local gzmd="`get_release_md5 "$reldest" "$subpath.gz"`"
-		local normmd="`get_release_md5 "$reldest" "$subpath"`"
-		local md=
-		if [ "$normmd" != "" ]; then
-			md="$normmd"
-		elif [ -x /bin/bunzip2 ] && [ "$bz2md" != "" ]; then
-			md="$bz2md"
-		elif [ -x /bin/gunzip ] && [ "$gzmd" != "" ]; then
-			md="$gzmd"
+		local bz2i="`get_release_checksum "$reldest" "$subpath.bz2"`"
+		local gzi="`get_release_checksum "$reldest" "$subpath.gz"`"
+		local normi="`get_release_checksum "$reldest" "$subpath"`"
+		local i=
+		if [ "$normi" != "" ]; then
+			i="$normi"
+		elif [ -x /bin/bunzip2 ] && [ "$bz2i" != "" ]; then
+			i="$bz2i"
+		elif [ -x /bin/gunzip ] && [ "$gzi" != "" ]; then
+			i="$gzi"
 		fi
-		if [ "$md" != "" ]; then
-			totalpkgs="$(( $totalpkgs + ${md#* } ))"
+		if [ "$i" != "" ]; then
+			totalpkgs="$(( $totalpkgs + ${i#* } ))"
 		else
 			mv "$reldest" "$reldest.malformed"
 			error 1 MISSINGRELENTRY "Invalid Release file, no entry for %s" "$subpath"
@@ -529,24 +529,24 @@ download_release_indices () {
 	for c in $COMPONENTS; do
 		local subpath="$c/binary-$ARCH/Packages"
 		local path="dists/$SUITE/$subpath"
-		local bz2md="`get_release_md5 "$reldest" "$subpath.bz2"`"
-		local gzmd="`get_release_md5 "$reldest" "$subpath.gz"`"
-		local normmd="`get_release_md5 "$reldest" "$subpath"`"
+		local bz2i="`get_release_checksum "$reldest" "$subpath.bz2"`"
+		local gzi="`get_release_checksum "$reldest" "$subpath.gz"`"
+		local normi="`get_release_checksum "$reldest" "$subpath"`"
 		local ext=
-		local md=
-		if [ "$normmd" != "" ]; then
-			ext="$ext $normmd ."
-			md="$normmd"
+		local i=
+		if [ "$normi" != "" ]; then
+			ext="$ext $normi ."
+			i="$normi"
 		fi
-		if [ -x /bin/bunzip2 ] && [ "$bz2md" != "" ]; then
-			ext="$ext $bz2md bz2"
-			md="${md:-$bz2md}"
+		if [ -x /bin/bunzip2 ] && [ "$bz2i" != "" ]; then
+			ext="$ext $bz2i bz2"
+			i="${i:-$bz2i}"
 		fi
-		if [ -x /bin/gunzip ] && [ "$gzmd" != "" ]; then
-			ext="$ext $gzmd gz"
-			md="${md:-$gzmd}"
+		if [ -x /bin/gunzip ] && [ "$gzi" != "" ]; then
+			ext="$ext $gzi gz"
+			i="${i:-$gzi}"
 		fi
-		progress_next "$(($donepkgs + ${md#* }))"
+		progress_next "$(($donepkgs + ${i#* }))"
 		for m in $MIRRORS; do
 			pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
 			if get "$m/$path" "$pkgdest" $ext; then break; fi
@@ -554,7 +554,7 @@ download_release_indices () {
 		if [ ! -f "$pkgdest" ]; then
 			error 1 COULDNTDL "Couldn't download %s" "$path"
 		fi
-		donepkgs="$(($donepkgs + ${md#* }))"
+		donepkgs="$(($donepkgs + ${i#* }))"
 		progress $donepkgs $totalpkgs DOWNPKGS "Downloading Packages files"
 	done
 }
@@ -588,13 +588,13 @@ download_debs () {
 
 	$PKGDETAILS PKGS "$m" "$pkgdest" "$@" | (
 		leftover=""
-		while read p ver arc mdup fil md5 size; do
+		while read p ver arc mdup fil checksum size; do
 			if [ "$ver" = "-" ]; then
 				leftover="$leftover $p"
 			else
 				progress_next "$(($dloaddebs + $size))"
 				local debdest="$($DLDEST deb "$p" "$ver" "$arc" "$m" "$fil")"
-				if get "$m/$fil" "$TARGET/$debdest" "$md5" "$size"; then
+				if get "$m/$fil" "$TARGET/$debdest" "$checksum" "$size"; then
 					dloaddebs="$(($dloaddebs + $size))"
 					echo >>$TARGET/debootstrap/debpaths "$p $debdest"
 				else
@@ -704,9 +704,9 @@ download_main () {
 				continue
 			fi
 			size="${details##* }"; details="${details% *}"
-			md5="${details##* }"; details="${details% *}"
+			checksum="${details##* }"; details="${details% *}"
 			local debdest="$($DLDEST deb $details)"
-			if get "$m/${details##* }" "$TARGET/$debdest" "$md5" "$size"; then
+			if get "$m/${details##* }" "$TARGET/$debdest" "$checksum" "$size"; then
 				echo >>$TARGET/debootstrap/debpaths "$p $debdest"
 				details="done"
 				break
@@ -1027,14 +1027,14 @@ while (<STDIN>) {
 		$ver = $v if ($f eq "version:");
 		$arc = $v if ($f eq "architecture:");
 		$fil = $v if ($f eq "filename:");
-		$md5 = $v if ($f eq "md5sum:");
+		$chk = $v if ($f eq lc($ENV{DEBOOTSTRAP_CHECKSUM_FIELD}).":");
 		$siz = $v if ($f eq "size:");
 		$val = $v if ($f eq $field);
 	} elsif (/^$/) {
 		if (defined $val && defined $fields{$val}) {
 			$cnt++;
 			printf "%s %s %s %s %s %s %s\n",
-			 $pkg, $ver, $arc, $mirror, $fil, $md5, $siz;
+			 $pkg, $ver, $arc, $mirror, $fil, $chk, $siz;
 			if ($unique) {
 				delete $fields{$val};
 				last if (--$cnt <= 0);

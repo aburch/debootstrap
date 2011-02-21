@@ -6,6 +6,11 @@ debootstrap (1.0.28) UNRELEASED; urgency=low
   [ Joey Hess ]
   * Remove 5 second sleeps when debootstrap finds additional required
     dependencies. d-i just got that much faster.
+  * Use SHA checksums. Defaulting to SHA256, and configurable by 
+    SHA_SIZE environment variable. Closes: #614315
+  * If a sha256sum program is not available, fall back to sha1sum.
+    This is to support debootstrap use on embedded systems, which are more
+    likely to have the latter.
 
  -- Miguel Figueiredo <elmig@debianpt.org>  Thu, 10 Feb 2011 21:45:23 +0000
 

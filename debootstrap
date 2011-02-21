@@ -412,7 +412,16 @@ else
 	CHROOT_CMD="chroot $TARGET"
 fi
 
-export ARCH SUITE TARGET CHROOT_CMD
+if [ -z "$SHA_SIZE" ]; then
+	SHA_SIZE=256
+fi
+if ! [ -x "/usr/bin/sha${SHA_SIZE}sum" ] && \
+   ! [ -x "/bin/sha${SHA_SIZE}sum" ]; then
+	SHA_SIZE=1
+fi
+DEBOOTSTRAP_CHECKSUM_FIELD="SHA$SHA_SIZE"
+
+export ARCH SUITE TARGET CHROOT_CMD SHA_SIZE DEBOOTSTRAP_CHECKSUM_FIELD
 
 if am_doing_phase first_stage second_stage; then
 	if [ -x /usr/bin/id ] && [ `id -u` -ne 0 ]; then
