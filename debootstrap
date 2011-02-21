@@ -525,7 +525,6 @@ if am_doing_phase finddebs; then
 
 		if [ "$baseU" != "" ]; then
 			info REDUNDANTBASE "Found packages in base already in required: %s" "$baseU"
-			sleep 5
 		fi
 
 		info RESOLVEREQ "Resolving dependencies of required packages..."
@@ -538,11 +537,9 @@ if am_doing_phase finddebs; then
 		baseX=$(without "$base" "$baseX")
 		if [ "$requiredX" != "" ]; then
 			info NEWREQUIRED "Found additional required dependencies: %s" "$requiredX"
-			sleep 5
 		fi
 		if [ "$baseX" != "" ]; then
 			info NEWBASE "Found additional base dependencies: %s" "$baseX"
-			sleep 5
 		fi
 	fi
 
