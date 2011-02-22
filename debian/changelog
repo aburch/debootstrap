@@ -1,4 +1,4 @@
-debootstrap (1.0.28) UNRELEASED; urgency=low
+debootstrap (1.0.28) unstable; urgency=low
 
   [ Miguel Figueiredo ]
   * Fix for ar usage, thanks to Guillem Jover. Closes: #598729
@@ -14,7 +14,7 @@ debootstrap (1.0.28) UNRELEASED; urgency=low
   * Avoid new(?) warning from dpkg about missing Maintainer field when
     feigning install of a package.
 
- -- Miguel Figueiredo <elmig@debianpt.org>  Thu, 10 Feb 2011 21:45:23 +0000
+ -- Joey Hess <joeyh@debian.org>  Mon, 21 Feb 2011 20:48:46 -0400
 
 debootstrap (1.0.27) unstable; urgency=low
 
