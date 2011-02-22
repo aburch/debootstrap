@@ -11,6 +11,8 @@ debootstrap (1.0.28) UNRELEASED; urgency=low
   * If a sha256sum program is not available, fall back to sha1sum.
     This is to support debootstrap use on embedded systems, which are more
     likely to have the latter.
+  * Avoid new(?) warning from dpkg about missing Maintainer field when
+    feigning install of a package.
 
  -- Miguel Figueiredo <elmig@debianpt.org>  Thu, 10 Feb 2011 21:45:23 +0000
 

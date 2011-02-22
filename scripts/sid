@@ -62,6 +62,7 @@ first_stage_install () {
 		echo \
 "Package: $pkg
 Version: $ver
+Maintainer: unknown
 Status: install ok installed" >> "$TARGET/var/lib/dpkg/status"
 
 		touch "$TARGET/var/lib/dpkg/info/${pkg}.list"
