@@ -15,7 +15,7 @@ debootstrap \- Bootstrap a basic Debian system
 .B debootstrap
 bootstraps a basic Debian system of
 .I SUITE
-(eg, lenny, squeeze, sid; or stable, testing, unstable) into
+into
 .I TARGET
 from
 .I MIRROR
@@ -23,6 +23,11 @@ by running
 .IR SCRIPT .
 .I MIRROR
 can be an http:// URL, a file:/// URL, or an ssh:/// URL.
+.PP
+The
+.I SUITE may be a release code name (eg, sid, wheeze, squeeze, lenny)
+or a symbolic name (eg, unstable, testing, stable, oldstable)
+.PP
 Notice that file:/ URLs are translated to file:/// (correct scheme as
 described in RFC1738 for local filenames), and file:// will \fBnot\fR work.
 ssh://USER@HOST/PATH URLs are retrieved using
@@ -149,11 +154,11 @@ Read the private key from file
 .SH EXAMPLES
 .
 .PP 
-To setup a \fIsqueeze\fR system:
+To setup a \fIwheezy\fR system:
 .PP 
-# debootstrap squeeze ./squeeze-chroot http://ftp.us.debian.org/debian
+# debootstrap wheezy ./wheezy-chroot http://ftp.us.debian.org/debian
 .PP
-# debootstrap squeeze ./squeeze-chroot file:///PATH_TO_LOCAL_MIRROR/debian
+# debootstrap wheezy ./wheezy-chroot file:///PATH_TO_LOCAL_MIRROR/debian
 .PP
 Full process to create a complete Debian installation of \fIsid\fR (unstable):
 .PP
@@ -173,10 +178,6 @@ Full process to create a complete Debian installation of \fIsid\fR (unstable):
      [ define a login tty that will use this system ]
       main # init q    
      [ reload init ]
-.PP
-Note that you will generally need a recent version of debootstrap to
-do this; the version currently in stable may stop working due to changes
-to unstable shortly after the last release.
 .SH AUTHOR
 .B debootstrap
 was written by Anthony Towns <ajt@debian.org>.
