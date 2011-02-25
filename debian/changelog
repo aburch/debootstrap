@@ -1,3 +1,10 @@
+debootstrap (1.0.29) UNRELEASED; urgency=low
+
+  * Support bootstrapping oldstable. (Lenny could already be bootstrapped
+    using that suite name.)
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 25 Feb 2011 16:10:44 -0400
+
 debootstrap (1.0.28) unstable; urgency=low
 
   [ Miguel Figueiredo ]
