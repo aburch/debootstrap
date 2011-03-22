@@ -5,8 +5,6 @@ debootstrap (1.0.29) UNRELEASED; urgency=low
     using that suite name.)
 
   [ Colin Watson ]
-  * For sid and gutsy (a.k.a. natty), install /var/lib/dpkg/info/$(dpkg
-    --print-architecture) -> . symlink, to cope with multiarch dpkg.
   * Add (Ubuntu) oneiric as a symlink to gutsy.
 
  -- Joey Hess <joeyh@debian.org>  Fri, 25 Feb 2011 16:10:44 -0400

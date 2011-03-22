@@ -69,7 +69,6 @@ first_stage_install () {
 		local ver="$(extract_deb_field "$TARGET/$deb" Version)"
 
 		mkdir -p "$TARGET/var/lib/dpkg/info"
-		ln -nsf . "$TARGET/var/lib/dpkg/info/$ARCH"
 
 		echo \
 "Package: $pkg
