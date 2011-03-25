@@ -476,6 +476,8 @@ download_release_sig () {
 		(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
 		 "$relsigdest" "$reldest" || true) | read_gpg_status
 		progress 100 100 DOWNRELSIG "Downloading Release file signature"
+	elif [ -z "$DISABLE_KEYRING" ]; then
+		warning KEYRING "Cannot verify gpg signature; keyring file %s is not available" "$KEYRING"
 	fi
 }
 

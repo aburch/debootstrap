@@ -7,6 +7,8 @@ debootstrap (1.0.30) UNRELEASED; urgency=low
   * Add --no-check-gpg option that can be used to disable release file
     verification.
   * Needs base-installer 1.117.
+  * Add a warning message if the keyring file is not available, and
+    --no-check-gpg is not specified.
 
  -- Joey Hess <joeyh@debian.org>  Fri, 25 Mar 2011 14:12:43 -0400
 
