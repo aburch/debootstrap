@@ -1,3 +1,15 @@
+debootstrap (1.0.30) UNRELEASED; urgency=low
+
+  * Recommend debian-archive-keyring, and if it is installed,
+    default to checking gpg signatures of the Release file against it
+    when bootstrapping sid, squeeze, wheezy, etch, and lenny.
+    Closes: #560038
+  * Add --no-check-gpg option that can be used to disable release file
+    verification.
+  * Needs base-installer 1.117.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 25 Mar 2011 14:12:43 -0400
+
 debootstrap (1.0.29) unstable; urgency=low
 
   [ Joey Hess ]

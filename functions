@@ -191,6 +191,12 @@ download_style () {
 	esac
 }
 
+keyring () {
+	if [ -z "$KEYRING" ] && [ -e "$1" ]; then
+		KEYRING="$1"
+	fi
+}
+
 ########################################################## variant handling
 
 doing_variant () {
@@ -456,7 +462,7 @@ download_release_sig () {
 	local reldest="$2"
 	local relsigdest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release.gpg")"
 
-	if [ -n "$KEYRING" ]; then
+	if [ -n "$KEYRING" ] && [ -z "$DISABLE_KEYRING" ]; then
 		progress 0 100 DOWNRELSIG "Downloading Release file signature"
 		progress_next 50
 		get "$m1/dists/$SUITE/Release.gpg" "$relsigdest" nocache ||

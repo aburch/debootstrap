@@ -2,6 +2,7 @@ mirror_style release
 download_style apt
 finddebs_style from-indices
 variants - buildd fakechroot minbase scratchbox
+keyring /usr/share/keyrings/debian-archive-keyring.gpg
 
 if doing_variant fakechroot; then
 	test "$FAKECHROOT" = "true" || error 1 FAKECHROOTREQ "This variant requires fakechroot environment to be started"

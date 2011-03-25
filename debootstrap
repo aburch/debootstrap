@@ -25,6 +25,7 @@ exec 4>&1
 LANG=C
 USE_COMPONENTS=main
 KEYRING=""
+DISABLE_KEYRING=""
 VARIANT=""
 
 DEF_MIRROR="http://ftp.us.debian.org/debian"
@@ -82,6 +83,7 @@ usage()
                              (currently supported variants: buildd, fakechroot,
                               scratchbox)
       --keyring=K            check Release files against keyring K
+      --no-check-gpg         avoid checking Release file signatures
       --no-resolve-deps      don't try to resolve dependencies automatically
 
       --unpack-tarball=T     acquire .debs from a tarball instead of http
@@ -303,6 +305,10 @@ if [ $# != 0 ] ; then
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
+		;;
+	    --no-check-gpg)
+			shift 1
+			DISABLE_KEYRING=1
 		;;
 	    --certificate|--certificate=?*)
 		if [ "$1" = "--certificate" -a -n "$2" ]; then

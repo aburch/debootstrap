@@ -84,9 +84,13 @@ Debian installation in
 .IR TARGET .
 .IP
 .IP "\fB\-\-keyring=KEYRING\fP"
-Download signatures for retrieved Release files and check them against
+Override the default keyring for the distribution being bootstrapped,
+and use
 .IR KEYRING .
-By default, Release file signatures are not checked.
+to check signatures of retrieved Release files.
+.IP
+.IP "\fB\-\-no-check-gpg\fP"
+Disables checking gpg signatures of retrieved Release files.
 .IP
 .IP "\fB\-\-verbose\fP"
 Produce more info about downloading.
