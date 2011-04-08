@@ -5,8 +5,6 @@ It was written from scratch for Debian by Anthony Towns <ajt@debian.org>
 based loosely on the code for constructing base tarballs as part of the
 boot-floppies package.
 
-The upstream site is http://code.erisian.com.au/Wiki/debootstrap .
-
 Copyright:
 
 Copyright (c) 2001-2005 Anthony Towns
