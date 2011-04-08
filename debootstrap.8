@@ -25,7 +25,8 @@ by running
 can be an http:// URL, a file:/// URL, or an ssh:/// URL.
 .PP
 The
-.I SUITE may be a release code name (eg, sid, wheeze, squeeze, lenny)
+.I SUITE
+may be a release code name (eg, sid, wheezy, squeeze, lenny)
 or a symbolic name (eg, unstable, testing, stable, oldstable)
 .PP
 Notice that file:/ URLs are translated to file:/// (correct scheme as
@@ -86,7 +87,7 @@ Debian installation in
 .IP "\fB\-\-keyring=KEYRING\fP"
 Override the default keyring for the distribution being bootstrapped,
 and use
-.IR KEYRING .
+.IR KEYRING
 to check signatures of retrieved Release files.
 .IP
 .IP "\fB\-\-no-check-gpg\fP"
@@ -157,28 +158,21 @@ Read the private key from file
 .PP 
 To setup a \fIwheezy\fR system:
 .PP 
-# debootstrap wheezy ./wheezy-chroot http://ftp.us.debian.org/debian
+     debootstrap wheezy ./wheezy-chroot http://ftp.us.debian.org/debian
 .PP
-# debootstrap wheezy ./wheezy-chroot file:///PATH_TO_LOCAL_MIRROR/debian
+     debootstrap wheezy ./wheezy-chroot file:///LOCAL_MIRROR/debian
 .PP
-Full process to create a complete Debian installation of \fIsid\fR (unstable):
+Full process to create a complete Debian installation of \fIsid\fR (unstable)
+in a chroot:
 .PP
-     main # cd / ; mkdir /sid-root
-     main # debootstrap sid /sid-root http://ftp.us.debian.org/debian/
+     main # debootstrap sid sid-root http://ftp.us.debian.org/debian/
      [ ... watch it download the whole system ]
-     main # echo "proc /sid-root/proc proc defaults 0 0" >> /etc/fstab
-     main # mount proc /sid-root/proc -t proc
-     main # echo "sysfs /sid-root/sys sysfs defaults 0 0" >> /etc/fstab
-     main # mount sysfs /sid-root/sys -t sysfs
-     main # cp /etc/hosts /sid-root/etc/hosts
-     main # chroot /sid-root /bin/bash
-     chroot # dselect  
-     [ you may use aptitude, install mc and vim ... ]
-      main # echo "8:23:respawn:/usr/sbin/chroot /sid-root " \\
-             "/sbin/getty 38400 tty8"  >> /etc/inittab
-     [ define a login tty that will use this system ]
-      main # init q    
-     [ reload init ]
+     main # echo "proc sid-root/proc proc defaults 0 0" >> /etc/fstab
+     main # mount proc sid-root/proc -t proc
+     main # echo "sysfs sid-root/sys sysfs defaults 0 0" >> /etc/fstab
+     main # mount sysfs sid-root/sys -t sysfs
+     main # cp /etc/hosts sid-root/etc/hosts
+     main # chroot sid-root /bin/bash
 .SH AUTHOR
 .B debootstrap
 was written by Anthony Towns <ajt@debian.org>.
