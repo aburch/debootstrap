@@ -29,7 +29,6 @@ DISABLE_KEYRING=""
 VARIANT=""
 ARCH=""
 KEEP_DEBOOTSTRAP_DIR=""
-USE_BOOTFLOPPIES_INTERACTION=""
 USE_DEBIANINSTALLER_INTERACTION=""
 SECOND_STAGE_ONLY=""
 CHROOTDIR=""
@@ -110,7 +109,6 @@ usage()
                                (requires --second-stage)
       --extractor=TYPE       override automatic .deb extractor selection
                                (supported: $EXTRACTORS_SUPPORTED)
-      --boot-floppies        used for internal purposes by boot-floppies
       --debian-installer     used for internal purposes by debian-installer
       --private-key=file     read the private key from file
       --certificate=file     use the client certificate stored in file (PEM)
@@ -137,20 +135,7 @@ if [ $# != 0 ] ; then
 		echo "debootstrap $VERSION"
 		exit 0
 		;;
-	    --boot-floppies)
-		if [ -n "$USE_DEBIANINSTALLER_INTERACTION" ] ; then
-			error 1 ARG_BFDI "Can only use one of --boot-floppies and --debian-installer"
-		fi
-		if ! (echo -n "" >&3) 2>/dev/null; then
-			error 1 ARG_BFBYHAND "If running debootstrap by hand, don't use --boot-floppies"
-		fi
-		USE_BOOTFLOPPIES_INTERACTION=yes
-		shift
-		;;
 	    --debian-installer)
-		if [ -n "$USE_BOOTFLOPPIES_INTERACTION" ] ; then
-			error 1 ARG_BFDI "Can only use one of --boot-floppies and --debian-installer"
-		fi
 		if ! (echo -n "" >&3) 2>/dev/null; then
 			error 1 ARG_DIBYHAND "If running debootstrap by hand, don't use --debian-installer"
 		fi
@@ -478,10 +463,6 @@ if [ "$USE_DEBIANINSTALLER_INTERACTION" = yes ]; then
 	#    stdout=stderr: full log of debootstrap run
 	#    fd 3: I:/W:/etc information
 	exec 4>&3
-elif [ "$USE_BOOTFLOPPIES_INTERACTION" = yes ]; then
-	#    stdout=stderr: full log of debootstrap run
-	#    fd 3: I:/W:/etc information
-	exec 4>&3
 elif am_doing_phase printdebs; then
 	#    stderr: I:/W:/etc information
 	#    stdout: debs needed
@@ -670,9 +651,4 @@ if am_doing_phase kill_target; then
 		info KILLTARGET "Deleting target directory"
 		rm -rf "$TARGET"
 	fi
-fi
-
-if [ -n "$USE_BOOTFLOPPIES_INTERACTION" ] ; then
-	echo "I: debootstrap: Successfully completed" # goes to /dev/tty4
-	sleep 1 || true # give the user a second to see the success notice.
 fi

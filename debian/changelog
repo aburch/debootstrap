@@ -11,6 +11,8 @@ debootstrap (1.0.30) UNRELEASED; urgency=low
     --no-check-gpg is not specified.
   * Clear all global variables used for options, so that unclean
     environment doesn't break debootstrap. Closes: #621657
+  * Removed the --boot-floppies switch and mode. Assuming this has
+    not been used in 10 years.
 
  -- Joey Hess <joeyh@debian.org>  Fri, 25 Mar 2011 14:12:43 -0400
 
