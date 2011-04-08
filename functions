@@ -61,7 +61,7 @@ progress_next () {
 }
 
 wgetprogress () {
-	[ ! "$verbose" ] && QSWITCH="-q"
+	[ ! "$VERBOSE" ] && QSWITCH="-q"
 	local ret=0
 	if [ "$USE_DEBIANINSTALLER_INTERACTION" ] && [ "$PROGRESS_NEXT" ]; then
 		wget "$@" 2>&1 >/dev/null | $PKGDETAILS "WGET%" $PROGRESS_NOW $PROGRESS_NEXT $PROGRESS_END >&3

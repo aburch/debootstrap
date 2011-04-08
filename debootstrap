@@ -27,6 +27,22 @@ USE_COMPONENTS=main
 KEYRING=""
 DISABLE_KEYRING=""
 VARIANT=""
+ARCH=""
+KEEP_DEBOOTSTRAP_DIR=""
+USE_BOOTFLOPPIES_INTERACTION=""
+USE_DEBIANINSTALLER_INTERACTION=""
+SECOND_STAGE_ONLY=""
+CHROOTDIR=""
+MAKE_TARBALL=""
+KEEP_DEBOOTSTRAP_DIR=""
+EXTRACTOR_OVERRIDE=""
+UNPACK_TARBALL=""
+ADDITIONAL=""
+EXCLUDE=""
+VERBOSE=""
+CERTIFICATE=""
+CHECKCERTIF=""
+PRIVATEKEY=""
 
 DEF_MIRROR="http://ftp.us.debian.org/debian"
 
@@ -242,31 +258,31 @@ if [ $# != 0 ] ; then
 		;;
 	    --include|--include=?*)
 		if [ "$1" = "--include" -a -n "$2" ]; then
-			additional="$2"
+			ADDITIONAL="$2"
 			shift 2
                 elif [ "$1" != "${1#--include=}" ]; then
-			additional="${1#--include=}"
+			ADDITIONAL="${1#--include=}"
 			shift 1
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
-		additional="$(echo "$additional" | tr , " ")"
+		ADDITIONAL="$(echo "$ADDITIONAL" | tr , " ")"
 		;;
 	    --exclude|--exclude=?*)
 		if [ "$1" = "--exclude" -a -n "$2" ]; then
-			exclude="$2"
+			EXCLUDE="$2"
 			shift 2
                 elif [ "$1" != "${1#--exclude=}" ]; then
-			exclude="${1#--exclude=}"
+			EXCLUDE="${1#--exclude=}"
 			shift 1
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
-		exclude="$(echo "$exclude" | tr , " ")"
+		EXCLUDE="$(echo "$EXCLUDE" | tr , " ")"
 		;;
 	    --verbose)
-		verbose=true
-		export verbose
+		VERBOSE=true
+		export VERBOSE
 		shift 1
 		;;
 	    --components|--components=?*)
@@ -529,7 +545,7 @@ if am_doing_phase finddebs; then
 
 	work_out_debs
 
-	base=$(without "$base $additional" "$exclude")
+	base=$(without "$base $ADDITIONAL" "$EXCLUDE")
 
 	if [ "$RESOLVE_DEPS" = true ]; then
 		requiredX=$(echo $(echo $required | tr ' ' '\n' | sort | uniq))

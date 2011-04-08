@@ -9,6 +9,8 @@ debootstrap (1.0.30) UNRELEASED; urgency=low
   * Needs base-installer 1.117.
   * Add a warning message if the keyring file is not available, and
     --no-check-gpg is not specified.
+  * Clear all global variables used for options, so that unclean
+    environment doesn't break debootstrap. Closes: #621657
 
  -- Joey Hess <joeyh@debian.org>  Fri, 25 Mar 2011 14:12:43 -0400
 
