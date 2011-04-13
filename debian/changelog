@@ -1,5 +1,6 @@
 debootstrap (1.0.30) UNRELEASED; urgency=low
 
+  [ Joey Hess ]
   * Recommend debian-archive-keyring, and if it is installed,
     default to checking gpg signatures of the Release file against it
     when bootstrapping sid, squeeze, wheezy, etch, and lenny.
@@ -13,6 +14,9 @@ debootstrap (1.0.30) UNRELEASED; urgency=low
     environment doesn't break debootstrap. Closes: #621657
   * Removed the --boot-floppies switch and mode. Assuming this has
     not been used in 10 years.
+
+  [ Colin Watson ]
+  * Resolve dependencies from all requested components (LP: #740167).
 
  -- Joey Hess <joeyh@debian.org>  Fri, 25 Mar 2011 14:12:43 -0400
 

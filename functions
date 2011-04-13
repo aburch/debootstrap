@@ -1124,19 +1124,24 @@ fi
 resolve_deps () {
 	local m1="${MIRRORS%% *}"
 
-	# XXX: I can't think how to deal well with dependency resolution and
-	#      lots of Packages files. -- aj 2005/06/12
-
-	c="${COMPONENTS%% *}"
-	local path="dists/$SUITE/$c/binary-$ARCH/Packages"
-	local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m1" "$path")"
-
 	local PKGS="$*"
 	local ALLPKGS="$PKGS";
 	local ALLPKGS2="";
 	while [ "$PKGS" != "" ]; do
-		PKGS=$("$PKGDETAILS" GETDEPS "$pkgdest" $PKGS)
-		PKGS=$("$PKGDETAILS" PKGS REAL "$pkgdest" $PKGS | sed -n 's/ .*REAL.*$//p')
+		local NEWPKGS=""
+		for c in $COMPONENTS; do
+			local path="dists/$SUITE/$c/binary-$ARCH/Packages"
+			local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m1" "$path")"
+			NEWPKGS="$NEWPKGS $("$PKGDETAILS" GETDEPS "$pkgdest" $PKGS)"
+		done
+		PKGS=$(echo "$PKGS $NEWPKGS" | tr ' ' '\n' | sort | uniq)
+		local REALPKGS=""
+		for c in $COMPONENTS; do
+			local path="dists/$SUITE/$c/binary-$ARCH/Packages"
+			local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m1" "$path")"
+			REALPKGS="$REALPKGS $("$PKGDETAILS" PKGS REAL "$pkgdest" $PKGS | sed -n 's/ .*REAL.*$//p')"
+		done
+		PKGS="$REALPKGS"
 		ALLPKGS2=$(echo "$PKGS $ALLPKGS" | tr ' ' '\n' | sort | uniq)
 		PKGS=$(without "$ALLPKGS2" "$ALLPKGS")
 		ALLPKGS="$ALLPKGS2"
