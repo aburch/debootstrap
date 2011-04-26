@@ -1,4 +1,4 @@
-debootstrap (1.0.30) UNRELEASED; urgency=low
+debootstrap (1.0.30) unstable; urgency=low
 
   [ Joey Hess ]
   * Recommend debian-archive-keyring, and if it is installed,
@@ -6,7 +6,7 @@ debootstrap (1.0.30) UNRELEASED; urgency=low
     when bootstrapping sid, squeeze, wheezy, etch, and lenny.
     Closes: #560038
   * Add --no-check-gpg option that can be used to disable release file
-    verification.
+    verification. Closes: #624229
   * Needs base-installer 1.117.
   * Add a warning message if the keyring file is not available, and
     --no-check-gpg is not specified.
@@ -18,7 +18,7 @@ debootstrap (1.0.30) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Resolve dependencies from all requested components (LP: #740167).
 
- -- Joey Hess <joeyh@debian.org>  Fri, 25 Mar 2011 14:12:43 -0400
+ -- Joey Hess <joeyh@debian.org>  Tue, 26 Apr 2011 17:10:00 -0400
 
 debootstrap (1.0.29) unstable; urgency=low
 
