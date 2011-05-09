@@ -23,7 +23,7 @@ work_out_debs () {
 		#  ^^ should be getting debconf here somehow maybe
 		base="$(get_debs Priority: important)"
 	elif doing_variant buildd || doing_variant scratchbox; then
-		base="apt $(get_debs Build-Essential: yes)"
+		base="apt build-essential"
 	elif doing_variant minbase; then
 		base="apt"
 	fi

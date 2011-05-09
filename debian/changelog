@@ -1,5 +1,9 @@
 debootstrap (1.0.30) unstable; urgency=low
 
+  [ Mark Hymers ]
+  * Don't use the Build-Essential: yes field in Debian, use the
+    build-essential package. Closes: #619700.
+
   [ Joey Hess ]
   * Recommend debian-archive-keyring, and if it is installed,
     default to checking gpg signatures of the Release file against it
