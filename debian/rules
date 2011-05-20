@@ -35,4 +35,4 @@ override_dh_auto_install:
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/unstable
 
 override_dh_gencontrol:
-	dh_gencontrol -- -Vkeyring:Recommends=$(KEYRING)
+	dh_gencontrol -- -Vkeyring=$(KEYRING)
