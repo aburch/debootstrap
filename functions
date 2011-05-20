@@ -452,7 +452,12 @@ apt_dest () {
 get_release_checksum () {
 	local reldest="$1"
 	local path="$2"
-	sed -n "/^[Ss][Hh][Aa]$SHA_SIZE:/,/^[^ ]/p" < "$reldest" | \
+	if [ "$DEBOOTSTRAP_CHECKSUM_FIELD" = MD5SUM ]; then
+		local match="^[Mm][Dd]5[Ss][Uu][Mm]"
+	else
+		local match="^[Ss][Hh][Aa]$SHA_SIZE:"
+	fi
+	sed -n "/$match/,/^[^ ]/p" < "$reldest" | \
 		while read a b c; do
 			if [ "$c" = "$path" ]; then echo "$a $b"; fi
 		done | head -n 1
