@@ -1,5 +1,11 @@
 #! /usr/bin/make -f
 
+ifeq (0,$(shell dpkg-vendor --derives-from Ubuntu; echo $$?))
+  KEYRING := ubuntu-keyring
+else
+  KEYRING := debian-archive-keyring
+endif
+
 %:
 	dh $@
 
@@ -27,3 +33,6 @@ override_dh_auto_install:
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/stable \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/testing \
 		debian/debootstrap-udeb/usr/share/debootstrap/scripts/unstable
+
+override_dh_gencontrol:
+	dh_gencontrol -- -Vkeyring:Recommends=$(KEYRING)

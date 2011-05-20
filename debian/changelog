@@ -2,6 +2,8 @@ debootstrap (1.0.31) UNRELEASED; urgency=low
 
   * If ubuntu-keyring is installed, check Release signatures against it when
     bootstrapping Ubuntu gutsy and later.
+  * Recommend ubuntu-keyring rather than debian-archive-keyring on
+    Ubuntu-derived systems.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 20 May 2011 09:26:48 +0100
 
