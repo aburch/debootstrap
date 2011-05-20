@@ -1,4 +1,4 @@
-debootstrap (1.0.31) UNRELEASED; urgency=low
+debootstrap (1.0.31) unstable; urgency=low
 
   [ Mark Hymers ]
   * Don't use the Build-Essential: yes field in Debian, use the
@@ -10,7 +10,7 @@ debootstrap (1.0.31) UNRELEASED; urgency=low
   * Recommend ubuntu-keyring rather than debian-archive-keyring on
     Ubuntu-derived systems.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 20 May 2011 09:26:48 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 20 May 2011 09:45:48 +0100
 
 debootstrap (1.0.30) unstable; urgency=low
 
