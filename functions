@@ -452,7 +452,7 @@ apt_dest () {
 get_release_checksum () {
 	local reldest="$1"
 	local path="$2"
-	sed -n "/^[Sa][Hh][Aa]$SHA_SIZE:/,/^[^ ]/p" < "$reldest" | \
+	sed -n "/^[Ss][Hh][Aa]$SHA_SIZE:/,/^[^ ]/p" < "$reldest" | \
 		while read a b c; do
 			if [ "$c" = "$path" ]; then echo "$a $b"; fi
 		done | head -n 1
