@@ -1,3 +1,10 @@
+debootstrap (1.0.31) UNRELEASED; urgency=low
+
+  * Use md5sums for woody and potato, which only had those checksums
+    in the Packages files. Closes: #627365
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 20 May 2011 12:08:37 -0400
+
 debootstrap (1.0.30) unstable; urgency=low
 
   [ Mark Hymers ]

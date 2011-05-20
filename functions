@@ -226,11 +226,20 @@ mirror_style () {
 	export DOWNLOAD_DEBS
 }
 
+force_md5 () {
+	DEBOOTSTRAP_CHECKSUM_FIELD=MD5SUM
+	export DEBOOTSTRAP_CHECKSUM_FIELD
+}
+
 verify_checksum () {
 	# args: dest checksum size
 	local expchecksum="$2"
 	local expsize="$3"
-	relchecksum=`sha${SHA_SIZE}sum < "$1" | sed 's/ .*$//'`
+	if [ "$DEBOOTSTRAP_CHECKSUM_FIELD" = "MD5SUM" ]; then
+		relchecksum=`md5sum < "$1" | sed 's/ .*$//'`
+	else
+		relchecksum=`sha${SHA_SIZE}sum < "$1" | sed 's/ .*$//'`
+	fi
 	relsize=`wc -c < "$1"`
 	if [ "$expsize" -ne "$relsize" ] || [ "$expchecksum" != "$relchecksum" ]; then
 		return 1
@@ -1027,7 +1036,7 @@ while (<STDIN>) {
 		$ver = $v if ($f eq "version:");
 		$arc = $v if ($f eq "architecture:");
 		$fil = $v if ($f eq "filename:");
-		$chk = $v if ($f eq lc($ENV{DEBOOTSTRAP_CHECKSUM_FIELD}).":");
+		$chk = $v if (lc $f eq lc($ENV{DEBOOTSTRAP_CHECKSUM_FIELD}).":");
 		$siz = $v if ($f eq "size:");
 		$val = $v if ($f eq $field);
 	} elsif (/^$/) {
