@@ -96,7 +96,7 @@ usage()
                              archive
       --variant=X            use variant X of the bootstrap scripts
                              (currently supported variants: buildd, fakechroot,
-                              scratchbox)
+                              scratchbox, minbase)
       --keyring=K            check Release files against keyring K
       --no-check-gpg         avoid checking Release file signatures
       --no-resolve-deps      don't try to resolve dependencies automatically
