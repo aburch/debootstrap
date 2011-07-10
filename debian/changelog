@@ -1,6 +1,8 @@
 debootstrap (1.0.33) UNRELEASED; urgency=low
 
   * Mention minbase variant in --help. Closes: #632418
+  * Use md5sums for sarge, which did not consistently have sha1sums
+    everywhere. Closes: #633158
 
  -- Joey Hess <joeyh@debian.org>  Sat, 02 Jul 2011 15:05:18 -0400
 

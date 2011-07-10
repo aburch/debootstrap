@@ -1,5 +1,6 @@
 mirror_style release
 download_style apt
+force_md5
 
 LIBC=libc6
 if [ "$ARCH" = "alpha" ] || [ "$ARCH" = "ia64" ]; then
