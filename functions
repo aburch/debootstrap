@@ -793,7 +793,7 @@ extract_ar_deb_data () {
 	if type $cat_cmd >/dev/null 2>&1; then
 		ar -p "$pkg" "$tarball" | $cat_cmd | tar -xf -
 	else
-		error 1 UNPACKCMDUNVL "The $cat_cmd is not available on the system"
+		error 1 UNPACKCMDUNVL "The $cat_cmd command is not available on the system"
 	fi
 }
 

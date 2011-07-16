@@ -1,8 +1,13 @@
 debootstrap (1.0.33) UNRELEASED; urgency=low
 
+  [ Joey Hess ]
   * Mention minbase variant in --help. Closes: #632418
   * Use md5sums for sarge, which did not consistently have sha1sums
     everywhere. Closes: #633158
+
+  [ Colin Watson ]
+  * Improve text of error message when decompression command is not
+    available.
 
  -- Joey Hess <joeyh@debian.org>  Sat, 02 Jul 2011 15:05:18 -0400
 
