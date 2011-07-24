@@ -612,7 +612,7 @@ download_debs () {
 					dloaddebs="$(($dloaddebs + $size))"
 					echo >>$TARGET/debootstrap/debpaths "$p $debdest"
 				else
-					warning COULDNTDL "Couldn't download package %s" "$p"
+					warning COULDNTDL "Couldn't download package %s (ver %s arc %s)" "$p" "$ver" "$arc"
 				fi
 			fi
 		done
