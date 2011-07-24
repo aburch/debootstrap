@@ -1,4 +1,4 @@
-debootstrap (1.0.33) UNRELEASED; urgency=low
+debootstrap (1.0.33) unstable; urgency=low
 
   [ Joey Hess ]
   * Mention minbase variant in --help. Closes: #632418
@@ -9,7 +9,7 @@ debootstrap (1.0.33) UNRELEASED; urgency=low
   * Improve text of error message when decompression command is not
     available.
 
- -- Joey Hess <joeyh@debian.org>  Sat, 02 Jul 2011 15:05:18 -0400
+ -- Otavio Salvador <otavio@debian.org>  Sun, 24 Jul 2011 10:33:56 +0200
 
 debootstrap (1.0.32) unstable; urgency=low
 
