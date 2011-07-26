@@ -1290,6 +1290,10 @@ on_exit () {
 ############################################################## fakechroot tools
 
 install_fakechroot_tools () {
+	if [ "$VARIANT" = "fakechroot" ]; then
+		export PATH=/usr/sbin:/sbin:$PATH
+	fi
+
 	mv "$TARGET/sbin/ldconfig" "$TARGET/sbin/ldconfig.REAL"
 	echo \
 "#!/bin/sh

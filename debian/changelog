@@ -2,6 +2,8 @@ debootstrap (1.0.34) UNRELEASED; urgency=low
 
   * Add more information regarding the version and architecture in case
     a download fails. Closes: #633625.
+  * add /usr/sbin and /sbin to PATH for fakechroot variant. Closes:
+    #588773
 
  -- Otavio Salvador <otavio@debian.org>  Sun, 24 Jul 2011 18:24:40 +0200
 
