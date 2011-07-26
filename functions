@@ -972,6 +972,11 @@ setup_proc_fakechroot () {
 }
 
 setup_devices () {
+	if doing_variant fakechroot; then
+		setup_devices_fakechroot
+		return 0
+	fi
+
 	case "$ARCH" in
 	    kfreebsd-*)
 		in_target mount -t devfs devfs /dev ;;

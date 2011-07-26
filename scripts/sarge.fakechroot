@@ -73,8 +73,6 @@ first_stage_install () {
         chown 0:0 "$TARGET/etc/fstab"; chmod 644 "$TARGET/etc/fstab"
     fi
 
-    setup_devices_fakechroot
-
     x_feign_install () {
         local pkg="$1"
         local deb="$(debfor $pkg)"
@@ -102,6 +100,7 @@ second_stage_install () {
 	baseprog="$(($baseprog + ${1:-1}))"
     }
 
+    setup_devices_fakechroot
     setup_proc_fakechroot
 
     DEBIAN_FRONTEND=noninteractive

@@ -57,12 +57,6 @@ first_stage_install () {
         chown 0:0 "$TARGET/etc/fstab"; chmod 644 "$TARGET/etc/fstab"
     fi
 
-    if doing_variant fakechroot; then
-        setup_devices_fakechroot
-    else
-        setup_devices
-    fi
-
     x_feign_install () {
         local pkg="$1"
         local deb="$(debfor $pkg)"
@@ -89,6 +83,8 @@ second_stage_install () {
     p () {
 	baseprog="$(($baseprog + ${1:-1}))"
     }
+
+    setup_devices
 
     if doing_variant fakechroot; then
 	setup_proc_fakechroot
