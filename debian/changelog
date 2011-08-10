@@ -1,4 +1,4 @@
-debootstrap (1.0.35) UNRELEASED; urgency=low
+debootstrap (1.0.35) unstable; urgency=low
 
   [ Robert Millan ]
   * Don't build devices.tar.gz if building on GNU/kFreeBSD (closes:
@@ -6,7 +6,7 @@ debootstrap (1.0.35) UNRELEASED; urgency=low
   * Don't use --arch when we specifically care about the host architecture
     (closes: #637298).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 10 Aug 2011 12:59:44 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 10 Aug 2011 13:04:41 +0100
 
 debootstrap (1.0.34) unstable; urgency=low
 
