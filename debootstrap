@@ -402,9 +402,7 @@ else
 	error 1 WHATARCH "Couldn't work out current architecture"
 fi
 
-if [ "$ARCH" != "" ]; then
-	true
-else
+if [ -z "$ARCH" ]; then
 	ARCH=$HOST_ARCH
 fi
 
