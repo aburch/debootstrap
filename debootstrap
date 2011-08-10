@@ -28,6 +28,7 @@ KEYRING=""
 DISABLE_KEYRING=""
 VARIANT=""
 ARCH=""
+HOST_ARCH=""
 KEEP_DEBOOTSTRAP_DIR=""
 USE_DEBIANINSTALLER_INTERACTION=""
 SECOND_STAGE_ONLY=""
@@ -389,18 +390,22 @@ fi
 
 ###########################################################################
 
-if [ "$ARCH" != "" ]; then
-	true
-elif [ -x /usr/bin/dpkg ] && \
+if [ -x /usr/bin/dpkg ] && \
      /usr/bin/dpkg --print-architecture >/dev/null 2>&1; then
-	ARCH=`/usr/bin/dpkg --print-architecture`
+	HOST_ARCH=`/usr/bin/dpkg --print-architecture`
 elif type udpkg >/dev/null 2>&1 && \
      udpkg --print-architecture >/dev/null 2>&1; then
-	ARCH=`/usr/bin/udpkg --print-architecture`
+	HOST_ARCH=`/usr/bin/udpkg --print-architecture`
 elif [ -e $DEBOOTSTRAP_DIR/arch ]; then
-	ARCH=`cat $DEBOOTSTRAP_DIR/arch`
+	HOST_ARCH=`cat $DEBOOTSTRAP_DIR/arch`
 else
 	error 1 WHATARCH "Couldn't work out current architecture"
+fi
+
+if [ "$ARCH" != "" ]; then
+	true
+else
+	ARCH=$HOST_ARCH
 fi
 
 if [ "$TARGET" = "/" ]; then

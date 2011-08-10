@@ -938,7 +938,7 @@ clear_mtab () {
 }
 
 setup_proc () {
-	case "$ARCH" in
+	case "$HOST_ARCH" in
 	    kfreebsd-*)
 		umount_on_exit /dev
 		umount_on_exit /proc
@@ -977,7 +977,7 @@ setup_devices () {
 		return 0
 	fi
 
-	case "$ARCH" in
+	case "$HOST_ARCH" in
 	    kfreebsd-*)
 		in_target mount -t devfs devfs /dev ;;
 	    hurd-*)
@@ -1198,7 +1198,7 @@ get_next_predep () {
 check_sane_mount () {
 	mkdir -p "$1"
 
-	case "$ARCH" in
+	case "$HOST_ARCH" in
 	    kfreebsd-*|hurd-*)
 		;;
 	    *)
