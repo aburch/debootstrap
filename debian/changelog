@@ -1,14 +1,16 @@
 debootstrap (1.0.36) UNRELEASED; urgency=low
 
   * Guess host OS based on uname for non-Debian systems. Closes: #637363
-  * Fix support for running debootstrap on a FreeBSD host to create a kFreeBSD
-    chroot or jail.
   * Clarify "target" in usage message.
+  * Fix support for running debootstrap on a FreeBSD host to create a kFreeBSD
+    chroot or jail. Thanks, Arno Toell.
   * Search PATH for programs, rather than checking hardcoded locations.
   * Support using md5 and shaN programs, as found on FreeBSD, in addition
     to md5sum and shaNsum.
   * When FreeBSD (not kfreebsd) is the host, don't chroot to mount special
     filesystems.
+  * When debootstrapping on FreeBSD, warn if necessary modules are not
+    loaded. Thanks, Arno Toell.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 15 Aug 2011 14:14:29 -0400
 

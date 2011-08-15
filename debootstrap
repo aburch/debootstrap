@@ -428,6 +428,12 @@ if [ -z "$ARCH" ] || [ -z "$HOST_OS" ]; then
 
 fi
 
+if [ "$HOST_OS" = "kfreebsd" ] || [ "$HOST_OS" = "freebsd" ]; then
+	for module in "linprocfs fdescfs tmpfs linsysfs"; do
+		kldstat -m "$module" > /dev/null 2>&1 || warning SANITYCHECK "Probably required module %s is not loaded" "$module"
+	done
+fi
+
 if [ "$TARGET" = "/" ]; then
 	CHROOT_CMD=""
 elif doing_variant scratchbox; then
