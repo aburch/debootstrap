@@ -79,7 +79,7 @@ usage_err()
 usage()
 {
 	echo "Usage: ${0##*/} [OPTION]... <suite> <target> [<mirror> [<script>]]"
-	echo "Bootstrap Debian base system."
+	echo "Bootstrap a Debian base system into a target directory."
 	echo
 	cat <<EOF
       --help                 display this help and exit
@@ -89,7 +89,7 @@ usage()
       --download-only        download packages, but don't perform installation
       --print-debs           print the packages to be installed, and exit
 
-      --arch=A               set the target architecture (use if no dpkg)
+      --arch=A               set the architecture to install (use if no dpkg)
                                [ --arch=powerpc ]
 
       --include=A,B,C        adds specified names to the list of base packages
