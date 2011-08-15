@@ -968,7 +968,11 @@ setup_proc () {
 		umount_on_exit /dev
 		umount_on_exit /proc
 		umount "$TARGET/proc" 2>/dev/null || true
-		in_target mount -t linprocfs proc /proc
+		if [ "$HOST_OS" = kfreebsd ]; then
+			in_target mount -t linprocfs proc /proc
+		else
+			mount -t linprocfs proc $TARGET/proc
+		fi
 		;;
 	    hurd*)
 		;;
@@ -1003,8 +1007,10 @@ setup_devices () {
 	fi
 
 	case "$HOST_OS" in
-	    *freebsd*)
+	    kfreebsd*)
 		in_target mount -t devfs devfs /dev ;;
+	    freebsd)
+		mount -t devfs devfs $TARGET/dev ;;
 	    hurd*)
 		setup_devices_hurd ;;
 	    *)

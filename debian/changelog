@@ -7,6 +7,8 @@ debootstrap (1.0.36) UNRELEASED; urgency=low
   * Search PATH for programs, rather than checking hardcoded locations.
   * Support using md5 and shaN programs, as found on FreeBSD, in addition
     to md5sum and shaNsum.
+  * When FreeBSD (not kfreebsd) is the host, don't chroot to mount special
+    filesystems.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 15 Aug 2011 14:14:29 -0400
 
