@@ -6,14 +6,15 @@ smallyes() {
 }
 
 in_path () {
-	IFS=":" _in_path "$1"
-}
-_in_path () {
+	local OLD_IFS="$IFS"
+	IFS=":"
 	for dir in $PATH; do
 		if [ -x "$dir/$1" ]; then
+			IFS="$OLD_IFS"
 			return 0
 		fi
 	done
+	IFS="$OLD_IFS"
 	return 1
 }
 
