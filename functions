@@ -939,7 +939,7 @@ clear_mtab () {
 
 setup_proc () {
 	case "$HOST_OS" in
-	    kfreebsd*)
+	    *freebsd*)
 		umount_on_exit /dev
 		umount_on_exit /proc
 		umount "$TARGET/proc" 2>/dev/null || true
@@ -978,7 +978,7 @@ setup_devices () {
 	fi
 
 	case "$HOST_OS" in
-	    kfreebsd*)
+	    *freebsd*)
 		in_target mount -t devfs devfs /dev ;;
 	    hurd*)
 		setup_devices_hurd ;;
@@ -1199,7 +1199,7 @@ check_sane_mount () {
 	mkdir -p "$1"
 
 	case "$HOST_OS" in
-	    kfreebsd*|hurd*)
+	    *freebsd*|hurd*)
 		;;
 	    *)
 		mknod "$1/test-dev-null" c 1 3 || return 1

@@ -413,6 +413,9 @@ if [ -z "$HOST_OS" ]; then
 		GNU)
 			HOST_OS=hurd
 		;;
+		FreeBSD*)
+			HOST_OS=freebsd
+		;;
 	esac
 fi
 
