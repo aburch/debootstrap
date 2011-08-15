@@ -524,9 +524,9 @@ download_release_indices () {
 		local i=
 		if [ "$normi" != "" ]; then
 			i="$normi"
-		elif [ -x /bin/bunzip2 ] && [ "$bz2i" != "" ]; then
+		elif in_path bunzip2 && [ "$bz2i" != "" ]; then
 			i="$bz2i"
-		elif [ -x /bin/gunzip ] && [ "$gzi" != "" ]; then
+		elif in_path gunzip && [ "$gzi" != "" ]; then
 			i="$gzi"
 		fi
 		if [ "$i" != "" ]; then
@@ -552,11 +552,11 @@ download_release_indices () {
 			ext="$ext $normi ."
 			i="$normi"
 		fi
-		if [ -x /bin/bunzip2 ] && [ "$bz2i" != "" ]; then
+		if in_path bunzip2 && [ "$bz2i" != "" ]; then
 			ext="$ext $bz2i bz2"
 			i="${i:-$bz2i}"
 		fi
-		if [ -x /bin/gunzip ] && [ "$gzi" != "" ]; then
+		if in_path gunzip && [ "$gzi" != "" ]; then
 			ext="$ext $gzi gz"
 			i="${i:-$gzi}"
 		fi
@@ -690,7 +690,7 @@ download_main_indices () {
 	    for c in $COMPONENTS; do
 		local path="dists/$SUITE/$c/binary-$ARCH/Packages"
 		local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
-		if [ -x /bin/gunzip ] && get "$m/${path}.gz" "${pkgdest}.gz"; then
+		if in_path gunzip && get "$m/${path}.gz" "${pkgdest}.gz"; then
 			rm -f "$pkgdest"
 			gunzip "$pkgdest.gz"
 		elif get "$m/$path" "$pkgdest"; then
@@ -1028,7 +1028,7 @@ setup_dselect_method () {
 # For the debootstrap udeb, pkgdetails is provided by the bootstrap-base
 # udeb, so the pkgdetails API needs to be kept in sync with that.
 
-if [ -x /usr/bin/perl ]; then
+if in_path perl; then
 	PKGDETAILS=pkgdetails_perl
 
 	pkgdetails_field () {
@@ -1290,6 +1290,18 @@ trap "exit 143" 15
 on_exit () {
 	eval `echo EXIT_THING_${N_EXIT_THINGS}=\"$1\"`
 	N_EXIT_THINGS="$(( $N_EXIT_THINGS + 1 ))"
+}
+
+in_path () {
+	IFS=":" _in_path "$1"
+}
+_in_path () {
+	for dir in $PATH; do
+		if [ -x "$dir/$1" ]; then
+			return 0
+		fi
+	done
+	return 1
 }
 
 ############################################################## fakechroot tools

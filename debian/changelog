@@ -4,6 +4,7 @@ debootstrap (1.0.36) UNRELEASED; urgency=low
   * Fix support for running debootstrap on a FreeBSD host to create a kFreeBSD
     chroot or jail.
   * Clarify "target" in usage message.
+  * Search PATH for programs, rather than checking hardcoded locations.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 15 Aug 2011 14:14:29 -0400
 

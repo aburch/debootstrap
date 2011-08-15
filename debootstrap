@@ -391,10 +391,10 @@ fi
 
 ###########################################################################
 
-if [ -x /usr/bin/dpkg ] && \
-     /usr/bin/dpkg --print-architecture >/dev/null 2>&1; then
+if in_path dpkg && \
+     dpkg --print-architecture >/dev/null 2>&1; then
 	HOST_ARCH=`/usr/bin/dpkg --print-architecture`
-elif type udpkg >/dev/null 2>&1 && \
+elif in_path udpkg && \
      udpkg --print-architecture >/dev/null 2>&1; then
 	HOST_ARCH=`/usr/bin/udpkg --print-architecture`
 elif [ -e $DEBOOTSTRAP_DIR/arch ]; then
@@ -447,8 +447,7 @@ fi
 if [ -z "$SHA_SIZE" ]; then
 	SHA_SIZE=256
 fi
-if ! [ -x "/usr/bin/sha${SHA_SIZE}sum" ] && \
-   ! [ -x "/bin/sha${SHA_SIZE}sum" ]; then
+if ! in_path "sha${SHA_SIZE}sum"; then
 	SHA_SIZE=1
 fi
 DEBOOTSTRAP_CHECKSUM_FIELD="SHA$SHA_SIZE"
@@ -456,7 +455,7 @@ DEBOOTSTRAP_CHECKSUM_FIELD="SHA$SHA_SIZE"
 export ARCH SUITE TARGET CHROOT_CMD SHA_SIZE DEBOOTSTRAP_CHECKSUM_FIELD
 
 if am_doing_phase first_stage second_stage; then
-	if [ -x /usr/bin/id ] && [ `id -u` -ne 0 ]; then
+	if in_path id && [ `id -u` -ne 0 ]; then
 		error 1 NEEDROOT "debootstrap can only run as root"
 	fi
 	# Ensure that we can create working devices and executables on the target.
