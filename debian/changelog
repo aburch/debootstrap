@@ -5,6 +5,8 @@ debootstrap (1.0.36) UNRELEASED; urgency=low
     chroot or jail.
   * Clarify "target" in usage message.
   * Search PATH for programs, rather than checking hardcoded locations.
+  * Support using md5 and shaN programs, as found on FreeBSD, in addition
+    to md5sum and shaNsum.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 15 Aug 2011 14:14:29 -0400
 

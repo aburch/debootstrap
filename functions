@@ -249,9 +249,21 @@ verify_checksum () {
 	local expchecksum="$2"
 	local expsize="$3"
 	if [ "$DEBOOTSTRAP_CHECKSUM_FIELD" = "MD5SUM" ]; then
-		relchecksum=`md5sum < "$1" | sed 's/ .*$//'`
+		if in_path md5sum; then
+			relchecksum=`md5sum < "$1" | sed 's/ .*$//'`
+		elif in_path md5; then
+			relchecksum=`md5 < "$1"`
+		else
+			error 1 SIGCHECK "Cannot check md5sum"
+		fi
 	else
-		relchecksum=`sha${SHA_SIZE}sum < "$1" | sed 's/ .*$//'`
+		if in_path "sha${SHA_SIZE}sum"; then
+			relchecksum=`sha${SHA_SIZE}sum < "$1" | sed 's/ .*$//'`
+		elif in_path "sha${SHA_SIZE}"; then
+			relchecksum=`sha${SHA_SIZE} < "$1"`
+		else
+			error 1 SIGCHECK "Cannot check sha${SHA_SIZE}sum"
+		fi
 	fi
 	relsize=`wc -c < "$1"`
 	if [ "$expsize" -ne "$relsize" ] || [ "$expchecksum" != "$relchecksum" ]; then

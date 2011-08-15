@@ -447,7 +447,7 @@ fi
 if [ -z "$SHA_SIZE" ]; then
 	SHA_SIZE=256
 fi
-if ! in_path "sha${SHA_SIZE}sum"; then
+if ! in_path "sha${SHA_SIZE}sum" && ! in_path "sha${SHA_SIZE}"; then
 	SHA_SIZE=1
 fi
 DEBOOTSTRAP_CHECKSUM_FIELD="SHA$SHA_SIZE"
