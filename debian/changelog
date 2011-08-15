@@ -1,3 +1,9 @@
+debootstrap (1.0.36) UNRELEASED; urgency=low
+
+  * Guess host OS based on uname for non-Debian systems. Closes: #637363
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 15 Aug 2011 14:14:29 -0400
+
 debootstrap (1.0.35) unstable; urgency=low
 
   [ Robert Millan ]

@@ -29,6 +29,7 @@ DISABLE_KEYRING=""
 VARIANT=""
 ARCH=""
 HOST_ARCH=""
+HOST_OS=""
 KEEP_DEBOOTSTRAP_DIR=""
 USE_DEBIANINSTALLER_INTERACTION=""
 SECOND_STAGE_ONLY=""
@@ -398,12 +399,30 @@ elif type udpkg >/dev/null 2>&1 && \
 	HOST_ARCH=`/usr/bin/udpkg --print-architecture`
 elif [ -e $DEBOOTSTRAP_DIR/arch ]; then
 	HOST_ARCH=`cat $DEBOOTSTRAP_DIR/arch`
-else
-	error 1 WHATARCH "Couldn't work out current architecture"
+fi
+HOST_OS="$HOST_ARCH"
+# basic host OS guessing for non-Debian systems
+if [ -z "$HOST_OS" ]; then
+	case `uname` of
+		Linux)
+			HOST_OS=linux
+		;;
+		GNU/kFreeBSD)
+			HOST_OS=kfreebsd
+		;;
+		GNU)
+			HOST_OS=hurd
+		;;
+	esac
 fi
 
 if [ -z "$ARCH" ]; then
 	ARCH=$HOST_ARCH
+fi
+
+if [ -z "$ARCH" ] || [ -z "$HOST_OS" ]; then
+        error 1 WHATARCH "Couldn't work out current architecture"
+
 fi
 
 if [ "$TARGET" = "/" ]; then
