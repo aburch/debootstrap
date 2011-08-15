@@ -5,6 +5,18 @@ smallyes() {
 	while echo "$YES" 2>/dev/null ; do : ; done
 }
 
+in_path () {
+	IFS=":" _in_path "$1"
+}
+_in_path () {
+	for dir in $PATH; do
+		if [ -x "$dir/$1" ]; then
+			return 0
+		fi
+	done
+	return 1
+}
+
 ############################################################### interaction
 
 error () {
@@ -1290,18 +1302,6 @@ trap "exit 143" 15
 on_exit () {
 	eval `echo EXIT_THING_${N_EXIT_THINGS}=\"$1\"`
 	N_EXIT_THINGS="$(( $N_EXIT_THINGS + 1 ))"
-}
-
-in_path () {
-	IFS=":" _in_path "$1"
-}
-_in_path () {
-	for dir in $PATH; do
-		if [ -x "$dir/$1" ]; then
-			return 0
-		fi
-	done
-	return 1
 }
 
 ############################################################## fakechroot tools
