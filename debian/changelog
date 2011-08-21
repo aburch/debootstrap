@@ -1,4 +1,4 @@
-debootstrap (1.0.36) UNRELEASED; urgency=low
+debootstrap (1.0.36) unstable; urgency=low
 
   * Guess host OS based on uname for non-Debian systems. Closes: #637363
   * Clarify "target" in usage message.
@@ -14,7 +14,7 @@ debootstrap (1.0.36) UNRELEASED; urgency=low
   * Workaround for umount bug #634107, which broke pbuilder and "debootstrap ."
     Closes: #631087
 
- -- Joey Hess <joeyh@debian.org>  Mon, 15 Aug 2011 14:14:29 -0400
+ -- Joey Hess <joeyh@debian.org>  Sun, 21 Aug 2011 18:39:26 -0400
 
 debootstrap (1.0.35) unstable; urgency=low
 
