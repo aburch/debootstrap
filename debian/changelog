@@ -11,6 +11,8 @@ debootstrap (1.0.36) UNRELEASED; urgency=low
     filesystems.
   * When debootstrapping on FreeBSD, warn if necessary modules are not
     loaded. Thanks, Arno Toell.
+  * Workaround for umount bug #634107, which broke pbuilder and "debootstrap ."
+    Closes: #631087
 
  -- Joey Hess <joeyh@debian.org>  Mon, 15 Aug 2011 14:14:29 -0400
 
