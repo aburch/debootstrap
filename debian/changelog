@@ -1,3 +1,9 @@
+debootstrap (1.0.37) UNRELEASED; urgency=low
+
+  * Add (Ubuntu) precise as a symlink to gutsy.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 05 Oct 2011 21:57:49 +0100
+
 debootstrap (1.0.36) unstable; urgency=low
 
   * Guess host OS based on uname for non-Debian systems. Closes: #637363
