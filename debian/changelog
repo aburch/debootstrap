@@ -1,3 +1,11 @@
+debootstrap (1.0.37) UNRELEASED; urgency=low
+
+  * Improve error message when a decompressor is not available, 
+    to indicate which package has been built with bzip today.
+    Closes: #644719
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 08 Oct 2011 17:07:53 -0400
+
 debootstrap (1.0.36) unstable; urgency=low
 
   * Guess host OS based on uname for non-Debian systems. Closes: #637363
