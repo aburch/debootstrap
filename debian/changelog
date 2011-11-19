@@ -1,8 +1,13 @@
 debootstrap (1.0.38) UNRELEASED; urgency=low
 
+  [ Joey Hess ]
   * Improve error message when a decompressor is not available, 
     to indicate which package has been built with bzip today.
     Closes: #644719
+
+  [ Otavio Salvador ]
+  * Fix --print-debs support when using --foreign param. Closes:
+    #551837.
 
  -- Joey Hess <joeyh@debian.org>  Sat, 08 Oct 2011 17:07:53 -0400
 
