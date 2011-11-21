@@ -1066,14 +1066,28 @@ if in_path perl; then
 		# uniq field mirror Packages values...
 		perl -le '
 $unique = shift @ARGV; $field = lc(shift @ARGV); $mirror = shift @ARGV;
-$cnt = length(@ARGV);
 %fields = map { $_, 0 } @ARGV;
+$prevpkg = "";
 while (<STDIN>) {
 	chomp;
 	next if (/^ /);
 	if (/^([^:]*:)\s*(.*)$/) {
 		$f = lc($1); $v = $2;
-		$pkg = $v if ($f eq "package:");
+		if ($f eq "package:") {
+			$last = 0;
+			$pkg = $v;
+			if ($pkg ne $prevpkg) {
+				print $output if defined $output;
+				if ($unique && defined $output_val) {
+					delete $fields{$output_val};
+					$last = 1 unless keys %fields;
+				}
+				$prevpkg = $pkg;
+			}
+			undef $output;
+			undef $output_val;
+			last if $last;
+		}
 		$ver = $v if ($f eq "version:");
 		$arc = $v if ($f eq "architecture:");
 		$fil = $v if ($f eq "filename:");
@@ -1082,17 +1096,15 @@ while (<STDIN>) {
 		$val = $v if ($f eq $field);
 	} elsif (/^$/) {
 		if (defined $val && defined $fields{$val}) {
-			$cnt++;
-			printf "%s %s %s %s %s %s %s\n",
+			$output = sprintf "%s %s %s %s %s %s %s",
 			 $pkg, $ver, $arc, $mirror, $fil, $chk, $siz;
-			if ($unique) {
-				delete $fields{$val};
-				last if (--$cnt <= 0);
-			}
+			$output_val = $val;
 		}
 		undef $val;
 	}
 }
+print $output if defined $output;
+delete $fields{$output_val} if $unique && defined $output_val;
 for $v (keys %fields) {
 	printf ("%s -\n", $v) if ($unique);
 }
@@ -1118,17 +1130,32 @@ while (read STDIN, $x, 1) {
 		elif [ "$1" = "GETDEPS" ]; then
 			local pkgdest="$2"; shift; shift
 			perl -e '
+$prevpkg = "";
+@d = ();
 while (<STDIN>) {
 	chomp;
-	$in = 1 if (/^Package: (.*)$/ && grep {$_ eq $1} @ARGV);
+	if (/^Package: (.*)$/) {
+		$pkg = $1;
+		if ($pkg ne $prevpkg) {
+			for my $d (@d) {
+				print "$d\n";
+			}
+		}
+		$prevpkg = $1;
+		@d = ();
+	}
+	$in = 1 if (grep {$_ eq $pkg} @ARGV);
 	$in = 0 if (/^$/);
 	if ($in and (/^Depends: (.*)$/ or /^Pre-Depends: (.*)$/)) {
 		for $d (split /\s*,\s*/, $1) {
 			$d =~ s/\s*[|].*$//;
 			$d =~ s/\s*[(].*[)]\s*//;
-			print "$d\n";
+			push @d, $d;
 		}
 	}
+}
+for my $d (@d) {
+	print "$d\n";
 }' <"$pkgdest" "$@" | sort | uniq
 		elif [ "$1" = "PKGS" ]; then
 			local m="$2"
