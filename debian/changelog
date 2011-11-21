@@ -1,4 +1,4 @@
-debootstrap (1.0.38) UNRELEASED; urgency=low
+debootstrap (1.0.38) unstable; urgency=low
 
   [ Joey Hess ]
   * Improve error message when a decompressor is not available, 
@@ -13,7 +13,7 @@ debootstrap (1.0.38) UNRELEASED; urgency=low
   * pkgdetails_perl: Use the last of a sequence of stanzas for the same
     package name, rather than the first (closes: #649319).
 
- -- Joey Hess <joeyh@debian.org>  Sat, 08 Oct 2011 17:07:53 -0400
+ -- Colin Watson <cjwatson@debian.org>  Mon, 21 Nov 2011 13:20:53 +0000
 
 debootstrap (1.0.37) unstable; urgency=low
 
