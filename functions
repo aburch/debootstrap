@@ -315,6 +315,7 @@ get () {
 		local typ="$(eval echo \${$(( $a+2 ))})"
 		local from
 		local dest
+		local iters=0
 
 		case "$typ" in
 		    bz2) from="$1.bz2"; dest="$2.bz2" ;;
@@ -330,24 +331,29 @@ get () {
 			dest2="${dest2%/*}/partial/${dest2##*/}"
 		fi
 
-		info RETRIEVING "Retrieving %s" "$displayname"
-		if ! just_get "$from" "$dest2"; then continue; fi
-		if [ "$checksum" != "" ]; then
-			info VALIDATING "Validating %s" "$displayname"
-			if verify_checksum "$dest2" "$checksum" "$siz"; then
-				checksum=""
+		while [ "$iters" -lt 10 ]; do
+			info RETRIEVING "Retrieving %s" "$displayname"
+			if ! just_get "$from" "$dest2"; then continue 2; fi
+			if [ "$checksum" != "" ]; then
+				info VALIDATING "Validating %s" "$displayname"
+				if verify_checksum "$dest2" "$checksum" "$siz"; then
+					checksum=""
+				fi
 			fi
-		fi
-		if [ -z "$checksum" ]; then
-			[ "$dest2" = "$dest" ] || mv "$dest2" "$dest"
-			case "$typ" in
-			    gz)  gunzip "$dest" ;;
-			    bz2) bunzip2 "$dest" ;;
-			esac
-			return 0
-		else
-			warning CORRUPTFILE "%s was corrupt" "$from"
-		fi
+			if [ -z "$checksum" ]; then
+				[ "$dest2" = "$dest" ] || mv "$dest2" "$dest"
+				case "$typ" in
+				    gz)  gunzip "$dest" ;;
+				    bz2) bunzip2 "$dest" ;;
+				esac
+				return 0
+			else
+				rm -f "$dest2"
+				warning RETRYING "Retrying failed download of %s" "$from"
+				iters="$(($iters + 1))"
+			fi
+		done
+		warning CORRUPTFILE "%s was corrupt" "$from"
 	done
 	return 1
 }
@@ -363,13 +369,6 @@ just_get () {
 		# http/ftp mirror
 		if wgetprogress -O "$dest" "$from"; then
 			return 0
-		elif [ -s "$dest" ]; then
-			local iters=0
-			while [ "$iters" -lt 3 ]; do
-				warning RETRYING "Retrying failed download of %s" "$from"
-				if wgetprogress -c -O "$dest" "$from"; then break; fi
-				iters="$(($iters + 1))"
-			done
 		else
 			rm -f "$dest"
 			return 1
@@ -378,13 +377,6 @@ just_get () {
 		# http/ftp mirror
 		if wgetprogress $CHECKCERTIF $CERTIFICATE $PRIVATEKEY -O "$dest" "$from"; then
 			return 0
-		elif [ -s "$dest" ]; then
-			local iters=0
-			while [ "$iters" -lt 3 ]; do
-				warning RETRYING "Retrying failed download of %s" "$from"
-				if wgetprogress $CHECKCERTIF $CERTIFICATE $PRIVATEKEY -c -O "$dest" "$from"; then break; fi
-				iters="$(($iters + 1))"
-			done
 		else
 			rm -f "$dest"
 			return 1

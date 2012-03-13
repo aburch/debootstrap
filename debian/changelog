@@ -1,3 +1,11 @@
+debootstrap (1.0.39) UNRELEASED; urgency=low
+
+  * Retry corrupted downloads rather than carrying on almost regardless.
+    Patch mostly due to Michael Gilbert, rearranged somewhat by me (closes:
+    #618920).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 13 Mar 2012 17:03:03 +0000
+
 debootstrap (1.0.38) unstable; urgency=low
 
   [ Joey Hess ]
