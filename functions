@@ -630,6 +630,7 @@ download_debs () {
 					echo >>$TARGET/debootstrap/debpaths "$p $debdest"
 				else
 					warning COULDNTDL "Couldn't download package %s (ver %s arc %s)" "$p" "$ver" "$arc"
+					leftover="$leftover $p"
 				fi
 			fi
 		done
