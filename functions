@@ -877,6 +877,18 @@ in_target_failmsg () {
 	shift; shift; shift
 	if ! $CHROOT_CMD "$@"; then
 		warning "$code" "$msg" "$arg"
+		# Try to point user at actual failing package.
+		msg="See %s for details"
+		if [ -e "$TARGET/debootstrap/debootstrap.log" ]; then
+			arg="$TARGET/debootstrap/debootstrap.log"
+			local pkg="$(grep '^dpkg: error processing ' "$TARGET/debootstrap/debootstrap.log" | head -n 1 | cut -d ' ' -f 4)"
+			if [ -n "$pkg" ]; then
+				msg="$msg (possibly the package $pkg is at fault)"
+			fi
+		else
+			arg="the log"
+		fi
+		warning "$code" "$msg" "$arg"
 		return 1
 	fi
 	return 0
