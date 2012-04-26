@@ -1,8 +1,12 @@
 debootstrap (1.0.40) UNRELEASED; urgency=low
 
+  [ Joey Hess ]
   * When installation or configuration of a package fails, output a message
     that points the user to the log file. Attempt to grep out the first 
     package that dpkg failed on and show its name too. Closes: #472704
+
+  [ Colin Watson ]
+  * Add (Ubuntu) quantal as a symlink to gutsy.
 
  -- Joey Hess <joeyh@debian.org>  Tue, 17 Apr 2012 20:35:53 -0400
 
