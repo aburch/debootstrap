@@ -1,4 +1,4 @@
-debootstrap (1.0.40) UNRELEASED; urgency=low
+debootstrap (1.0.40) unstable; urgency=low
 
   [ Joey Hess ]
   * When installation or configuration of a package fails, output a message
@@ -8,7 +8,7 @@ debootstrap (1.0.40) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Add (Ubuntu) quantal as a symlink to gutsy.
 
- -- Joey Hess <joeyh@debian.org>  Tue, 17 Apr 2012 20:35:53 -0400
+ -- Colin Watson <cjwatson@debian.org>  Thu, 26 Apr 2012 17:44:44 +0100
 
 debootstrap (1.0.39) unstable; urgency=low
 
