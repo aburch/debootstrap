@@ -480,38 +480,8 @@ get_release_checksum () {
 		done | head -n 1
 }
 
-download_release_sig () {
-	local m1="$1"
-	local reldest="$2"
-	local relsigdest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release.gpg")"
-
-	if [ -n "$KEYRING" ] && [ -z "$DISABLE_KEYRING" ]; then
-		progress 0 100 DOWNRELSIG "Downloading Release file signature"
-		progress_next 50
-		get "$m1/dists/$SUITE/Release.gpg" "$relsigdest" nocache ||
-			error 1 NOGETRELSIG "Failed getting release signature file %s" \
-			"$m1/dists/$SUITE/Release.gpg"
-		progress 50 100 DOWNRELSIG "Downloading Release file signature"
-
-		info RELEASESIG "Checking Release signature"
-		# Don't worry about the exit status from gpgv; parsing the output will
-		# take care of that.
-		(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
-		 "$relsigdest" "$reldest" || true) | read_gpg_status
-		progress 100 100 DOWNRELSIG "Downloading Release file signature"
-	elif [ -z "$DISABLE_KEYRING" ] && [ -n "$KEYRING_WANTED" ]; then
-		warning KEYRING "Cannot check Release signature; keyring file not available %s" "$KEYRING_WANTED"
-	fi
-}
-
-download_release_indices () {
-	local m1="${MIRRORS%% *}"
-	local reldest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release")"
-	progress 0 100 DOWNREL "Downloading Release file"
-	progress_next 100
-	get "$m1/dists/$SUITE/Release" "$reldest" nocache ||
-		error 1 NOGETREL "Failed getting release file %s" "$m1/dists/$SUITE/Release"
-
+extract_release_components () {
+	local reldest="$1"; shift
 	TMPCOMPONENTS="$(sed -n 's/Components: *//p' "$reldest")"
 	for c in $TMPCOMPONENTS ; do
 		eval "
@@ -523,14 +493,69 @@ download_release_indices () {
 		"
 	done
 	COMPONENTS="$(echo $COMPONENTS)"
-
 	if [ -z "$COMPONENTS" ]; then
 		mv "$reldest" "$reldest.malformed"
 		error 1 INVALIDREL "Invalid Release file, no valid components"
 	fi
+}
+
+download_release_sig () {
+	local m1="$1"
+	local reldest="$2"
+	local relsigdest="$3"
+	local release_file_variant="$4"
+
+	if [ -n "$KEYRING" ] && [ -z "$DISABLE_KEYRING" ]; then
+		if [ "$release_file_variant" != "IN" ]; then
+			progress 0 100 DOWNRELSIG "Downloading Release file signature"
+			progress_next 50
+			get "$m1/dists/$SUITE/Release.gpg" "$relsigdest" nocache ||
+				error 1 NOGETRELSIG "Failed getting release signature file %s" \
+				"$m1/dists/$SUITE/Release.gpg"
+			progress 50 100 DOWNRELSIG "Downloading Release file signature"
+		fi
+
+		info RELEASESIG "Checking Release signature"
+		if [ "$release_file_variant" = "IN" ]; then
+			(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
+			 "$relsigdest" || true) | read_gpg_status
+		else
+			# Don't worry about the exit status from gpgv; parsing the output will
+			# take care of that.
+			(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
+			 "$relsigdest" "$reldest" || true) | read_gpg_status
+		fi
+		progress 100 100 DOWNRELSIG "Downloading Release file signature"
+	elif [ -z "$DISABLE_KEYRING" ] && [ -n "$KEYRING_WANTED" ]; then
+		warning KEYRING "Cannot check Release signature; keyring file not available %s" "$KEYRING_WANTED"
+	fi
+	if [ "$release_file_variant" = "IN" ]; then
+		mv "$relsigdest" "$reldest"
+	fi
+}
+
+download_release_indices () {
+	local m1="${MIRRORS%% *}"
+	local reldest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release")"
+	local inreldest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/InRelease")"
+	local relsigdest
+	local release_file_variant="IN"
+	progress 0 100 DOWNREL "Downloading Release file"
+	progress_next 100
+	if get "$m1/dists/$SUITE/InRelease" "$inreldest" nocache; then
+		extract_release_components $inreldest
+		relsigdest="$inreldest"
+	else
+		warning RETRIEVING "Failed to retrieve InRelease"
+		get "$m1/dists/$SUITE/Release" "$reldest" nocache ||
+			error 1 NOGETREL "Failed getting release file %s" "$m1/dists/$SUITE/Release"
+		release_file_variant="GPG"
+		relsigdest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release.gpg")"
+		extract_release_components $reldest
+	fi
 	progress 100 100 DOWNREL "Downloading Release file"
 
-	download_release_sig "$m1" "$reldest"
+	download_release_sig "$m1" "$reldest" "$relsigdest" "$release_file_variant"
 
 	local totalpkgs=0
 	for c in $COMPONENTS; do
