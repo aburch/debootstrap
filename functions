@@ -516,12 +516,12 @@ download_release_sig () {
 		fi
 
 		info RELEASESIG "Checking Release signature"
+		# Don't worry about the exit status from gpgv; parsing the output will
+		# take care of that.
 		if [ "$release_file_variant" = "IN" ]; then
 			(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
 			 "$relsigdest" || true) | read_gpg_status
 		else
-			# Don't worry about the exit status from gpgv; parsing the output will
-			# take care of that.
 			(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
 			 "$relsigdest" "$reldest" || true) | read_gpg_status
 		fi
