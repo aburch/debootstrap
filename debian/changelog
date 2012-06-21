@@ -1,8 +1,9 @@
-debootstrap (1.0.41) UNRELEASED; urgency=low
+debootstrap (1.0.41) unstable; urgency=low
 
+  [ Mehdi Dogguy ]
   * Add support for InRelease files (Closes: #638682)
 
- -- Mehdi Dogguy <mehdi@debian.org>  Tue, 22 May 2012 12:16:57 +0200
+ -- Joey Hess <joeyh@debian.org>  Thu, 21 Jun 2012 13:16:22 -0400
 
 debootstrap (1.0.40) unstable; urgency=low
 
