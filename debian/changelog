@@ -1,3 +1,12 @@
+debootstrap (1.0.42) UNRELEASED; urgency=low
+
+  * Downgrade the absence of an InRelease file from a warning to an info
+    message.  For now, debootstrap can cope fine without, and it's possible
+    there are Debian mirrors that don't have InRelease; Ubuntu doesn't quite
+    have InRelease support yet either (LP: #1017398).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 25 Jun 2012 12:19:34 +0100
+
 debootstrap (1.0.41) unstable; urgency=low
 
   [ Mehdi Dogguy ]

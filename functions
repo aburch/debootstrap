@@ -546,7 +546,7 @@ download_release_indices () {
 		extract_release_components $inreldest
 		relsigdest="$inreldest"
 	else
-		warning RETRIEVING "Failed to retrieve InRelease"
+		info RETRIEVING "Failed to retrieve InRelease"
 		get "$m1/dists/$SUITE/Release" "$reldest" nocache ||
 			error 1 NOGETREL "Failed getting release file %s" "$m1/dists/$SUITE/Release"
 		release_file_variant="GPG"
