@@ -1,3 +1,9 @@
+debootstrap (1.0.43) UNRELEASED; urgency=low
+
+  * Fix "arc" typo. Closes: #686680
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 05 Sep 2012 14:24:08 -0400
+
 debootstrap (1.0.42) unstable; urgency=low
 
   * Downgrade the absence of an InRelease file from a warning to an info
