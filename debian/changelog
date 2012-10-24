@@ -1,6 +1,10 @@
 debootstrap (1.0.43) UNRELEASED; urgency=low
 
+  [ Joey Hess ]
   * Fix "arc" typo. Closes: #686680
+
+  [ Colin Watson ]
+  * Add (Ubuntu) raring as a symlink to gutsy.
 
  -- Joey Hess <joeyh@debian.org>  Wed, 05 Sep 2012 14:24:08 -0400
 
