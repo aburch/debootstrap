@@ -6,6 +6,12 @@ debootstrap (1.0.43) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Add (Ubuntu) raring as a symlink to gutsy.
 
+  [ Christian Perrier ]
+  * Add myself to Uploaders and drop Anthony Towns who is no
+    longer active in debootstrap maintenance for a few years. Thanks
+    for your work, Anthony.
+  * Bump Standards to 3.9.3 (checked)
+
  -- Joey Hess <joeyh@debian.org>  Wed, 05 Sep 2012 14:24:08 -0400
 
 debootstrap (1.0.42) unstable; urgency=low
