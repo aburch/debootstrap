@@ -11,6 +11,7 @@ debootstrap (1.0.43) UNRELEASED; urgency=low
     longer active in debootstrap maintenance for a few years. Thanks
     for your work, Anthony.
   * Bump Standards to 3.9.3 (checked)
+  * Replace XC-Package-Type by Package-Type in debian/control
 
  -- Joey Hess <joeyh@debian.org>  Wed, 05 Sep 2012 14:24:08 -0400
 

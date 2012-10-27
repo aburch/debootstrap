@@ -20,7 +20,7 @@ Description: Bootstrap a basic Debian system
 
 Package: debootstrap-udeb
 Section: debian-installer
-XC-Package-Type: udeb
+Package-Type: udeb
 Architecture: all
 Depends: ${misc:Depends}, mounted-partitions
 Description: Bootstrap the Debian system
