@@ -1,4 +1,4 @@
-debootstrap (1.0.43) UNRELEASED; urgency=low
+debootstrap (1.0.43) unstable; urgency=low
 
   [ Joey Hess ]
   * Fix "arc" typo. Closes: #686680
@@ -13,7 +13,7 @@ debootstrap (1.0.43) UNRELEASED; urgency=low
   * Bump Standards to 3.9.3 (checked)
   * Replace XC-Package-Type by Package-Type in debian/control
 
- -- Joey Hess <joeyh@debian.org>  Wed, 05 Sep 2012 14:24:08 -0400
+ -- Christian Perrier <bubulle@debian.org>  Sat, 27 Oct 2012 12:46:46 +0200
 
 debootstrap (1.0.42) unstable; urgency=low
 
