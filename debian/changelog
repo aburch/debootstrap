@@ -1,9 +1,9 @@
-debootstrap (1.0.44) UNRELEASED; urgency=low
+debootstrap (1.0.44) unstable; urgency=low
 
   * Remove double quotes to fix for loop on GNU/kFreeBSD, thanks to
     Oleg Ginzburg (Closes: #693718).
 
- -- Cyril Brulebois <kibi@debian.org>  Tue, 20 Nov 2012 23:47:37 +0100
+ -- Cyril Brulebois <kibi@debian.org>  Tue, 20 Nov 2012 23:55:53 +0100
 
 debootstrap (1.0.43) unstable; urgency=low
 
