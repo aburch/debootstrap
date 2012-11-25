@@ -1300,7 +1300,7 @@ check_sane_mount () {
 	esac
 
 	cat > "$1/test-exec" <<EOF
-#! /bin/sh
+#! `which sh`
 :
 EOF
 	chmod +x "$1/test-exec"
