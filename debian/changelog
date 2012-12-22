@@ -1,10 +1,11 @@
-debootstrap (1.0.45) UNRELEASED; urgency=low
+debootstrap (1.0.45) unstable; urgency=low
 
+  [ Joey Hess ]
   * Better support use on Android by not hardcoding /bin/sh
     in a test file that's created, and instead putting in the
     actual path to sh. Closes: #694310 Thanks, Shawn Landden
 
- -- Joey Hess <joeyh@debian.org>  Mon, 26 Nov 2012 12:26:31 -0400
+ -- Christian Perrier <bubulle@debian.org>  Sat, 22 Dec 2012 12:56:32 +0100
 
 debootstrap (1.0.44) unstable; urgency=low
 
