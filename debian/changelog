@@ -1,8 +1,9 @@
-debootstrap (1.0.46) UNRELEASED; urgency=low
+debootstrap (1.0.46) unstable; urgency=low
 
+  * Team upload.
   * Use `which` to find out sh only if /bin/sh does not exist.
 
- -- Samuel Thibault <sthibault@debian.org>  Thu, 27 Dec 2012 14:53:43 +0100
+ -- Samuel Thibault <sthibault@debian.org>  Thu, 27 Dec 2012 15:47:16 +0100
 
 debootstrap (1.0.45) unstable; urgency=low
 
