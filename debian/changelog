@@ -1,3 +1,10 @@
+debootstrap (1.0.46) UNRELEASED; urgency=low
+
+  * Find out /bin/sh using `type` instead of `which`, the latter not being
+    available in d-i.
+
+ -- Samuel Thibault <sthibault@debian.org>  Thu, 27 Dec 2012 14:53:43 +0100
+
 debootstrap (1.0.45) unstable; urgency=low
 
   [ Joey Hess ]
