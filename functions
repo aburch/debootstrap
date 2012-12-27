@@ -1299,8 +1299,11 @@ check_sane_mount () {
 		;;
 	esac
 
+	SH=/bin/sh
+	[ -x $SH ] || SH=`which sh`
+
 	cat > "$1/test-exec" <<EOF
-#! `type sh`
+#! $SH
 :
 EOF
 	chmod +x "$1/test-exec"
