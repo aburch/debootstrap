@@ -6,6 +6,7 @@ debootstrap (1.0.47) UNRELEASED; urgency=low
     APT behaviour and was revealed only with recent APT versions
     Closes: #703146
     Thanks to Michael Vogt for the analysis and patch
+  * Add a dependency on gpg because of the above change.
 
  -- Christian Perrier <bubulle@debian.org>  Wed, 20 Mar 2013 21:21:47 +0100
 
