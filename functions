@@ -530,7 +530,8 @@ download_release_sig () {
 		warning KEYRING "Cannot check Release signature; keyring file not available %s" "$KEYRING_WANTED"
 	fi
 	if [ "$release_file_variant" = "IN" ]; then
-		mv "$relsigdest" "$reldest"
+		rm -f $reldest
+                gpg --output "$reldest" --decrypt --keyring "$KEYRING" --ignore-time-conflict "$relsigdest"
 	fi
 }
 
