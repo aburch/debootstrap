@@ -1,4 +1,4 @@
-debootstrap (1.0.47) UNRELEASED; urgency=low
+debootstrap (1.0.47) unstable; urgency=low
 
   * Team upload
   * Properly decrypt the InRelease file when downloading from an archive
@@ -8,7 +8,7 @@ debootstrap (1.0.47) UNRELEASED; urgency=low
     Thanks to Michael Vogt for the analysis and patch
   * Add a dependency on gpg because of the above change.
 
- -- Christian Perrier <bubulle@debian.org>  Wed, 20 Mar 2013 21:21:47 +0100
+ -- Christian Perrier <bubulle@debian.org>  Wed, 20 Mar 2013 21:34:29 +0100
 
 debootstrap (1.0.46) unstable; urgency=low
 
