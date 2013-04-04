@@ -1,11 +1,14 @@
-debootstrap (1.0.48) UNRELEASED; urgency=low
+debootstrap (1.0.48) unstable; urgency=low
 
+  * Team upload
+
+  [ Julien Cristau ]
   * Disable InRelease support.  gpgv won't give us back the signed data, and
     full gpg is not available inside d-i (closes: #703889).
   * Move extract_release_components to after signature verification.
     Suggested by Ansgar Burchardt.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 25 Mar 2013 14:16:19 +0100
+ -- Didier Raboud <odyx@debian.org>  Thu, 04 Apr 2013 16:17:57 +0200
 
 debootstrap (1.0.47) unstable; urgency=low
 
