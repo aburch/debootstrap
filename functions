@@ -276,8 +276,10 @@ get () {
 	# args: from dest 'nocache'
 	# args: from dest [checksum size] [alt {checksum size type}]
 	local displayname
+	local versionname
 	if [ "${2%.deb}" != "$2" ]; then
 		displayname="$(echo "$2" | sed 's,^.*/,,;s,_.*$,,')"
+		versionname="$(echo "$2" | sed 's,^.*/,,' | cut -d_ -f2)"
 	else
 		displayname="$(echo "$1" | sed 's,^.*/,,')"
 	fi
@@ -288,7 +290,7 @@ get () {
 		elif [ "$3" = nocache ]; then
 			rm -f "$2"
 		else
-			info VALIDATING "Validating %s" "$displayname"
+			info VALIDATING "Validating %s %s" "$displayname" "$versionname"
 			if verify_checksum "$2" "$3" "$4"; then
 				return 0
 			else
@@ -332,10 +334,10 @@ get () {
 		fi
 
 		while [ "$iters" -lt 10 ]; do
-			info RETRIEVING "Retrieving %s" "$displayname"
+			info RETRIEVING "Retrieving %s %s" "$displayname" "$versionname"
 			if ! just_get "$from" "$dest2"; then continue 2; fi
 			if [ "$checksum" != "" ]; then
-				info VALIDATING "Validating %s" "$displayname"
+				info VALIDATING "Validating %s %s" "$displayname" "$versionname"
 				if verify_checksum "$dest2" "$checksum" "$siz"; then
 					checksum=""
 				fi
