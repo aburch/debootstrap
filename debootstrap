@@ -122,7 +122,7 @@ EOF
 ###########################################################################
 
 if [ -z "$PKGDETAILS" ]; then
-	error 1 NO_PKGDETAILS "No pkgdetails available; either install perl, or build pkgdetails.c from source"
+	error 1 NO_PKGDETAILS "No pkgdetails available; either install perl, or build pkgdetails.c from the base-installer source package"
 fi
 
 ###########################################################################

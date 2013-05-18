@@ -3,6 +3,9 @@ debootstrap (1.0.51) UNRELEASED; urgency=low
   [ Scott Kitterman ]
   * Add (Ubuntu) saucy as a symlink to gutsy (closes: #706989).
 
+  [ Colin Watson ]
+  * Clarify location of pkgdetails.c in error message (closes: #708771).
+
  -- Colin Watson <cjwatson@debian.org>  Sat, 18 May 2013 22:35:11 +0100
 
 debootstrap (1.0.50) unstable; urgency=low
