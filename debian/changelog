@@ -1,4 +1,4 @@
-debootstrap (1.0.51) UNRELEASED; urgency=low
+debootstrap (1.0.51) unstable; urgency=low
 
   [ Scott Kitterman ]
   * Add (Ubuntu) saucy as a symlink to gutsy (closes: #706989).
@@ -8,7 +8,7 @@ debootstrap (1.0.51) UNRELEASED; urgency=low
   * Resolve mount point symlinks relative to the target chroot before
     unmounting them (closes: #702861, #703037, #704744).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 18 May 2013 22:35:11 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 18 May 2013 23:18:08 +0100
 
 debootstrap (1.0.50) unstable; urgency=low
 
