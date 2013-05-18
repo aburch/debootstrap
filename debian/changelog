@@ -1,3 +1,10 @@
+debootstrap (1.0.51) UNRELEASED; urgency=low
+
+  [ Scott Kitterman ]
+  * Add (Ubuntu) saucy as a symlink to gutsy.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 18 May 2013 22:35:11 +0100
+
 debootstrap (1.0.50) unstable; urgency=low
 
   [ Hector Oron ]
