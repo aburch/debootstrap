@@ -955,8 +955,11 @@ setup_etc () {
 UMOUNT_DIRS=
 
 umount_exit_function () {
+	local realdir
 	for dir in $UMOUNT_DIRS; do
-		( cd / ; umount "$TARGET/${dir#/}" ) || true
+		realdir="$(in_target_nofail readlink -f "$dir")"
+		[ "$realdir" ] || continue
+		( cd / ; umount "$TARGET/${realdir#/}" ) || true
 	done
 }
 
