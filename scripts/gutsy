@@ -150,6 +150,11 @@ second_stage_install () {
 	sed -i '/dpkg.*--compare-versions/ s/\<lt\>/lt-nl/' "$TARGET/var/lib/dpkg/info/initscripts.postinst"
 	fi
 
+	echo \
+"#!/bin/sh
+exit 101" > "$TARGET/usr/sbin/policy-rc.d"
+	chmod 755 "$TARGET/usr/sbin/policy-rc.d"
+
 	mv "$TARGET/sbin/start-stop-daemon" "$TARGET/sbin/start-stop-daemon.REAL"
 	echo \
 "#!/bin/sh
@@ -209,6 +214,7 @@ echo \"Warning: Fake initctl called, doing nothing\"" > "$TARGET/sbin/initctl"
 		mv "$TARGET/sbin/initctl.REAL" "$TARGET/sbin/initctl"
 	fi
 	mv "$TARGET/sbin/start-stop-daemon.REAL" "$TARGET/sbin/start-stop-daemon"
+	rm -f "$TARGET/usr/sbin/policy-rc.d"
 
 	progress $bases $bases CONFBASE "Configuring base system"
 	info BASESUCCESS "Base system installed successfully."

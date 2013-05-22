@@ -3,6 +3,9 @@ debootstrap (1.0.52) UNRELEASED; urgency=low
   * scripts/gutsy: Make the fake initctl pass through "initctl version"
     calls, used by such things as invoke-rc.d to figure out whether it's
     running under Upstart (LP: #1182540).
+  * scripts/sid, scripts/gutsy: Add a policy-rc.d, matching that in
+    debian-installer-utils.  This is the primary way to disable daemon
+    startup.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 22 May 2013 16:28:27 +0100
 

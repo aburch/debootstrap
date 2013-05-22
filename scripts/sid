@@ -139,6 +139,11 @@ second_stage_install () {
 
 	info CONFREQ "Configuring required packages..."
 
+	echo \
+"#!/bin/sh
+exit 101" > "$TARGET/usr/sbin/policy-rc.d"
+	chmod 755 "$TARGET/usr/sbin/policy-rc.d"
+
 	mv "$TARGET/sbin/start-stop-daemon" "$TARGET/sbin/start-stop-daemon.REAL"
 	echo \
 "#!/bin/sh
@@ -185,6 +190,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 		dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING
 
 	mv "$TARGET/sbin/start-stop-daemon.REAL" "$TARGET/sbin/start-stop-daemon"
+	rm -f "$TARGET/usr/sbin/policy-rc.d"
 
 	progress $bases $bases CONFBASE "Configuring base system"
 	info BASESUCCESS "Base system installed successfully."
