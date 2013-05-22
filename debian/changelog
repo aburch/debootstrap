@@ -1,4 +1,4 @@
-debootstrap (1.0.52) UNRELEASED; urgency=low
+debootstrap (1.0.52) unstable; urgency=low
 
   * scripts/gutsy: Make the fake initctl pass through "initctl version"
     calls, used by such things as invoke-rc.d to figure out whether it's
@@ -7,7 +7,7 @@ debootstrap (1.0.52) UNRELEASED; urgency=low
     debian-installer-utils.  This is the primary way to disable daemon
     startup.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 22 May 2013 16:28:27 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 22 May 2013 16:55:59 +0100
 
 debootstrap (1.0.51) unstable; urgency=low
 
