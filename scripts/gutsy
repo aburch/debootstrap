@@ -161,6 +161,7 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 	  mv "$TARGET/sbin/initctl" "$TARGET/sbin/initctl.REAL"
 	  echo \
 "#!/bin/sh
+if [ \"\$1\" = version ]; then exec /sbin/initctl.REAL \"\$@\"; fi
 echo
 echo \"Warning: Fake initctl called, doing nothing\"" > "$TARGET/sbin/initctl"
 	  chmod 755 "$TARGET/sbin/initctl"
