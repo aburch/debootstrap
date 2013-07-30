@@ -813,12 +813,13 @@ extract_ar_deb_field () {
 
 extract_ar_deb_data () {
 	local pkg="$1"
-	local tarball=$(ar -t "$pkg" | grep "^data.tar.[bgx]z")
+	local tarball=$(ar -t "$pkg" | grep "^data.tar")
 
 	case "$tarball" in
 		data.tar.gz) cat_cmd=zcat ;;
 		data.tar.bz2) cat_cmd=bzcat ;;
 		data.tar.xz) cat_cmd=xzcat ;;
+		data.tar) cat_cmd=cat ;;
 		*) error 1 UNKNOWNDATACOMP "Unknown compression type for %s in %s" "$tarball" "$pkg" ;;
 	esac
 
