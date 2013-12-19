@@ -1,3 +1,12 @@
+debootstrap (1.0.56) UNRELEASED; urgency=low
+
+  * Install base-passwd and base-files in two calls rather than one to
+    avoid problems with home-built media with different ordering in
+    Packages.  Thanks to Jo Shields for pointing this out and providing
+    the workaround.  Closes: #601670.  LP: #1001131.
+
+ -- Tollef Fog Heen <tfheen@debian.org>  Thu, 19 Dec 2013 13:41:37 +0100
+
 debootstrap (1.0.55) unstable; urgency=low
 
   [ Matthias Klose ]
