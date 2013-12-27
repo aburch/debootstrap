@@ -202,7 +202,7 @@ keyring () {
 		elif [ -z "$DISABLE_KEYRING" ]; then
 			if [ -n "$DEF_HTTPS_MIRROR" ] && [ -z "$USER_MIRROR" ] ; then
 				info KEYRING "Keyring file not available at %s; switching to https mirror %s" "$1" "$DEF_HTTPS_MIRROR"
-				DEF_MIRROR="$DEF_HTTPS_MIRROR"
+				USER_MIRROR="$DEF_HTTPS_MIRROR"
 			else
 				warning KEYRING "Cannot check Release signature; keyring file not available %s" "$1"
 			fi
