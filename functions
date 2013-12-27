@@ -196,9 +196,17 @@ download_style () {
 }
 
 keyring () {
-	KEYRING_WANTED="$1"
-	if [ -z "$KEYRING" ] && [ -e "$KEYRING_WANTED" ]; then
-		KEYRING="$KEYRING_WANTED"
+	if [ -z "$KEYRING" ]; then
+		if [ -e "$1" ]; then
+			KEYRING="$1"
+		elif [ -z "$DISABLE_KEYRING" ]; then
+			if [ -n "$DEF_HTTPS_MIRROR" ] && [ -z "$USER_MIRROR" ] ; then
+				info KEYRING "Keyring file not available at %s; switching to https mirror %s" "$1" "$DEF_HTTPS_MIRROR"
+				DEF_MIRROR="$DEF_HTTPS_MIRROR"
+			else
+				warning KEYRING "Cannot check Release signature; keyring file not available %s" "$1"
+			fi
+		fi
 	fi
 }
 
@@ -520,8 +528,6 @@ download_release_sig () {
 		(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
 		 "$relsigdest" "$reldest" || true) | read_gpg_status
 		progress 100 100 DOWNRELSIG "Downloading Release file signature"
-	elif [ -z "$DISABLE_KEYRING" ] && [ -n "$KEYRING_WANTED" ]; then
-		warning KEYRING "Cannot check Release signature; keyring file not available %s" "$KEYRING_WANTED"
 	fi
 }
 

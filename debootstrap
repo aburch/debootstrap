@@ -47,6 +47,7 @@ CHECKCERTIF=""
 PRIVATEKEY=""
 
 DEF_MIRROR="http://ftp.us.debian.org/debian"
+DEF_HTTPS_MIRROR="https://mirrors.kernel.org/debian"
 
 export LANG USE_COMPONENTS
 umask 022
@@ -374,6 +375,7 @@ else
 	fi
 	SUITE="$1"
 	TARGET="$2"
+	USER_MIRROR="$3"
 	TARGET="${TARGET%/}"
 	if [ "${TARGET#/}" = "${TARGET}" ]; then
 		if [ "${TARGET%/*}" = "$TARGET" ] ; then
@@ -533,8 +535,8 @@ if [ "$SECOND_STAGE_ONLY" = "true" ]; then
 	MIRRORS=null:
 else
 	MIRRORS="$DEF_MIRROR"
-	if [ "$3" != "" ]; then
-		MIRRORS="$3"
+	if [ "$USER_MIRROR" != "" ]; then
+		MIRRORS="$USER_MIRROR"
 		MIRRORS="${MIRRORS%/}"
 	fi
 fi
