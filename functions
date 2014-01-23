@@ -805,10 +805,22 @@ extract_dpkg_deb_data () {
 extract_ar_deb_field () {
 	local pkg="$1"
 	local field="$2"
+	local tarball=$(ar -t "$pkg" | grep "^control\.tar")
 
-	ar -p "$pkg" control.tar.gz | zcat |
-	    tar -O -xf - control ./control 2>/dev/null |
-	    grep -i "^$field:" | sed -e 's/[^:]*: *//' | head -n 1
+	case "$tarball" in
+		control.tar.gz) cat_cmd=zcat ;;
+		control.tar.xz) cat_cmd=xzcat ;;
+		control.tar) cat_cmd=cat ;;
+		*) error 1 UNKNOWNCONTROLCOMP "Unknown compression type for %s in %s" "$tarball" "$pkg" ;;
+	esac
+
+	if type $cat_cmd >/dev/null 2>&1; then
+		ar -p "$pkg" "$tarball" | $cat_cmd |
+		    tar -O -xf - control ./control 2>/dev/null |
+		    grep -i "^$field:" | sed -e 's/[^:]*: *//' | head -n 1
+	else
+		error 1 UNPACKCMDUNVL "Extracting %s requires the %s command, which is not available" "$pkg" "$cat_cmd"
+	fi
 }
 
 extract_ar_deb_data () {
