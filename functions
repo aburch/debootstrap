@@ -1138,15 +1138,19 @@ for $v (keys %fields) {
 			shift;
 			perl -e '
 $v = 0;
+$allow_percentage = 0;
 while (read STDIN, $x, 1) {
-	if ($x =~ m/\d/) {
+	if ($x =~ m/\s/) {
+		$allow_percentage = 1;
+	} elsif ($allow_percentage and $x =~ m/\d/) {
 		$v *= 10;
 		$v += $x;
-	} elsif ($x eq "%") {
+	} elsif ($allow_percentage and $x eq "%") {
 		printf "P: %d %d%s\n", int($v / 100.0 * ($ARGV[1] - $ARGV[0]) + $ARGV[0]), $ARGV[2], ($#ARGV == 3 ? " $ARGV[3]" : "");
 		$v = 0;
 	} else {
 		$v = 0;
+		$allow_percentage = 0;
 	}
 }' "$@"
 		elif [ "$1" = "GETDEPS" ]; then
