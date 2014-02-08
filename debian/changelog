@@ -1,3 +1,9 @@
+debootstrap (1.0.58) UNRELEASED; urgency=medium
+
+  * Policy version 3.9.5: no changes required.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 08 Feb 2014 23:33:58 +0000
+
 debootstrap (1.0.57) unstable; urgency=medium
 
   * pkgdetails_perl: Only interpret percentages following whitespace, to
