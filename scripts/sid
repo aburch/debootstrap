@@ -32,6 +32,12 @@ work_out_debs () {
 		# ldd.fake needs binutils
 		required="$required binutils"
 	fi
+
+	case $MIRRORS in
+	    https://*)
+		base="$base apt-transport-https"
+		;;
+	esac
 }
 
 first_stage_install () {

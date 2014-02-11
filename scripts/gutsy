@@ -43,6 +43,12 @@ work_out_debs () {
 	elif doing_variant fakechroot || doing_variant minbase; then
 		base="apt"
 	fi
+
+	case $MIRRORS in
+	    https://*)
+		base="$base apt-transport-https"
+		;;
+	esac
 }
 
 first_stage_install () {

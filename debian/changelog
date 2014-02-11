@@ -1,6 +1,12 @@
 debootstrap (1.0.58) UNRELEASED; urgency=medium
 
   * Policy version 3.9.5: no changes required.
+  * Install apt-transport-https if installing from an HTTPS mirror
+    (LP: #1135163).  It may still be necessary to copy certificates into
+    place, but there's at least a reasonable chance that somebody installing
+    from HTTPS may want to keep using it, and we have to install
+    apt-transport-https at this point otherwise they won't be able to do
+    that end-to-end.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 08 Feb 2014 23:33:58 +0000
 
