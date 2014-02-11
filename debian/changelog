@@ -1,4 +1,4 @@
-debootstrap (1.0.58) UNRELEASED; urgency=medium
+debootstrap (1.0.58) unstable; urgency=medium
 
   * Policy version 3.9.5: no changes required.
   * Install apt-transport-https if installing from an HTTPS mirror
@@ -8,7 +8,7 @@ debootstrap (1.0.58) UNRELEASED; urgency=medium
     apt-transport-https at this point otherwise they won't be able to do
     that end-to-end.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 08 Feb 2014 23:33:58 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 17:46:41 +0000
 
 debootstrap (1.0.57) unstable; urgency=medium
 
