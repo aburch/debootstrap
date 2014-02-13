@@ -35,7 +35,7 @@ work_out_debs () {
 
 	case $MIRRORS in
 	    https://*)
-		base="$base apt-transport-https"
+		base="$base apt-transport-https ca-certificates"
 		;;
 	esac
 }

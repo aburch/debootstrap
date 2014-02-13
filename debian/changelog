@@ -1,3 +1,12 @@
+debootstrap (1.0.59) UNRELEASED; urgency=medium
+
+  * Install ca-certificates as well as apt-transport-https for HTTPS
+    installations.  This makes it possible to copy certificates that were
+    built into the installer to /usr/local/share/ca-certificates/ and thus
+    have them continue to be trusted after installation.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 12 Feb 2014 17:25:37 +0000
+
 debootstrap (1.0.58) unstable; urgency=medium
 
   * Policy version 3.9.5: no changes required.
