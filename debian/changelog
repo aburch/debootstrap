@@ -3,6 +3,11 @@ debootstrap (1.0.60) UNRELEASED; urgency=medium
   [ Adam Conrad ]
   * Add (Ubuntu) utopic as a symlink to gutsy.
 
+  [ Guillem Jover ]
+  * Sync deb support with latest dpkg-deb (closes: #739136):
+    - Add uncompressed data.tar deb member support.
+    - Add uncompressed and xz control.tar deb member support.
+
  -- Colin Watson <cjwatson@debian.org>  Tue, 06 May 2014 09:28:42 +0100
 
 debootstrap (1.0.59) unstable; urgency=medium
