@@ -1,4 +1,4 @@
-debootstrap (1.0.60) UNRELEASED; urgency=medium
+debootstrap (1.0.60) unstable; urgency=medium
 
   [ Adam Conrad ]
   * Add (Ubuntu) utopic as a symlink to gutsy.
@@ -8,7 +8,7 @@ debootstrap (1.0.60) UNRELEASED; urgency=medium
     - Add uncompressed data.tar deb member support.
     - Add uncompressed and xz control.tar deb member support.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 06 May 2014 09:28:42 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 06 May 2014 09:37:34 +0100
 
 debootstrap (1.0.59) unstable; urgency=medium
 
