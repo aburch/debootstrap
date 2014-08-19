@@ -908,7 +908,7 @@ in_target_failmsg () {
 		msg="See %s for details"
 		if [ -e "$TARGET/debootstrap/debootstrap.log" ]; then
 			arg="$TARGET/debootstrap/debootstrap.log"
-			local pkg="$(grep '^dpkg: error processing ' "$TARGET/debootstrap/debootstrap.log" | head -n 1 | cut -d ' ' -f 4)"
+			local pkg="$(grep '^dpkg: error processing ' "$TARGET/debootstrap/debootstrap.log" | head -n 1 | sed 's/\(error processing \)\(package \|archive \)/\1/' | cut -d ' ' -f 4)"
 			if [ -n "$pkg" ]; then
 				msg="$msg (possibly the package $pkg is at fault)"
 			fi

@@ -1,3 +1,10 @@
+debootstrap (1.0.61) UNRELEASED; urgency=medium
+
+  * Fix "possibly the package $pkg is at fault" warnings to account for
+    changed error output in dpkg 1.17.2.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 19 Aug 2014 15:33:09 +0100
+
 debootstrap (1.0.60) unstable; urgency=medium
 
   [ Adam Conrad ]
