@@ -287,7 +287,7 @@ get () {
 	local versionname
 	if [ "${2%.deb}" != "$2" ]; then
 		displayname="$(echo "$2" | sed 's,^.*/,,;s,_.*$,,')"
-		versionname="$(echo "$2" | sed 's,^.*/,,' | cut -d_ -f2)"
+		versionname="$(echo "$2" | sed 's,^.*/,,' | cut -d_ -f2 | sed 's/%3a/:/')"
 	else
 		displayname="$(echo "$1" | sed 's,^.*/,,')"
 	fi
