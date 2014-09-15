@@ -1,9 +1,10 @@
-debootstrap (1.0.62) UNRELEASED; urgency=medium
+debootstrap (1.0.62) unstable; urgency=medium
 
+  [ Cyril Brulebois ]
   * Fix reporting of package version in retrieval and validation steps
     to cope with epochs.
 
- -- Cyril Brulebois <kibi@debian.org>  Sun, 14 Sep 2014 17:16:38 +0200
+ -- Christian Perrier <bubulle@debian.org>  Mon, 15 Sep 2014 11:40:54 +0200
 
 debootstrap (1.0.61) unstable; urgency=medium
 
