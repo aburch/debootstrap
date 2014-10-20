@@ -1,8 +1,8 @@
-debootstrap (1.0.64) UNRELEASED; urgency=medium
+debootstrap (1.0.64) unstable; urgency=medium
 
   * Add (Ubuntu) vivid as a symlink to gutsy.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 20 Oct 2014 15:05:27 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 20 Oct 2014 16:48:49 +0100
 
 debootstrap (1.0.63) unstable; urgency=medium
 
