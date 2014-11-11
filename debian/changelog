@@ -1,8 +1,9 @@
-debootstrap (1.0.65) UNRELEASED; urgency=medium
+debootstrap (1.0.65) unstable; urgency=medium
 
+  [ Julien Cristau ]
   * Add support for stretch.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 09 Nov 2014 12:15:59 +0000
+ -- Christian Perrier <bubulle@debian.org>  Mon, 10 Nov 2014 09:24:56 +0100
 
 debootstrap (1.0.64) unstable; urgency=medium
 
