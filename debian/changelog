@@ -1,3 +1,10 @@
+debootstrap (1.0.66) UNRELEASED; urgency=low
+
+  * Specify gzip compression in debian/source/options to allow for better
+    portability on other platforms (Closes: #770214). Thanks, Joey Hess!
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 23 Nov 2014 12:52:12 +0100
+
 debootstrap (1.0.65) unstable; urgency=medium
 
   [ Julien Cristau ]
