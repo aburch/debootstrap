@@ -36,3 +36,8 @@ override_dh_auto_install:
 
 override_dh_gencontrol:
 	dh_gencontrol -- -Vkeyring=$(KEYRING)
+
+# Specify gzip to mitigate #770217:
+override_dh_builddeb:
+	dh_builddeb -pdebootstrap      -- -Zgzip
+	dh_builddeb -pdebootstrap-udeb -- -Zxz
