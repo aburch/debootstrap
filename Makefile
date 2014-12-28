@@ -1,5 +1,6 @@
 # avoid dpkg-dev dependency; fish out the version with sed
 VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
+DATE := $(shell sed -n '/^ -- /{s/.*> \(.*\)/\1/p;q}' debian/changelog)
 
 MAKEDEV := /sbin/MAKEDEV
 
@@ -35,7 +36,7 @@ devices.tar.gz:
 	chown 0:0 dev
 	chmod 755 dev
 	(cd dev && $(MAKEDEV) std ptmx fd consoleonly)
-	tar cf - dev | gzip -9 >devices.tar.gz
+	tar --mtime="$(DATE)" -cf - dev | gzip -9n >devices.tar.gz
 	@if [ "$$(tar tvf devices.tar.gz | wc -l)" -lt 2 ]; then \
 		echo " ** devices.tar.gz is empty!" >&2; \
 		exit 1; \
