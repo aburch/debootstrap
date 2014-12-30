@@ -949,9 +949,11 @@ mv_invalid_to () {
 
 setup_apt_sources () {
 	mkdir -p "$TARGET/etc/apt"
+	# Cope with the foreign case where COMPONENTS would be empty:
+	sources_components="${COMPONENTS:-$USE_COMPONENTS}"
 	for m in "$@"; do
 		local cs=""
-		for c in $COMPONENTS; do
+		for c in $sources_components; do
 			local path="dists/$SUITE/$c/binary-$ARCH/Packages"
 			local pkgdest="$TARGET/$($DLDEST pkg "$SUITE" "$c" "$ARCH" "$m" "$path")"
 			if [ -e "$pkgdest" ]; then cs="$cs $c"; fi

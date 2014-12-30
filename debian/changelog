@@ -3,6 +3,9 @@ debootstrap (1.0.67) UNRELEASED; urgency=medium
   * Apply patch by Jérémy Bobbio to support reproducible builds: specify
     a modification time on the tar side, and add the -n option to gzip
     (Closes: #774069). Thanks, Jérémy!
+  * Update setup_apt_sources to look at USE_COMPONENTS if COMPONENTS is
+    empty, fixing the empty sources.list bug with foreign architectures
+    (Closes: #732255, #773867).
 
  -- Cyril Brulebois <kibi@debian.org>  Mon, 29 Dec 2014 15:01:57 +0100
 
