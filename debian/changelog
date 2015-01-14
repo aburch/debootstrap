@@ -1,5 +1,6 @@
-debootstrap (1.0.67) UNRELEASED; urgency=medium
+debootstrap (1.0.67) unstable; urgency=medium
 
+  [ Cyril Brulebois ]
   * Apply patch by Jérémy Bobbio to support reproducible builds: specify
     a modification time on the tar side, and add the -n option to gzip
     (Closes: #774069). Thanks, Jérémy!
@@ -7,7 +8,7 @@ debootstrap (1.0.67) UNRELEASED; urgency=medium
     empty, fixing the empty sources.list bug with foreign architectures
     (Closes: #732255, #773867).
 
- -- Cyril Brulebois <kibi@debian.org>  Mon, 29 Dec 2014 15:01:57 +0100
+ -- Christian Perrier <bubulle@debian.org>  Wed, 14 Jan 2015 07:03:17 +0100
 
 debootstrap (1.0.66) unstable; urgency=low
 
