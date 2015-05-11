@@ -1,9 +1,10 @@
-debootstrap (1.0.68) UNRELEASED; urgency=medium
+debootstrap (1.0.68) unstable; urgency=medium
 
+  [ Steven Chamberlain ]
   * Support the jessie-kfreebsd suite, by using the same script as
     jessie (a symlink to sid) (Closes: #784927).
 
- -- Steven Chamberlain <steven@pyro.eu.org>  Tue, 28 Apr 2015 00:10:03 +0000
+ -- Christian Perrier <bubulle@debian.org>  Mon, 11 May 2015 07:46:19 +0200
 
 debootstrap (1.0.67) unstable; urgency=medium
 
