@@ -1,3 +1,12 @@
+debootstrap (1.0.69) UNRELEASED; urgency=medium
+
+  * Make sure to deduplicate package list in download_release to avoid
+    issues while counting downloaded packages. The failure path could lead
+    to printing some strange integer (Closes: #709751, #768445, #785276).
+    This was reported to mostly happen whenever --no-resolve-deps is used.
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 14 May 2015 23:52:52 +0200
+
 debootstrap (1.0.68) unstable; urgency=medium
 
   [ Steven Chamberlain ]

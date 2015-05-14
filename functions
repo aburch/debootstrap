@@ -662,6 +662,11 @@ download_release () {
 
 	local totaldebs=0
 	local leftoverdebs="$*"
+
+	# Fix possible duplicate package names, which would screw up counts:
+	leftoverdebs=$(printf "$leftoverdebs"|sed 's/ /\n/g'|sort -u|xargs)
+	numdebs=$(printf "$leftoverdebs"|wc -w)
+
 	for c in $COMPONENTS; do
 		if [ "$countdebs" -ge "$numdebs" ]; then break; fi
 
