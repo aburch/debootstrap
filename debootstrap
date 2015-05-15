@@ -27,6 +27,7 @@ LANG=C
 USE_COMPONENTS=main
 KEYRING=""
 DISABLE_KEYRING=""
+FORCE_KEYRING=""
 VARIANT=""
 ARCH=""
 HOST_ARCH=""
@@ -104,6 +105,9 @@ usage()
                               scratchbox, minbase)
       --keyring=K            check Release files against keyring K
       --no-check-gpg         avoid checking Release file signatures
+      --force-check-gpg      force checking Release file signatures
+                             (also disables automatic fallback to HTTPS in case
+                             of a missing keyring), aborting otherwise
       --no-resolve-deps      don't try to resolve dependencies automatically
 
       --unpack-tarball=T     acquire .debs from a tarball instead of http
@@ -318,6 +322,10 @@ if [ $# != 0 ] ; then
 	    --no-check-gpg)
 			shift 1
 			DISABLE_KEYRING=1
+		;;
+	    --force-check-gpg)
+			shift 1
+			FORCE_KEYRING=1
 		;;
 	    --certificate|--certificate=?*)
 		if [ "$1" = "--certificate" -a -n "$2" ]; then

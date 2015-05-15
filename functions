@@ -200,11 +200,14 @@ keyring () {
 		if [ -e "$1" ]; then
 			KEYRING="$1"
 		elif [ -z "$DISABLE_KEYRING" ]; then
-			if [ -n "$DEF_HTTPS_MIRROR" ] && [ -z "$USER_MIRROR" ] ; then
+			if [ -n "$DEF_HTTPS_MIRROR" ] && [ -z "$USER_MIRROR" ] && [ -z "$FORCE_KEYRING" ]; then
 				info KEYRING "Keyring file not available at %s; switching to https mirror %s" "$1" "$DEF_HTTPS_MIRROR"
 				USER_MIRROR="$DEF_HTTPS_MIRROR"
 			else
 				warning KEYRING "Cannot check Release signature; keyring file not available %s" "$1"
+				if [ -n "$FORCE_KEYRING" ]; then
+					error 1 KEYRING "Keyring-based check was requested; aborting accordingly"
+				fi
 			fi
 		fi
 	fi

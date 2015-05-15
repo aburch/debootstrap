@@ -4,6 +4,9 @@ debootstrap (1.0.69) UNRELEASED; urgency=medium
     issues while counting downloaded packages. The failure path could lead
     to printing some strange integer (Closes: #709751, #768445, #785276).
     This was reported to mostly happen whenever --no-resolve-deps is used.
+  * Add support for --force-check-gpg so that one can programmatically
+    make sure keyring checks are used and that no fallback to an https
+    mirror happens (Closes: #661501, #733179, #775454).
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 14 May 2015 23:52:52 +0200
 
