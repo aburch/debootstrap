@@ -48,7 +48,7 @@ CERTIFICATE=""
 CHECKCERTIF=""
 PRIVATEKEY=""
 
-DEF_MIRROR="http://ftp.us.debian.org/debian"
+DEF_MIRROR="http://httpredir.debian.org/debian"
 DEF_HTTPS_MIRROR="https://mirrors.kernel.org/debian"
 
 export LANG USE_COMPONENTS

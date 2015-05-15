@@ -162,14 +162,14 @@ Read the private key from file
 .PP 
 To setup a \fIwheezy\fR system:
 .PP 
-     debootstrap wheezy ./wheezy-chroot http://ftp.us.debian.org/debian
+     debootstrap wheezy ./wheezy-chroot http://httpredir.debian.org/debian
 .PP
      debootstrap wheezy ./wheezy-chroot file:///LOCAL_MIRROR/debian
 .PP
 Full process to create a complete Debian installation of \fIsid\fR (unstable)
 in a chroot:
 .PP
-     main # debootstrap sid sid-root http://ftp.us.debian.org/debian/
+     main # debootstrap sid sid-root http://httpredir.debian.org/debian/
      [ ... watch it download the whole system ]
      main # echo "proc sid-root/proc proc defaults 0 0" >> /etc/fstab
      main # mount proc sid-root/proc -t proc
