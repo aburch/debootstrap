@@ -365,6 +365,12 @@ fi
 
 ###########################################################################
 
+if [ -n "$DISABLE_KEYRING" -a -n "$FORCE_KEYRING" ]; then
+	error 1 BADARG "Both --no-check-gpg and --force-check-gpg specified, please pick one (at most)"
+fi
+
+###########################################################################
+
 if [ "$SECOND_STAGE_ONLY" = "true" ]; then
 	SUITE=$(cat $DEBOOTSTRAP_DIR/suite)
 	ARCH=$(cat $DEBOOTSTRAP_DIR/arch)
