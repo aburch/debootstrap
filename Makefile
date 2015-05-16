@@ -2,7 +2,7 @@
 VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
 DATE := $(shell sed -n '/^ -- /{s/.*> \(.*\)/\1/p;q}' debian/changelog)
 
-MAKEDEV := /sbin/MAKEDEV
+MAKEDEV ?= /sbin/MAKEDEV
 
 ifeq ($(shell uname),Linux)
 all: devices.tar.gz

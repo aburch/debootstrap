@@ -9,6 +9,8 @@ debootstrap (1.0.69) UNRELEASED; urgency=medium
     mirror happens (Closes: #661501, #733179, #775454).
   * Switch default mirror from ftp.us.debian.org to the new, official
     http redirector service: httpredir.debian.org
+  * Make it possible to override the MAKEDEV variable (Closes: #734743).
+    Thanks, Wookey!
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 14 May 2015 23:52:52 +0200
 
