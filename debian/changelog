@@ -2,7 +2,8 @@ debootstrap (1.0.69) UNRELEASED; urgency=medium
 
   * Make sure to deduplicate package list in download_release to avoid
     issues while counting downloaded packages. The failure path could lead
-    to printing some strange integer (Closes: #709751, #768445, #785276).
+    to printing some strange integer (Closes: #709751, #768445, #785276,
+    #774752).
     This was reported to mostly happen whenever --no-resolve-deps is used.
   * Add support for --force-check-gpg so that one can programmatically
     make sure keyring checks are used and that no fallback to an https
