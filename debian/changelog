@@ -1,4 +1,4 @@
-debootstrap (1.0.69) UNRELEASED; urgency=medium
+debootstrap (1.0.69) unstable; urgency=medium
 
   [ Cyril Brulebois ]
   * Make sure to deduplicate package list in download_release to avoid
@@ -17,7 +17,7 @@ debootstrap (1.0.69) UNRELEASED; urgency=medium
   [ Christian Perrier ]
   * Update Standards to 3.9.6 (checked)
 
- -- Cyril Brulebois <kibi@debian.org>  Thu, 14 May 2015 23:52:52 +0200
+ -- Christian Perrier <bubulle@debian.org>  Mon, 18 May 2015 14:07:43 +0200
 
 debootstrap (1.0.68) unstable; urgency=medium
 
