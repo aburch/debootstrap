@@ -1,5 +1,6 @@
 debootstrap (1.0.69) UNRELEASED; urgency=medium
 
+  [ Cyril Brulebois ]
   * Make sure to deduplicate package list in download_release to avoid
     issues while counting downloaded packages. The failure path could lead
     to printing some strange integer (Closes: #709751, #768445, #785276,
@@ -12,6 +13,9 @@ debootstrap (1.0.69) UNRELEASED; urgency=medium
     http redirector service: httpredir.debian.org
   * Make it possible to override the MAKEDEV variable (Closes: #734743).
     Thanks, Wookey!
+
+  [ Christian Perrier ]
+  * Update Standards to 3.9.6 (checked)
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 14 May 2015 23:52:52 +0200
 

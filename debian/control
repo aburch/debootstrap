@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
 Uploaders: Junichi Uekawa <dancer@debian.org>, Colin Watson <cjwatson@debian.org>, Christian Perrier <bubulle@debian.org>
 Build-Depends: debhelper (>= 9), makedev (>= 2.3.1-69) [linux-any]
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=d-i/debootstrap.git
 Vcs-Git: git://anonscm.debian.org/d-i/debootstrap.git
 
