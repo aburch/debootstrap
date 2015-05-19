@@ -667,7 +667,7 @@ download_release () {
 	local leftoverdebs="$*"
 
 	# Fix possible duplicate package names, which would screw up counts:
-	leftoverdebs=$(printf "$leftoverdebs"|sed 's/ /\n/g'|sort -u|xargs)
+	leftoverdebs=$(printf "$leftoverdebs"|sed 's/ /\n/g'|sort -u|tr '\n' ' ')
 	numdebs=$(printf "$leftoverdebs"|wc -w)
 
 	for c in $COMPONENTS; do

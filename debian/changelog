@@ -1,3 +1,10 @@
+debootstrap (1.0.70) UNRELEASED; urgency=medium
+
+  * Use tr instead of (missing in d-i) xargs (Closes: #785693). Thanks,
+    Julian Schauder!
+
+ -- Cyril Brulebois <kibi@debian.org>  Tue, 19 May 2015 11:31:43 +0200
+
 debootstrap (1.0.69) unstable; urgency=medium
 
   [ Cyril Brulebois ]
