@@ -1,3 +1,11 @@
+debootstrap (1.0.71) UNRELEASED; urgency=medium
+
+  * Adjust sed call to render it more portable (missing ';'), making it
+    work with FreeBSD sed. Thanks to Nikolai Lifanov for the report and
+    the patch (Closes: #791802).
+
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 10 Jul 2015 01:07:44 +0200
+
 debootstrap (1.0.70) unstable; urgency=medium
 
   * Use tr instead of (missing in d-i) xargs (Closes: #785693). Thanks,

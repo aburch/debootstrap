@@ -1,6 +1,6 @@
 # avoid dpkg-dev dependency; fish out the version with sed
 VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
-DATE := $(shell sed -n '/^ -- /{s/.*> \(.*\)/\1/p;q}' debian/changelog)
+DATE := $(shell sed -n '/^ -- /{s/.*> \(.*\)/\1/p;q;}' debian/changelog)
 
 MAKEDEV ?= /sbin/MAKEDEV
 
