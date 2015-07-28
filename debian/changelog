@@ -1,3 +1,10 @@
+debootstrap (1.0.72) UNRELEASED; urgency=medium
+
+  [ Iain Lane ]
+  * Add (Ubuntu) wily as a symlink to gutsy.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 28 Jul 2015 13:42:44 +0100
+
 debootstrap (1.0.71) unstable; urgency=medium
 
   * Adjust sed call to render it more portable (missing ';'), making it
