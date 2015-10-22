@@ -644,6 +644,7 @@ download_debs () {
 				local debdest="$($DLDEST deb "$p" "$ver" "$arc" "$m" "$fil")"
 				if get "$m/$fil" "$TARGET/$debdest" "$checksum" "$size"; then
 					dloaddebs="$(($dloaddebs + $size))"
+					echo >>$TARGET/debootstrap/deburis "$p $ver $m/$fil"
 					echo >>$TARGET/debootstrap/debpaths "$p $debdest"
 				else
 					warning COULDNTDL "Couldn't download package %s (ver %s arch %s)" "$p" "$ver" "$arc"

@@ -1,3 +1,10 @@
+debootstrap (1.0.73) UNRELEASED; urgency=medium
+
+  * Generate a deburis file with (package, version, uri) tuples, similar
+    to the existing debpaths.
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 22 Oct 2015 12:39:48 +0200
+
 debootstrap (1.0.72) unstable; urgency=medium
 
   [ Iain Lane ]
