@@ -1,8 +1,9 @@
-debootstrap (1.0.74) UNRELEASED; urgency=medium
+debootstrap (1.0.74) unstable; urgency=medium
 
+  [ Colin Watson ]
   * Add (Ubuntu) xenial as a symlink to gutsy.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 29 Oct 2015 14:49:17 +0000
+ -- Christian Perrier <bubulle@debian.org>  Tue, 03 Nov 2015 07:09:23 +0100
 
 debootstrap (1.0.73) unstable; urgency=medium
 
