@@ -2,6 +2,12 @@ debootstrap (1.0.75) UNRELEASED; urgency=medium
 
   * Stop cleaning KEEP_DEBOOTSTRAP_DIR twice, as spotted by Chris Lamb
     (Closes: #804415).
+  * Add Tanglu support (Closes: #771687), thanks to Matthias Klumpp. At
+    the moment, the following extra suites are recognized:
+     - aequorea
+     - bartholomea
+     - chromodoris
+     - dasyatis
 
  -- Cyril Brulebois <kibi@debian.org>  Sun, 08 Nov 2015 11:40:43 +0100
 
