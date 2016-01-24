@@ -1,3 +1,10 @@
+debootstrap (1.0.76) UNRELEASED; urgency=medium
+
+  [ Marco d'Itri ]
+  * Stop creating useless device nodes (Closes: #571136).
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 24 Jan 2016 08:54:06 +0100
+
 debootstrap (1.0.75) unstable; urgency=medium
 
   * Stop cleaning KEEP_DEBOOTSTRAP_DIR twice, as spotted by Chris Lamb
