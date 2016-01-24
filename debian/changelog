@@ -1,9 +1,9 @@
-debootstrap (1.0.76) UNRELEASED; urgency=medium
+debootstrap (1.0.76) unstable; urgency=medium
 
   [ Marco d'Itri ]
   * Stop creating useless device nodes (Closes: #571136).
 
- -- Cyril Brulebois <kibi@debian.org>  Sun, 24 Jan 2016 08:54:06 +0100
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 24 Jan 2016 08:55:18 +0100
 
 debootstrap (1.0.75) unstable; urgency=medium
 
