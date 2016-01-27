@@ -1,4 +1,4 @@
-debootstrap (1.0.77) UNRELEASED; urgency=medium
+debootstrap (1.0.77) unstable; urgency=medium
 
   [ Marco d'Itri ]
   * Fix permissions on device nodes (Closes: #812811).
