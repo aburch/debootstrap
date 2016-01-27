@@ -1074,12 +1074,12 @@ setup_devices () {
 setup_devices_simple () {
 	# The list of devices that can be created in a container comes from
 	# src/core/cgroup.c in the systemd source tree.
-	mknod $TARGET/dev/null		c 1 3
-	mknod $TARGET/dev/zero		c 1 5
-	mknod $TARGET/dev/full		c 1 7
-	mknod $TARGET/dev/random	c 1 8
-	mknod $TARGET/dev/urandom	c 1 9
-	mknod $TARGET/dev/tty		c 5 0
+	mknod --mode=666 $TARGET/dev/null	c 1 3
+	mknod --mode=666 $TARGET/dev/zero	c 1 5
+	mknod --mode=666 $TARGET/dev/full	c 1 7
+	mknod --mode=666 $TARGET/dev/random	c 1 8
+	mknod --mode=666 $TARGET/dev/urandom	c 1 9
+	mknod --mode=666 $TARGET/dev/tty	c 5 0
 	mkdir $TARGET/dev/pts/ $TARGET/dev/shm/
 	ln -s pts/ptmx $TARGET/dev/ptmx
 	ln -s /proc/self/fd   $TARGET/dev/fd

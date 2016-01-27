@@ -1,3 +1,10 @@
+debootstrap (1.0.77) UNRELEASED; urgency=medium
+
+  [ Marco d'Itri ]
+  * Fix permissions on device nodes (Closes: #812811).
+
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 27 Jan 2016 20:22:05 +0100
+
 debootstrap (1.0.76) unstable; urgency=medium
 
   [ Marco d'Itri ]
