@@ -4,7 +4,8 @@ debootstrap (1.0.78) unstable; urgency=high
   * Don't call mknod with the --mode option, it's not supported in
     busybox. Use -m instead - fixes the broken fix for #812811.
     Closes: #813124. Urgency high to get this fix propagated quickly -
-    it's breaking d-i installs right now.
+    it's breaking d-i installs right now. Adding myself to uploaders and
+    uploading.
 
  -- Steve McIntyre <93sam@debian.org>  Fri, 29 Jan 2016 16:36:00 +0000
 
