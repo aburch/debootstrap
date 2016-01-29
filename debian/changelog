@@ -1,8 +1,12 @@
-debootstrap (1.0.78) UNRELEASED; urgency=medium
+debootstrap (1.0.78) unstable; urgency=high
 
   * Use HTTPS for Vcs-* URLs, and link to cgit rather than gitweb.
+  * Don't call mknod with the --mode option, it's not supported in
+    busybox. Use -m instead - fixes the broken fix for #812811.
+    Closes: #813124. Urgency high to get this fix propagated quickly -
+    it's breaking d-i installs right now.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 29 Jan 2016 13:35:16 +0000
+ -- Steve McIntyre <93sam@debian.org>  Fri, 29 Jan 2016 16:36:00 +0000
 
 debootstrap (1.0.77) unstable; urgency=medium
 
