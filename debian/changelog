@@ -1,3 +1,9 @@
+debootstrap (1.0.78) UNRELEASED; urgency=medium
+
+  * Use HTTPS for Vcs-* URLs, and link to cgit rather than gitweb.
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 29 Jan 2016 13:35:16 +0000
+
 debootstrap (1.0.77) unstable; urgency=medium
 
   [ Marco d'Itri ]
