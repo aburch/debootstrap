@@ -1046,9 +1046,35 @@ setup_proc_fakechroot () {
 	ln -s /proc "$TARGET"
 }
 
+# create the static device nodes
 setup_devices () {
 	if doing_variant fakechroot; then
 		setup_devices_fakechroot
+		return 0
+	fi
+
+	case "$HOST_OS" in
+	    kfreebsd*)
+		;;
+	    freebsd)
+		;;
+	    hurd*)
+		;;
+	    *)
+		if true; then
+			setup_devices_simple
+		elif [ -e "$DEVICES_TARGZ" ]; then
+			zcat "$DEVICES_TARGZ" | (cd "$TARGET"; tar -xf -)
+		else
+			error 1 NODEVTGZ "no %s. cannot create devices" "$DEVICES_TARGZ"
+		fi
+		;;
+	esac
+}
+
+# enable the dynamic device nodes
+setup_dynamic_devices () {
+	if doing_variant fakechroot; then
 		return 0
 	fi
 
@@ -1059,15 +1085,6 @@ setup_devices () {
 		mount -t devfs devfs $TARGET/dev ;;
 	    hurd*)
 		setup_devices_hurd ;;
-	    *)
-		if true; then
-			setup_devices_simple
-		elif [ -e "$DEVICES_TARGZ" ]; then
-			zcat "$DEVICES_TARGZ" | (cd "$TARGET"; tar -xf -)
-		else
-			error 1 NODEVTGZ "no %s. cannot create devices" "$DEVICES_TARGZ"
-		fi
-		;;
 	esac
 }
 

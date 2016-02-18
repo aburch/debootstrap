@@ -1,3 +1,22 @@
+debootstrap (1.0.78+nmu1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Split setup_devices in setup_devices (which now only deals with static
+    device nodes) and setup_dynamic_devices, and move the calls to
+    setup_devices from the beginning of the second stage to the end of the
+    first stage.
+    setup_dynamic_devices mounts the appropriate filesystems which provide
+    dynamic device nodes for the architectures which need one in
+    debootstrap (kfreebsd and hurd).
+    This fixes a bug in --second-stage introduced in 1.0.34 and exposed
+    by the devices-related changes of 1.0.76: the second stage debootstrap
+    runs "dpkg --print-architecture >/dev/null" at the very beginning of
+    the program when /dev is still empty, so it creates an empty regular
+    file in place of /dev/null and this will cause mknod to fail later.
+    (Closes: #813232)
+
+ -- Marco d'Itri <md@linux.it>  Wed, 17 Feb 2016 01:23:23 +0100
+
 debootstrap (1.0.78) unstable; urgency=high
 
   * Use HTTPS for Vcs-* URLs, and link to cgit rather than gitweb.
