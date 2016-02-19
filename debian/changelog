@@ -1,10 +1,11 @@
-debootstrap (1.0.79) UNRELEASED; urgency=medium
+debootstrap (1.0.79) unstable; urgency=medium
 
+  [ Samuel Thibault ]
   * hurd: move setting up dev and servers firmlink to setup_proc stage. Also
     firmlink proc there.  Thanks Gabriele Giacone for all the investigation!
     (Closes: #768102)
 
- -- Samuel Thibault <sthibault@debian.org>  Mon, 15 Feb 2016 23:20:33 +0100
+ -- Christian Perrier <bubulle@debian.org>  Fri, 19 Feb 2016 07:23:59 +0100
 
 debootstrap (1.0.78+nmu1) unstable; urgency=medium
 
