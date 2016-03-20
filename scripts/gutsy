@@ -28,6 +28,8 @@ fi
 
 case $ARCH in
 	alpha|ia64) LIBC="libc6.1" ;;
+	kfreebsd-*) LIBC="libc0.1" ;;
+	hurd-*)     LIBC="libc0.3" ;;
 	*)          LIBC="libc6" ;;
 esac
 
