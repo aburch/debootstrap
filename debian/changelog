@@ -1,7 +1,8 @@
 debootstrap (1.0.80) UNRELEASED; urgency=medium
 
   [ Jon Boden ]
-  * scripts/gutsy: Support kfreebsd & hurd arches on Ubuntu targets.
+  * scripts/gutsy: Support kfreebsd & hurd arches on Ubuntu targets
+    (closes: #818748)
 
  -- Samuel Thibault <sthibault@debian.org>  Sun, 20 Mar 2016 12:47:11 +0100
 
