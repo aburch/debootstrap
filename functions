@@ -1065,13 +1065,7 @@ setup_devices () {
 	    hurd*)
 		;;
 	    *)
-		if true; then
-			setup_devices_simple
-		elif [ -e "$DEVICES_TARGZ" ]; then
-			zcat "$DEVICES_TARGZ" | (cd "$TARGET"; tar -xf -)
-		else
-			error 1 NODEVTGZ "no %s. cannot create devices" "$DEVICES_TARGZ"
-		fi
+		setup_devices_simple
 		;;
 	esac
 }

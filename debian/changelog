@@ -1,3 +1,10 @@
+debootstrap (1.0.82) UNRELEASED; urgency=medium
+
+  [ Alex Bennée ]
+  * Excise all devices.tar.gz code. Closes: #830869
+
+ -- Steve McIntyre <93sam@debian.org>  Tue, 06 Sep 2016 14:20:12 +0200
+
 debootstrap (1.0.81) unstable; urgency=medium
 
   [ Luca Falavigna ]

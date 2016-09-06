@@ -2,17 +2,9 @@
 VERSION := $(shell sed 's/.*(\(.*\)).*/\1/; q' debian/changelog)
 DATE := $(shell sed -n '/^ -- /{s/.*> \(.*\)/\1/p;q;}' debian/changelog)
 
-MAKEDEV ?= /sbin/MAKEDEV
-
-ifeq ($(shell uname),Linux)
-all: devices.tar.gz
-else
 all:
-endif
 
 clean:
-	rm -f devices.tar.gz
-	rm -rf dev
 
 DSDIR=$(DESTDIR)/usr/share/debootstrap
 install:
@@ -25,20 +17,3 @@ install:
 	sed 's/@VERSION@/$(VERSION)/g' debootstrap >$(DESTDIR)/usr/sbin/debootstrap
 	chown root:root $(DESTDIR)/usr/sbin/debootstrap
 	chmod 0755 $(DESTDIR)/usr/sbin/debootstrap
-
-ifeq ($(shell uname),Linux)
-	install -o root -g root -m 0644 devices.tar.gz $(DSDIR)/
-endif
-
-devices.tar.gz:
-	rm -rf dev
-	mkdir -p dev
-	chown 0:0 dev
-	chmod 755 dev
-	(cd dev && $(MAKEDEV) std ptmx fd consoleonly)
-	tar --mtime="$(DATE)" -cf - dev | gzip -9n >devices.tar.gz
-	@if [ "$$(tar tvf devices.tar.gz | wc -l)" -lt 2 ]; then \
-		echo " ** devices.tar.gz is empty!" >&2; \
-		exit 1; \
-	fi
-	rm -rf dev

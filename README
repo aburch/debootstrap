@@ -18,11 +18,21 @@ First, get the source.
 * Or by visiting <http://packages.debian.org/source/sid/debootstrap>
   and downloading the tar.gz file
 
-Then as root, in the debootstrap source directory:
+Then in the debootstrap source directory:
 
-make devices.tar.gz
-export DEBOOTSTRAP_DIR=`pwd`
-debootstrap sid sid
+    export DEBOOTSTRAP_DIR=`pwd`
+    sudo ./debootstrap stable my-stable-dir
+
+If you are running a multi-stage boot strap (for example for a QEMU
+rootfs) you don't even need root:
+
+    export DEBOOTSTRAP_DIR=`pwd`
+    fakeroot ./debootstrap --foreign --arch=armhf testing my-testing-dir http://httpredir.debian.org/debian
+
+Of course you will need to execute the second stage as root to finish the bootstrap:
+
+   (on foreign hardware)
+   /debootstrap/debootstrap --second-stage
 
 
 Future

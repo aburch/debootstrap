@@ -18,8 +18,6 @@ if [ -z "$DEBOOTSTRAP_DIR" ]; then
 	fi
 fi
 
-DEVICES_TARGZ=$DEBOOTSTRAP_DIR/devices.tar.gz
-
 . $DEBOOTSTRAP_DIR/functions
 exec 4>&1
 
@@ -635,7 +633,6 @@ if am_doing_phase first_stage; then
 	if ! am_doing_phase second_stage; then
 		cp "$0"				 "$TARGET/debootstrap/debootstrap"
 		cp $DEBOOTSTRAP_DIR/functions	 "$TARGET/debootstrap/functions"
-		cp $DEBOOTSTRAP_DIR/devices.tar.gz	 "$TARGET/debootstrap/devices.tar.gz"
 		cp $SCRIPT			 "$TARGET/debootstrap/suite-script"
 		echo "$ARCH"			>"$TARGET/debootstrap/arch"
 		echo "$SUITE"			>"$TARGET/debootstrap/suite"
