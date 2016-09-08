@@ -512,6 +512,18 @@ extract_release_components () {
 	fi
 }
 
+CODENAME=""
+validate_suite () {
+	local reldest="$1"
+
+	CODENAME=$(sed -n "s/^Codename: *//p" "$reldest")
+	local suite=$(sed -n "s/^Suite: *//p" "$reldest")
+
+	if [ "$SUITE" != "$suite" ] && [ "$SUITE" != "$CODENAME" ]; then
+		error 1 WRONGSUITE "Asked to install suite %s, but got %s (codename: %s) from mirror" "$SUITE" "$suite" "$CODENAME"
+	fi
+}
+
 download_release_sig () {
 	local m1="$1"
 	local reldest="$2"
@@ -546,6 +558,8 @@ download_release_indices () {
 	progress 100 100 DOWNREL "Downloading Release file"
 
 	download_release_sig "$m1" "$reldest" "$relsigdest"
+
+	validate_suite "$reldest"
 
 	extract_release_components $reldest
 
