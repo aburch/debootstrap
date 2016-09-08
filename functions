@@ -821,7 +821,7 @@ extract_dpkg_deb_field () {
 extract_dpkg_deb_data () {
 	local pkg="$1"
 
-	dpkg-deb --fsys-tarfile "$pkg" | tar -xf -
+	dpkg-deb --fsys-tarfile "$pkg" | tar -kxf -
 }
 
 # Raw .deb extractors
@@ -859,7 +859,7 @@ extract_ar_deb_data () {
 	esac
 
 	if type $cat_cmd >/dev/null 2>&1; then
-		ar -p "$pkg" "$tarball" | $cat_cmd | tar -xf -
+		ar -p "$pkg" "$tarball" | $cat_cmd | tar -kxf -
 	else
 		error 1 UNPACKCMDUNVL "Extracting %s requires the %s command, which is not available" "$pkg" "$cat_cmd"
 	fi
