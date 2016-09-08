@@ -2,6 +2,8 @@ debootstrap (1.0.83) UNRELEASED; urgency=medium
 
   * functions: Validate that the requested suite is listed in the
     Release file's Suite or Codename field. (Closes: #837075)
+  * Add support for merged-/usr, enabled by default for stretch and later.
+    (Closes: #810301)
 
  -- Ansgar Burchardt <ansgar@debian.org>  Thu, 08 Sep 2016 17:26:53 +0200
 
