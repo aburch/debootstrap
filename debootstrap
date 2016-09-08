@@ -27,6 +27,7 @@ KEYRING=""
 DISABLE_KEYRING=""
 FORCE_KEYRING=""
 VARIANT=""
+MERGED_USR=""
 ARCH=""
 HOST_ARCH=""
 HOST_OS=""
@@ -100,6 +101,7 @@ usage()
       --variant=X            use variant X of the bootstrap scripts
                              (currently supported variants: buildd, fakechroot,
                               scratchbox, minbase)
+      --no-merged-usr        do not make /{bin,sbin,lib}/ symlinks to /usr/
       --keyring=K            check Release files against keyring K
       --no-check-gpg         avoid checking Release file signatures
       --force-check-gpg      force checking Release file signatures
@@ -301,6 +303,10 @@ if [ $# != 0 ] ; then
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
+		;;
+	    --no-merged-usr)
+		MERGED_USR=no
+		shift
 		;;
 	    --keyring|--keyring=?*)
 		if ! gpgv --version >/dev/null 2>&1; then

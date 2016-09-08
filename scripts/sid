@@ -41,6 +41,12 @@ work_out_debs () {
 }
 
 first_stage_install () {
+	case $SUITE in
+		etch|etch-m68k|jessie|lenny|squeeze|wheezy) ;;
+		oldstable|stable) ;;
+		*) setup_merged_usr ;;
+	esac
+
 	extract $required
 
 	mkdir -p "$TARGET/var/lib/dpkg"

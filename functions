@@ -1136,6 +1136,43 @@ setup_dselect_method () {
 	esac
 }
 
+# Find out where the runtime dynamic linker and the shared libraries
+# can be installed on each architecture: native, multilib and multiarch.
+# This data can be verified by checking the files in the debian/sysdeps/
+# directory of the glibc package.
+#
+# This function must be updated to support any new architecture which
+# either installs the RTLD in a directory different from /lib or builds
+# multilib library packages.
+setup_merged_usr() {
+	if [ "$MERGED_USR" = "no" ]; then return 0; fi
+
+	local link_dir
+	case $ARCH in
+	    hurd-*)	return 0 ;;
+	    amd64)	link_dir="lib32 lib64 libx32" ;;
+	    i386)	link_dir="lib64 libx32" ;;
+	    mips|mipsel)
+			link_dir="lib32 lib64" ;;
+	    mips64*|mipsn32*)
+			link_dir="lib32 lib64 libo32" ;;
+	    powerpc)	link_dir="lib64" ;;
+	    ppc64)	link_dir="lib32 lib64" ;;
+	    ppc64el)	link_dir="lib64" ;;
+	    s390x)	link_dir="lib32" ;;
+	    sparc)	link_dir="lib64" ;;
+	    sparc64)	link_dir="lib32 lib64" ;;
+	    x32)	link_dir="lib32 lib64 libx32" ;;
+	esac
+	link_dir="bin sbin lib $link_dir"
+
+	local dir
+	for dir in $link_dir; do
+		ln -s usr/$dir $TARGET/$dir
+		mkdir -p $TARGET/usr/$dir
+	done
+}
+
 ################################################################ pkgdetails
 
 # NOTE
