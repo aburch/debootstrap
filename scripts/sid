@@ -59,11 +59,15 @@ first_stage_install () {
 	fi
 
 	setup_devices
+}
+
+second_stage_install () {
+	setup_dynamic_devices
 
 	x_feign_install () {
 		local pkg="$1"
 		local deb="$(debfor $pkg)"
-		local ver="$(extract_deb_field "$TARGET/$deb" Version)"
+		local ver="$(in_target dpkg-deb -f "$deb" Version)"
 
 		mkdir -p "$TARGET/var/lib/dpkg/info"
 
@@ -77,10 +81,6 @@ Status: install ok installed" >> "$TARGET/var/lib/dpkg/status"
 	}
 
 	x_feign_install dpkg
-}
-
-second_stage_install () {
-	setup_dynamic_devices
 
 	x_core_install () {
 		smallyes '' | in_target dpkg --force-depends --install $(debfor "$@")
