@@ -27,7 +27,7 @@ KEYRING=""
 DISABLE_KEYRING=""
 FORCE_KEYRING=""
 VARIANT=""
-MERGED_USR=""
+MERGED_USR="no"
 ARCH=""
 HOST_ARCH=""
 HOST_OS=""
@@ -303,6 +303,10 @@ if [ $# != 0 ] ; then
 		else
 			error 1 NEEDARG "option requires an argument %s" "$1"
 		fi
+		;;
+            --merged-usr)
+		MERGED_USR=yes
+		shift
 		;;
 	    --no-merged-usr)
 		MERGED_USR=no
