@@ -2,7 +2,7 @@ debootstrap (1.0.83) UNRELEASED; urgency=medium
 
   * functions: Validate that the requested suite is listed in the
     Release file's Suite or Codename field. (Closes: #837075)
-  * Add support for merged-/usr, enabled by default for stretch and later.
+  * Add support for merged-/usr, enabled by a new --merged-usr option.
     (Closes: #810301)
   * Feign install of dpkg in second stage. This avoids problems when
     using dpkg-deb together with busybox' tar. (Closes: #837185)
