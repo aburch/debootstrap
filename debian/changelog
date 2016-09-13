@@ -1,4 +1,4 @@
-debootstrap (1.0.83) UNRELEASED; urgency=medium
+debootstrap (1.0.83) unstable; urgency=medium
 
   [ Ansgar Burchardt ]
   * functions: Validate that the requested suite is listed in the
