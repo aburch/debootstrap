@@ -6,6 +6,7 @@ debootstrap (1.0.83) UNRELEASED; urgency=medium
     (Closes: #810301)
   * Feign install of dpkg in second stage. This avoids problems when
     using dpkg-deb together with busybox' tar. (Closes: #837185)
+  * README: Use https://.
 
  -- Ansgar Burchardt <ansgar@debian.org>  Thu, 08 Sep 2016 17:26:53 +0200
 
