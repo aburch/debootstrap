@@ -43,7 +43,10 @@ work_out_debs () {
 first_stage_install () {
 	case "$CODENAME" in
 		etch|etch-m68k|jessie|jessie-kfreebsd|lenny|squeeze|wheezy) ;;
-		*) setup_merged_usr ;;
+		*)
+			EXTRACT_DEB_TAR_OPTIONS="$EXTRACT_DEB_TAR_OPTIONS -k"
+			setup_merged_usr
+			;;
 	esac
 
 	extract $required

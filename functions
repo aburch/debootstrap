@@ -819,6 +819,7 @@ get_debs () {
 ################################################################ extraction
 
 EXTRACTORS_SUPPORTED="dpkg-deb ar"
+EXTRACT_DEB_TAR_OPTIONS=
 
 # Native dpkg-deb based extractors
 extract_dpkg_deb_field () {
@@ -831,7 +832,7 @@ extract_dpkg_deb_field () {
 extract_dpkg_deb_data () {
 	local pkg="$1"
 
-	dpkg-deb --fsys-tarfile "$pkg" | tar -kxf -
+	dpkg-deb --fsys-tarfile "$pkg" | tar $EXTRACT_DEB_TAR_OPTIONS -xf -
 }
 
 # Raw .deb extractors
@@ -869,7 +870,7 @@ extract_ar_deb_data () {
 	esac
 
 	if type $cat_cmd >/dev/null 2>&1; then
-		ar -p "$pkg" "$tarball" | $cat_cmd | tar -kxf -
+		ar -p "$pkg" "$tarball" | $cat_cmd | tar $EXTRACT_DEB_TAR_OPTIONS -xf -
 	else
 		error 1 UNPACKCMDUNVL "Extracting %s requires the %s command, which is not available" "$pkg" "$cat_cmd"
 	fi
