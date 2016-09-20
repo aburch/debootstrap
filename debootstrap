@@ -360,7 +360,7 @@ if [ $# != 0 ] ; then
 		CHECKCERTIF="--no-check-certificate"
 		shift
 		;;
-	    --*)
+	    -*)
 		error 1 BADARG "unrecognized or invalid option %s" "$1"
 		;;
 	    *)
