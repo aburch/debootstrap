@@ -331,6 +331,7 @@ get () {
 		local iters=0
 
 		case "$typ" in
+		    xz)  from="$1.xz"; dest="$2.xz" ;;
 		    bz2) from="$1.bz2"; dest="$2.bz2" ;;
 		    gz)  from="$1.gz"; dest="$2.gz" ;;
 		    *)   from="$1"; dest="$2" ;;
@@ -358,6 +359,7 @@ get () {
 				case "$typ" in
 				    gz)  gunzip "$dest" ;;
 				    bz2) bunzip2 "$dest" ;;
+				    xz)  unxz "$dest" ;;
 				esac
 				return 0
 			else
@@ -566,6 +568,7 @@ download_release_indices () {
 	local totalpkgs=0
 	for c in $COMPONENTS; do
 		local subpath="$c/binary-$ARCH/Packages"
+		local xzi="`get_release_checksum "$reldest" "$subpath.xz"`"
 		local bz2i="`get_release_checksum "$reldest" "$subpath.bz2"`"
 		local gzi="`get_release_checksum "$reldest" "$subpath.gz"`"
 		local normi="`get_release_checksum "$reldest" "$subpath"`"
@@ -574,6 +577,8 @@ download_release_indices () {
 			i="$normi"
 		elif in_path bunzip2 && [ "$bz2i" != "" ]; then
 			i="$bz2i"
+		elif in_path unxz && [ "$xzi" != "" ]; then
+			i="$xzi"
 		elif in_path gunzip && [ "$gzi" != "" ]; then
 			i="$gzi"
 		fi
@@ -591,6 +596,7 @@ download_release_indices () {
 	for c in $COMPONENTS; do
 		local subpath="$c/binary-$ARCH/Packages"
 		local path="dists/$SUITE/$subpath"
+		local xzi="`get_release_checksum "$reldest" "$subpath.xz"`"
 		local bz2i="`get_release_checksum "$reldest" "$subpath.bz2"`"
 		local gzi="`get_release_checksum "$reldest" "$subpath.gz"`"
 		local normi="`get_release_checksum "$reldest" "$subpath"`"
@@ -599,6 +605,10 @@ download_release_indices () {
 		if [ "$normi" != "" ]; then
 			ext="$ext $normi ."
 			i="$normi"
+		fi
+		if in_path unxz && [ "$xzi" != "" ]; then
+			ext="$ext $xzi xz"
+			i="${i:-$xzi}"
 		fi
 		if in_path bunzip2 && [ "$bz2i" != "" ]; then
 			ext="$ext $bz2i bz2"
