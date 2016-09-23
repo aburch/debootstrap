@@ -10,7 +10,7 @@ You can run debootstrap from its source tree without installing it. This
 can be useful if you want a quick way to make a Debian chroot on another
 system, or if you are testing modifications to debootstrap.
 
-First, get the source. 
+First, get the source.
 
 * Either by using git
   git clone https://anonscm.debian.org/git/d-i/debootstrap.git
@@ -41,7 +41,7 @@ Future
   * Cross-strap support - so you can bootstrap a filesystem to the
     point where it will successfully boot, and finish installing itself
     without having to be running the target architecture or OS yourself.
-    This means you should be able to run 
+    This means you should be able to run
 
 	debootstrap --arch powerpc sarge ./sarge-ppc-chroot ...
 
