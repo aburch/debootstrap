@@ -1,3 +1,10 @@
+debootstrap (1.0.85) UNRELEASED; urgency=medium
+
+  * Add support for downloading and validating InRelease files, by splitting
+    up detached signature from signed data.
+
+ -- Julien Cristau <jcristau@debian.org>  Fri, 02 Sep 2016 20:26:38 +0200
+
 debootstrap (1.0.84) unstable; urgency=medium
 
   [ Ansgar Burchardt ]

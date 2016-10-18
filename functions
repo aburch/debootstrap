@@ -551,15 +551,32 @@ download_release_sig () {
 download_release_indices () {
 	local m1="${MIRRORS%% *}"
 	local reldest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release")"
-	local relsigdest
+	local inreldest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/InRelease")"
+	local relsigdest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release.gpg")"
 	progress 0 100 DOWNREL "Downloading Release file"
 	progress_next 100
-	get "$m1/dists/$SUITE/Release" "$reldest" nocache ||
-		error 1 NOGETREL "Failed getting release file %s" "$m1/dists/$SUITE/Release"
-	relsigdest="$TARGET/$($DLDEST rel "$SUITE" "$m1" "dists/$SUITE/Release.gpg")"
-	progress 100 100 DOWNREL "Downloading Release file"
+	if get "$m1/dists/$SUITE/InRelease" "$inreldest" nocache; then
+		sed -n '/^-----BEGIN PGP SIGNATURE-----$/,/^-----END PGP SIGNATURE-----$/p' <
+		    "$inreldest" > "$relsigdest"
+		# We assume \a does not appear in the Release file, and strip
+		# the last \n through the tr round-trip.
+		sed '/^-----BEGIN PGP SIGNED MESSAGE-----$/,/^$/ d
+		     /^-----BEGIN PGP SIGNATURE-----$/,/^-----END PGP SIGNATURE-----$/ d
+		    ' < "$inreldest" |
+		tr '\n' '\a' | sed 's/\a$//' | tr '\a' '\n' > "$reldest"
+		progress 100 100 DOWNREL "Downloading Release file"
+		info RELEASESIG "Checking Release signature"
+		# Don't worry about the exit status from gpgv; parsing the output will
+		# take care of that.
+		(gpgv --status-fd 1 --keyring "$KEYRING" --ignore-time-conflict \
+		 "$relsigdest" "$reldest" || true) | read_gpg_status
+	else
+		get "$m1/dists/$SUITE/Release" "$reldest" nocache ||
+			error 1 NOGETREL "Failed getting release file %s" "$m1/dists/$SUITE/Release"
+		progress 100 100 DOWNREL "Downloading Release file"
 
-	download_release_sig "$m1" "$reldest" "$relsigdest"
+		download_release_sig "$m1" "$reldest" "$relsigdest"
+	fi
 
 	validate_suite "$reldest"
 
