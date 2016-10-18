@@ -3,6 +3,7 @@ debootstrap (1.0.85) UNRELEASED; urgency=medium
   [ Julien Cristau ]
   * Add support for downloading and validating InRelease files, by splitting
     up detached signature from signed data.
+  * Switch default mirror to deb.debian.org.
 
   [ Colin Watson ]
   * Add (Ubuntu) zesty as a symlink to gutsy.
