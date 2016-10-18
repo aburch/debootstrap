@@ -1,5 +1,6 @@
 debootstrap (1.0.85) UNRELEASED; urgency=medium
 
+  [ Ansgar Burchardt ]
   * Add jessie-kfreebsd to merged-/usr blacklist.
   * No longer Build-Depend on makedev. The code using it was already
     removed in debootstrap 1.0.82.
@@ -10,6 +11,9 @@ debootstrap (1.0.85) UNRELEASED; urgency=medium
   * Add buster -> sid and bullseye -> sid script symlinks.
   * Only unpack and configure the base system when there are actually
     packages to install. (Closes: #825034)
+
+  [ Marco d'Itri ]
+  * Enable merged-/usr by default. (Closes: #839046, #839162)
 
  -- Ansgar Burchardt <ansgar@debian.org>  Wed, 14 Sep 2016 01:03:58 +0200
 
