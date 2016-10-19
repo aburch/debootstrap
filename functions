@@ -556,7 +556,7 @@ download_release_indices () {
 	progress 0 100 DOWNREL "Downloading Release file"
 	progress_next 100
 	if get "$m1/dists/$SUITE/InRelease" "$inreldest" nocache; then
-		sed -n '/^-----BEGIN PGP SIGNATURE-----$/,/^-----END PGP SIGNATURE-----$/p' <
+		sed -n '/^-----BEGIN PGP SIGNATURE-----$/,/^-----END PGP SIGNATURE-----$/p' < \
 		    "$inreldest" > "$relsigdest"
 		# We assume \a does not appear in the Release file, and strip
 		# the last \n through the tr round-trip.
