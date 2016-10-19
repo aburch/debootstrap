@@ -1,7 +1,11 @@
 debootstrap (1.0.85) UNRELEASED; urgency=medium
 
+  [ Julien Cristau ]
   * Add support for downloading and validating InRelease files, by splitting
     up detached signature from signed data.
+
+  [ Colin Watson ]
+  * Add (Ubuntu) zesty as a symlink to gutsy.
 
  -- Julien Cristau <jcristau@debian.org>  Fri, 02 Sep 2016 20:26:38 +0200
 
