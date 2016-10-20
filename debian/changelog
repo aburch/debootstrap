@@ -19,6 +19,7 @@ debootstrap (1.0.85) UNRELEASED; urgency=medium
   * Add buster -> sid and bullseye -> sid script symlinks.
   * Only unpack and configure the base system when there are actually
     packages to install. (Closes: #825034)
+  * debootstrap.8: Use stretch instead of wheezy in examples.
 
   [ Marco d'Itri ]
   * Enable merged-/usr by default. (Closes: #839046)
