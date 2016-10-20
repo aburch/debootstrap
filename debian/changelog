@@ -20,7 +20,7 @@ debootstrap (1.0.85) UNRELEASED; urgency=medium
     packages to install. (Closes: #825034)
 
   [ Marco d'Itri ]
-  * Enable merged-/usr by default. (Closes: #839046, #839162)
+  * Enable merged-/usr by default. (Closes: #839046)
 
  -- Julien Cristau <jcristau@debian.org>  Fri, 02 Sep 2016 20:26:38 +0200
 
