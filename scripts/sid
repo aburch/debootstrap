@@ -42,8 +42,11 @@ work_out_debs () {
 
 first_stage_install () {
 	case "$CODENAME" in
-		etch|etch-m68k|jessie|lenny|squeeze|wheezy) ;;
-		*) setup_merged_usr ;;
+		etch|etch-m68k|jessie|jessie-kfreebsd|lenny|squeeze|wheezy) ;;
+		*)
+			EXTRACT_DEB_TAR_OPTIONS="$EXTRACT_DEB_TAR_OPTIONS -k"
+			setup_merged_usr
+			;;
 	esac
 
 	extract $required
@@ -191,17 +194,19 @@ echo \"Warning: Fake start-stop-daemon called, doing nothing\"" > "$TARGET/sbin/
 		done_predeps="$done_predeps $predep"
 	done
 
-	smallyes '' |
-		(repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" \
-		dpkg --status-fd 8 --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 || echo EXITCODE $?) |
-		dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING
+	if [ -n "$base" ]; then
+		smallyes '' |
+			(repeatn 5 in_target_failmsg INST_BASE_FAIL_FIVE "Failure while installing base packages.  This will be re-attempted up to five times." "" \
+			dpkg --status-fd 8 --force-overwrite --force-confold --skip-same-version --unpack $(debfor $base) 8>&1 1>&7 || echo EXITCODE $?) |
+			dpkg_progress $baseprog $bases UNPACKBASE "Unpacking base system" UNPACKING
 
-	info CONFBASE "Configuring the base system..."
+		info CONFBASE "Configuring the base system..."
 
-	smallyes '' |
-		(repeatn 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be re-attempted up to five times." "" \
-		dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 || echo EXITCODE $?) |
-		dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING
+		smallyes '' |
+			(repeatn 5 in_target_failmsg CONF_BASE_FAIL_FIVE "Failure while configuring base packages.  This will be re-attempted up to five times." "" \
+			dpkg --status-fd 8 --force-confold --skip-same-version --configure -a 8>&1 1>&7 || echo EXITCODE $?) |
+			dpkg_progress $baseprog $bases CONFBASE "Configuring base system" CONFIGURING
+	fi
 
 	mv "$TARGET/sbin/start-stop-daemon.REAL" "$TARGET/sbin/start-stop-daemon"
 	rm -f "$TARGET/usr/sbin/policy-rc.d"

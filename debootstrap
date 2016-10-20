@@ -27,7 +27,7 @@ KEYRING=""
 DISABLE_KEYRING=""
 FORCE_KEYRING=""
 VARIANT=""
-MERGED_USR="no"
+MERGED_USR="yes"
 ARCH=""
 HOST_ARCH=""
 HOST_OS=""
@@ -360,7 +360,7 @@ if [ $# != 0 ] ; then
 		CHECKCERTIF="--no-check-certificate"
 		shift
 		;;
-	    --*)
+	    -*)
 		error 1 BADARG "unrecognized or invalid option %s" "$1"
 		;;
 	    *)

@@ -7,6 +7,21 @@ debootstrap (1.0.85) UNRELEASED; urgency=medium
   [ Colin Watson ]
   * Add (Ubuntu) zesty as a symlink to gutsy.
 
+  [ Ansgar Burchardt ]
+  * Add jessie-kfreebsd to merged-/usr blacklist.
+  * No longer Build-Depend on makedev. The code using it was already
+    removed in debootstrap 1.0.82.
+  * Do not use `tar -k` for older releases which might have file
+    conflicts between the packages to be installed. (Closes: #838388)
+  * Error out when seeing short options. (Closes: #548880)
+  * Add oldoldstable -> sid script symlink. (Closes: #792734)
+  * Add buster -> sid and bullseye -> sid script symlinks.
+  * Only unpack and configure the base system when there are actually
+    packages to install. (Closes: #825034)
+
+  [ Marco d'Itri ]
+  * Enable merged-/usr by default. (Closes: #839046, #839162)
+
  -- Julien Cristau <jcristau@debian.org>  Fri, 02 Sep 2016 20:26:38 +0200
 
 debootstrap (1.0.84) unstable; urgency=medium
